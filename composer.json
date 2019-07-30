@@ -1,0 +1,40 @@
+{
+  "name": "limestone/oneportal-api-sdk",
+  "description": "The Limestone Networks PHP SDK",
+  "keywords": [
+    "SDK",
+    "PHP",
+    "API",
+    "LSN"
+  ],
+  "authors": [
+    {
+        "name": "Trent Schmidt",
+        "email": "t.schmidt@limestonenetworks.com"
+    }
+  ],
+  "type": "library",
+  "repositories": [
+  ],
+  "require": {
+    "php": ">=7.1.3"
+  },
+  "scripts": {
+    "sdk": [
+      "php vendor/bin/jane-openapi generate --config-file=sdk-config.php"
+    ]
+  },
+  "config": {
+    "preferred-install": "dist"
+  },
+  "autoload": {
+    "psr-4": {
+        "Limestone\\SDK\\": "generated/",
+        "Limestone\\": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "require-dev": {
+    "jane-php/open-api": "5.*"
+  }
+}

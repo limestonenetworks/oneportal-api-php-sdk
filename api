@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+// application.php
+
+require __DIR__.'/vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+$dotenv = \Dotenv\Dotenv::create(__DIR__);
+$dotenv->load();
+$dotenv->required('API_URL');
+$dotenv->required('API_CLIENT_SECRET');
+$dotenv->required('API_CLIENT_ID');
+$dotenv->required('API_USERNAME');
+$dotenv->required('API_PASSWORD');
+$application = new Application();
+
+// ... register commands
+$application->add(new \Limestone\Command\CreateProjectCommand());
+$application->add(new \Limestone\Command\TinkerCommand());
+$application->add(new \Limestone\Command\GetProjectCommand());
+$application->add(new \Limestone\Command\DeleteProjectCommand());
+$application->run();

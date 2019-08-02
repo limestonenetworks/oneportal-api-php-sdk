@@ -26,6 +26,6 @@ class GetFacilityStockCommand extends Command
     {
         $client = $this->getClient();
         $result = $client->getFacilityStock($input->getArgument('facility'));
-        $output->write($this->serializeModel($result),true);
+        $output->write($this->toJson($result),true);
     }
 }

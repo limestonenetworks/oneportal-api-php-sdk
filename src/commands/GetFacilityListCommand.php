@@ -25,8 +25,6 @@ class GetFacilityListCommand extends Command
     {
         $client = $this->getClient();
         $result = $client->getFacilityList();
-        foreach ($result as $item) {
-            $output->write($this->serializeModel($item),true);
-        }
+        $output->write(json_encode($this->toArray($result)), true);
     }
 }

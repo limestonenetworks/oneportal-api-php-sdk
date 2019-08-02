@@ -25,8 +25,6 @@ class GetImageListCommand extends Command
     {
         $client = $this->getClient();
         $result = $client->getImageList();
-        foreach ($result as $item) {
-            $output->write($this->serializeModel($item),true);
-        }
+        $output->write(json_encode($this->toArray($result)), true);
     }
 }

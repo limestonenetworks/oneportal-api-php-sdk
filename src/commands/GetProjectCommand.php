@@ -28,6 +28,6 @@ class GetProjectCommand extends Command
     {
         $client = $this->getClient();
         $result = $client->getProject($input->getArgument('project_id'));
-        $output->write($this->serializeModel($result),true);
+        $output->write($this->toJson($result),true);
     }
 }

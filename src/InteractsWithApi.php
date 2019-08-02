@@ -22,6 +22,21 @@ trait InteractsWithApi {
             $property->setAccessible(true);
             $vars[$property->getName()] = $property->getValue($model);
         }
-        return json_encode($vars);
+
+        return $vars;
+    }
+
+    public function toJson($model)
+    {
+        return json_encode($this->serializeModel($model));
+    }
+
+    public function toArray($array)
+    {
+        $_this = $this;
+        $array = array_map(function ($item) use($_this) {
+            return $_this->serializeModel($item);
+        }, $array);
+        return $array;
     }
 }

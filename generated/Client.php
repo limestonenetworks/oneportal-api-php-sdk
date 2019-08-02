@@ -2,6 +2,8 @@
 
 namespace Limestone\SDK;
 
+use Limestone\SDK\Model\ServerCreateParameters;
+
 class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
 {
     /**
@@ -202,7 +204,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
      *
      * @return null|\Psr\Http\Message\ResponseInterface
      */
-    public function storeProjectServer(string $projectId, mixed $requestBody, string $fetch = self::FETCH_OBJECT)
+    public function storeProjectServer(string $projectId, $requestBody, string $fetch = self::FETCH_OBJECT)
     {
         return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\StoreProjectServer($projectId, $requestBody), $fetch);
     }

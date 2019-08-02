@@ -45,7 +45,7 @@ class ClientFactory
             $httpClient = HttpClientDiscovery::find();
         }
         $url = rtrim(getenv('API_URL'),"/") . "/";
-        $uri = Psr17FactoryDiscovery::findUrlFactory()->createUri($url ."/oauth/token");
+        $uri = Psr17FactoryDiscovery::findUrlFactory()->createUri($url ."oauth/token");
         $pluginClient = new PluginClient($httpClient, [
             new AddPathPlugin($uri),
             new AddHostPlugin($uri)

@@ -15,6 +15,7 @@ class NormalizerFactory
         $normalizers[] = new CoreNormalizer();
         $normalizers[] = new ProjectNormalizer();
         $normalizers[] = new ImageNormalizer();
+        $normalizers[] = new SSHKeyNormalizer();
         $normalizers[] = new ServerNormalizer();
         $normalizers[] = new BasePartitionNormalizer();
         $normalizers[] = new RaidPartitionNormalizer();
@@ -27,6 +28,8 @@ class NormalizerFactory
         $normalizers[] = new ResultNormalizer();
         $normalizers[] = new V2ProjectPostBodyNormalizer();
         $normalizers[] = new V2ProjectProjectIdServerServerIdPostBodyNormalizer();
+        $normalizers[] = new V2SshkeyGetResponse200Normalizer();
+        $normalizers[] = new V2SshkeyPostBodyNormalizer();
         return $normalizers;
     }
 }

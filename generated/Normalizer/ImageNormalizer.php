@@ -25,13 +25,13 @@ class ImageNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         $object = new \Limestone\SDK\Model\Image();
-        if (property_exists($data, 'name')) {
+        if (property_exists($data, 'name') && $data->{'name'} !== null) {
             $object->setName($data->{'name'});
         }
-        if (property_exists($data, 'displayname')) {
+        if (property_exists($data, 'displayname') && $data->{'displayname'} !== null) {
             $object->setDisplayname($data->{'displayname'});
         }
         return $object;

@@ -25,19 +25,19 @@ class ProjectQuotasNormalizer implements DenormalizerInterface, NormalizerInterf
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         $object = new \Limestone\SDK\Model\ProjectQuotas();
-        if (property_exists($data, 'max_ips')) {
+        if (property_exists($data, 'max_ips') && $data->{'max_ips'} !== null) {
             $object->setMaxIps($data->{'max_ips'});
         }
-        if (property_exists($data, 'max_servers')) {
+        if (property_exists($data, 'max_servers') && $data->{'max_servers'} !== null) {
             $object->setMaxServers($data->{'max_servers'});
         }
-        if (property_exists($data, 'used_servers')) {
+        if (property_exists($data, 'used_servers') && $data->{'used_servers'} !== null) {
             $object->setUsedServers($data->{'used_servers'});
         }
-        if (property_exists($data, 'used_ips')) {
+        if (property_exists($data, 'used_ips') && $data->{'used_ips'} !== null) {
             $object->setUsedIps($data->{'used_ips'});
         }
         return $object;

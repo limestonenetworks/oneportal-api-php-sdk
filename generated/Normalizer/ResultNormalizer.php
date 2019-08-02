@@ -25,13 +25,13 @@ class ResultNormalizer implements DenormalizerInterface, NormalizerInterface, De
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         $object = new \Limestone\SDK\Model\Result();
-        if (property_exists($data, 'message')) {
+        if (property_exists($data, 'message') && $data->{'message'} !== null) {
             $object->setMessage($data->{'message'});
         }
-        if (property_exists($data, 'status')) {
+        if (property_exists($data, 'status') && $data->{'status'} !== null) {
             $object->setStatus($data->{'status'});
         }
         return $object;

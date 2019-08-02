@@ -25,59 +25,59 @@ class ServerCreateParametersNormalizer implements DenormalizerInterface, Normali
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         $object = new \Limestone\SDK\Model\ServerCreateParameters();
-        if (property_exists($data, 'core')) {
+        if (property_exists($data, 'core') && $data->{'core'} !== null) {
             $object->setCore($data->{'core'});
         }
-        if (property_exists($data, 'name')) {
+        if (property_exists($data, 'name') && $data->{'name'} !== null) {
             $object->setName($data->{'name'});
         }
-        if (property_exists($data, 'description')) {
+        if (property_exists($data, 'description') && $data->{'description'} !== null) {
             $object->setDescription($data->{'description'});
         }
-        if (property_exists($data, 'image')) {
+        if (property_exists($data, 'image') && $data->{'image'} !== null) {
             $object->setImage($data->{'image'});
         }
-        if (property_exists($data, 'ssh_keys')) {
+        if (property_exists($data, 'ssh_keys') && $data->{'ssh_keys'} !== null) {
             $values = array();
             foreach ($data->{'ssh_keys'} as $value) {
                 $values[] = $value;
             }
             $object->setSshKeys($values);
         }
-        if (property_exists($data, 'user_data')) {
+        if (property_exists($data, 'user_data') && $data->{'user_data'} !== null) {
             $object->setUserData($data->{'user_data'});
         }
-        if (property_exists($data, 'networks')) {
+        if (property_exists($data, 'networks') && $data->{'networks'} !== null) {
             $values_1 = array();
             foreach ($data->{'networks'} as $value_1) {
                 $values_1[] = $value_1;
             }
             $object->setNetworks($values_1);
         }
-        if (property_exists($data, 'quantity')) {
+        if (property_exists($data, 'quantity') && $data->{'quantity'} !== null) {
             $object->setQuantity($data->{'quantity'});
         }
-        if (property_exists($data, 'tags')) {
+        if (property_exists($data, 'tags') && $data->{'tags'} !== null) {
             $values_2 = array();
             foreach ($data->{'tags'} as $value_2) {
                 $values_2[] = $value_2;
             }
             $object->setTags($values_2);
         }
-        if (property_exists($data, 'admin_password')) {
+        if (property_exists($data, 'admin_password') && $data->{'admin_password'} !== null) {
             $object->setAdminPassword($data->{'admin_password'});
         }
-        if (property_exists($data, 'custom_metadata')) {
+        if (property_exists($data, 'custom_metadata') && $data->{'custom_metadata'} !== null) {
             $values_3 = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data->{'custom_metadata'} as $key => $value_3) {
                 $values_3[$key] = $value_3;
             }
             $object->setCustomMetadata($values_3);
         }
-        if (property_exists($data, 'facility')) {
+        if (property_exists($data, 'facility') && $data->{'facility'} !== null) {
             $object->setFacility($data->{'facility'});
         }
         return $object;

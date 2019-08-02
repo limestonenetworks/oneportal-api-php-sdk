@@ -13,20 +13,20 @@ class V2ProjectPostBody
     /**
      * Project friendly display name
      *
-     * @return string
+     * @return string|null
      */
-    public function getDisplayname() : string
+    public function getDisplayname() : ?string
     {
         return $this->displayname;
     }
     /**
      * Project friendly display name
      *
-     * @param string $displayname
+     * @param string|null $displayname
      *
      * @return self
      */
-    public function setDisplayname(string $displayname) : self
+    public function setDisplayname(?string $displayname) : self
     {
         $this->displayname = $displayname;
         return $this;

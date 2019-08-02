@@ -19,20 +19,20 @@ class Result
     /**
      * 
      *
-     * @return string
+     * @return string|null
      */
-    public function getMessage() : string
+    public function getMessage() : ?string
     {
         return $this->message;
     }
     /**
      * 
      *
-     * @param string $message
+     * @param string|null $message
      *
      * @return self
      */
-    public function setMessage(string $message) : self
+    public function setMessage(?string $message) : self
     {
         $this->message = $message;
         return $this;
@@ -40,20 +40,20 @@ class Result
     /**
      * 
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getStatus() : bool
+    public function getStatus() : ?bool
     {
         return $this->status;
     }
     /**
      * 
      *
-     * @param bool $status
+     * @param bool|null $status
      *
      * @return self
      */
-    public function setStatus(bool $status) : self
+    public function setStatus(?bool $status) : self
     {
         $this->status = $status;
         return $this;

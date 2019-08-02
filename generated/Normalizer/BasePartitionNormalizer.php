@@ -25,10 +25,10 @@ class BasePartitionNormalizer implements DenormalizerInterface, NormalizerInterf
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         $object = new \Limestone\SDK\Model\BasePartition();
-        if (property_exists($data, 'device')) {
+        if (property_exists($data, 'device') && $data->{'device'} !== null) {
             $object->setDevice($data->{'device'});
         }
         return $object;

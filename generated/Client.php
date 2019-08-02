@@ -2,8 +2,6 @@
 
 namespace Limestone\SDK;
 
-use Limestone\SDK\Model\ServerCreateParameters;
-
 class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
 {
     /**
@@ -239,6 +237,60 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
     public function associateProjectServer(string $projectId, \Limestone\SDK\Model\V2ProjectProjectIdServerServerIdPostBody $requestBody, string $fetch = self::FETCH_OBJECT)
     {
         return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\AssociateProjectServer($projectId, $requestBody), $fetch);
+    }
+    /**
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\GetSSHKeyListForbiddenException
+     *
+     * @return null|\Limestone\SDK\Model\V2SshkeyGetResponse200|\Psr\Http\Message\ResponseInterface
+     */
+    public function getSSHKeyList(string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\GetSSHKeyList(), $fetch);
+    }
+    /**
+     * Create an ssh public key based on the given options
+     *
+     * @param \Limestone\SDK\Model\V2SshkeyPostBody $requestBody 
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\StoreSSHKeyBadRequestException
+     * @throws \Limestone\SDK\Exception\StoreSSHKeyForbiddenException
+     * @throws \Limestone\SDK\Exception\StoreSSHKeyUnprocessableEntityException
+     * @throws \Limestone\SDK\Exception\StoreSSHKeyInternalServerErrorException
+     *
+     * @return null|\Limestone\SDK\Model\SSHKey|\Psr\Http\Message\ResponseInterface
+     */
+    public function storeSSHKey(\Limestone\SDK\Model\V2SshkeyPostBody $requestBody, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\StoreSSHKey($requestBody), $fetch);
+    }
+    /**
+     * Delete an ssh key
+     *
+     * @param string $name Name of ssh key to delete
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\DeleteSSHKeyForbiddenException
+     * @throws \Limestone\SDK\Exception\DeleteSSHKeyUnprocessableEntityException
+     * @throws \Limestone\SDK\Exception\DeleteSSHKeyInternalServerErrorException
+     *
+     * @return null|\Psr\Http\Message\ResponseInterface
+     */
+    public function deleteSSHKey(string $name, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\DeleteSSHKey($name), $fetch);
+    }
+    /**
+     * Get an ssh key
+     *
+     * @param string $name Name of ssh key to show
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\GetSSHKeyForbiddenException
+     *
+     * @return null|\Limestone\SDK\Model\SSHKey|\Psr\Http\Message\ResponseInterface
+     */
+    public function getSSHKey(string $name, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\GetSSHKey($name), $fetch);
     }
     public static function create($httpClient = null)
     {

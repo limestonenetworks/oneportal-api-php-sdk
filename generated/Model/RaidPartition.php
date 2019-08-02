@@ -19,20 +19,20 @@ class RaidPartition
     /**
      * 
      *
-     * @return string
+     * @return string|null
      */
-    public function getDevice() : string
+    public function getDevice() : ?string
     {
         return $this->device;
     }
     /**
      * 
      *
-     * @param string $device
+     * @param string|null $device
      *
      * @return self
      */
-    public function setDevice(string $device) : self
+    public function setDevice(?string $device) : self
     {
         $this->device = $device;
         return $this;
@@ -40,20 +40,20 @@ class RaidPartition
     /**
      * 
      *
-     * @return string
+     * @return string|null
      */
-    public function getFormat() : string
+    public function getFormat() : ?string
     {
         return $this->format;
     }
     /**
      * 
      *
-     * @param string $format
+     * @param string|null $format
      *
      * @return self
      */
-    public function setFormat(string $format) : self
+    public function setFormat(?string $format) : self
     {
         $this->format = $format;
         return $this;

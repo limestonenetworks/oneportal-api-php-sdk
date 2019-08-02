@@ -19,20 +19,20 @@ class Project
     /**
      * The project ID
      *
-     * @return string
+     * @return string|null
      */
-    public function getProjectId() : string
+    public function getProjectId() : ?string
     {
         return $this->projectId;
     }
     /**
      * The project ID
      *
-     * @param string $projectId
+     * @param string|null $projectId
      *
      * @return self
      */
-    public function setProjectId(string $projectId) : self
+    public function setProjectId(?string $projectId) : self
     {
         $this->projectId = $projectId;
         return $this;
@@ -40,20 +40,20 @@ class Project
     /**
      * The display name for the project
      *
-     * @return string
+     * @return string|null
      */
-    public function getDisplayname() : string
+    public function getDisplayname() : ?string
     {
         return $this->displayname;
     }
     /**
      * The display name for the project
      *
-     * @param string $displayname
+     * @param string|null $displayname
      *
      * @return self
      */
-    public function setDisplayname(string $displayname) : self
+    public function setDisplayname(?string $displayname) : self
     {
         $this->displayname = $displayname;
         return $this;

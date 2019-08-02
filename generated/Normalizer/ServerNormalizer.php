@@ -25,10 +25,10 @@ class ServerNormalizer implements DenormalizerInterface, NormalizerInterface, De
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         $object = new \Limestone\SDK\Model\Server();
-        if (property_exists($data, 'server_id')) {
+        if (property_exists($data, 'server_id') && $data->{'server_id'} !== null) {
             $object->setServerId($data->{'server_id'});
         }
         return $object;

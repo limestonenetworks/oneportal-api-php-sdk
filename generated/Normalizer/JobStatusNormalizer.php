@@ -25,22 +25,22 @@ class JobStatusNormalizer implements DenormalizerInterface, NormalizerInterface,
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         $object = new \Limestone\SDK\Model\JobStatus();
-        if (property_exists($data, 'created_at')) {
+        if (property_exists($data, 'created_at') && $data->{'created_at'} !== null) {
             $object->setCreatedAt($data->{'created_at'});
         }
-        if (property_exists($data, 'update_time')) {
+        if (property_exists($data, 'update_time') && $data->{'update_time'} !== null) {
             $object->setUpdateTime($data->{'update_time'});
         }
-        if (property_exists($data, 'status')) {
+        if (property_exists($data, 'status') && $data->{'status'} !== null) {
             $object->setStatus($data->{'status'});
         }
-        if (property_exists($data, 'job_identifier')) {
+        if (property_exists($data, 'job_identifier') && $data->{'job_identifier'} !== null) {
             $object->setJobIdentifier($data->{'job_identifier'});
         }
-        if (property_exists($data, 'metadata')) {
+        if (property_exists($data, 'metadata') && $data->{'metadata'} !== null) {
             $values = array();
             foreach ($data->{'metadata'} as $value) {
                 $values[] = $this->denormalizer->denormalize($value, 'Limestone\\SDK\\Model\\Metadata', 'json', $context);

@@ -13,20 +13,20 @@ class BasePartition
     /**
      * 
      *
-     * @return string
+     * @return string|null
      */
-    public function getDevice() : string
+    public function getDevice() : ?string
     {
         return $this->device;
     }
     /**
      * 
      *
-     * @param string $device
+     * @param string|null $device
      *
      * @return self
      */
-    public function setDevice(string $device) : self
+    public function setDevice(?string $device) : self
     {
         $this->device = $device;
         return $this;

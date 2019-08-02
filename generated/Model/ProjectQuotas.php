@@ -31,20 +31,20 @@ class ProjectQuotas
     /**
      * 
      *
-     * @return int
+     * @return int|null
      */
-    public function getMaxIps() : int
+    public function getMaxIps() : ?int
     {
         return $this->maxIps;
     }
     /**
      * 
      *
-     * @param int $maxIps
+     * @param int|null $maxIps
      *
      * @return self
      */
-    public function setMaxIps(int $maxIps) : self
+    public function setMaxIps(?int $maxIps) : self
     {
         $this->maxIps = $maxIps;
         return $this;
@@ -52,20 +52,20 @@ class ProjectQuotas
     /**
      * 
      *
-     * @return int
+     * @return int|null
      */
-    public function getMaxServers() : int
+    public function getMaxServers() : ?int
     {
         return $this->maxServers;
     }
     /**
      * 
      *
-     * @param int $maxServers
+     * @param int|null $maxServers
      *
      * @return self
      */
-    public function setMaxServers(int $maxServers) : self
+    public function setMaxServers(?int $maxServers) : self
     {
         $this->maxServers = $maxServers;
         return $this;
@@ -73,20 +73,20 @@ class ProjectQuotas
     /**
      * 
      *
-     * @return int
+     * @return int|null
      */
-    public function getUsedServers() : int
+    public function getUsedServers() : ?int
     {
         return $this->usedServers;
     }
     /**
      * 
      *
-     * @param int $usedServers
+     * @param int|null $usedServers
      *
      * @return self
      */
-    public function setUsedServers(int $usedServers) : self
+    public function setUsedServers(?int $usedServers) : self
     {
         $this->usedServers = $usedServers;
         return $this;
@@ -94,20 +94,20 @@ class ProjectQuotas
     /**
      * 
      *
-     * @return int
+     * @return int|null
      */
-    public function getUsedIps() : int
+    public function getUsedIps() : ?int
     {
         return $this->usedIps;
     }
     /**
      * 
      *
-     * @param int $usedIps
+     * @param int|null $usedIps
      *
      * @return self
      */
-    public function setUsedIps(int $usedIps) : self
+    public function setUsedIps(?int $usedIps) : self
     {
         $this->usedIps = $usedIps;
         return $this;

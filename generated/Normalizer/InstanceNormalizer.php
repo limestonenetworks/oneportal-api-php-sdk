@@ -25,13 +25,13 @@ class InstanceNormalizer implements DenormalizerInterface, NormalizerInterface, 
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         $object = new \Limestone\SDK\Model\Instance();
-        if (property_exists($data, 'project_id')) {
+        if (property_exists($data, 'project_id') && $data->{'project_id'} !== null) {
             $object->setProjectId($data->{'project_id'});
         }
-        if (property_exists($data, 'displayname')) {
+        if (property_exists($data, 'displayname') && $data->{'displayname'} !== null) {
             $object->setDisplayname($data->{'displayname'});
         }
         return $object;

@@ -16,13 +16,19 @@ $application = new Application();
 
 // ... register commands
 $application->add(new \Limestone\Command\TinkerCommand());
+
 $application->add(new \Limestone\Command\CreateProjectCommand());
-$application->add(new \Limestone\Command\GetProjectCommand());
+$application->add(new \Limestone\Command\CreateServerCommand());
+$application->add(new \Limestone\Command\CreateSSHKeyCommand());
 $application->add(new \Limestone\Command\DeleteProjectCommand());
+$application->add(new \Limestone\Command\DeleteSSHKeyCommand());
+$application->add(new \Limestone\Command\GetCoreListCommand());
 $application->add(new \Limestone\Command\GetFacilityStockCommand());
 $application->add(new \Limestone\Command\GetFacilityListCommand());
-$application->add(new \Limestone\Command\GetProjectListCommand());
-$application->add(new \Limestone\Command\GetCoreListCommand());
 $application->add(new \Limestone\Command\GetImageListCommand());
-$application->add(new \Limestone\Command\CreateServerCommand());
+$application->add(new \Limestone\Command\GetProjectCommand());
+$application->add(new \Limestone\Command\GetProjectListCommand());
+$application->add(new \Limestone\Command\GetSSHKeyCommand());
+$application->add(new \Limestone\Command\GetSSHKeyListCommand());
+
 $application->run();

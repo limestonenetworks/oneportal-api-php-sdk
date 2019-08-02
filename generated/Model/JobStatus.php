@@ -37,20 +37,20 @@ class JobStatus
     /**
      * The create time of this update
      *
-     * @return string
+     * @return string|null
      */
-    public function getCreatedAt() : string
+    public function getCreatedAt() : ?string
     {
         return $this->createdAt;
     }
     /**
      * The create time of this update
      *
-     * @param string $createdAt
+     * @param string|null $createdAt
      *
      * @return self
      */
-    public function setCreatedAt(string $createdAt) : self
+    public function setCreatedAt(?string $createdAt) : self
     {
         $this->createdAt = $createdAt;
         return $this;
@@ -58,20 +58,20 @@ class JobStatus
     /**
      * The update time of this update
      *
-     * @return string
+     * @return string|null
      */
-    public function getUpdateTime() : string
+    public function getUpdateTime() : ?string
     {
         return $this->updateTime;
     }
     /**
      * The update time of this update
      *
-     * @param string $updateTime
+     * @param string|null $updateTime
      *
      * @return self
      */
-    public function setUpdateTime(string $updateTime) : self
+    public function setUpdateTime(?string $updateTime) : self
     {
         $this->updateTime = $updateTime;
         return $this;
@@ -79,20 +79,20 @@ class JobStatus
     /**
      * The status of this update
      *
-     * @return string
+     * @return string|null
      */
-    public function getStatus() : string
+    public function getStatus() : ?string
     {
         return $this->status;
     }
     /**
      * The status of this update
      *
-     * @param string $status
+     * @param string|null $status
      *
      * @return self
      */
-    public function setStatus(string $status) : self
+    public function setStatus(?string $status) : self
     {
         $this->status = $status;
         return $this;
@@ -100,20 +100,20 @@ class JobStatus
     /**
      * The unique identifier of this update
      *
-     * @return string
+     * @return string|null
      */
-    public function getJobIdentifier() : string
+    public function getJobIdentifier() : ?string
     {
         return $this->jobIdentifier;
     }
     /**
      * The unique identifier of this update
      *
-     * @param string $jobIdentifier
+     * @param string|null $jobIdentifier
      *
      * @return self
      */
-    public function setJobIdentifier(string $jobIdentifier) : self
+    public function setJobIdentifier(?string $jobIdentifier) : self
     {
         $this->jobIdentifier = $jobIdentifier;
         return $this;
@@ -121,20 +121,20 @@ class JobStatus
     /**
      * 
      *
-     * @return Metadata[]
+     * @return Metadata[]|null
      */
-    public function getMetadata() : array
+    public function getMetadata() : ?array
     {
         return $this->metadata;
     }
     /**
      * 
      *
-     * @param Metadata[] $metadata
+     * @param Metadata[]|null $metadata
      *
      * @return self
      */
-    public function setMetadata(array $metadata) : self
+    public function setMetadata(?array $metadata) : self
     {
         $this->metadata = $metadata;
         return $this;

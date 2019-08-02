@@ -25,10 +25,10 @@ class V2ProjectPostBodyNormalizer implements DenormalizerInterface, NormalizerIn
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         $object = new \Limestone\SDK\Model\V2ProjectPostBody();
-        if (property_exists($data, 'displayname')) {
+        if (property_exists($data, 'displayname') && $data->{'displayname'} !== null) {
             $object->setDisplayname($data->{'displayname'});
         }
         return $object;

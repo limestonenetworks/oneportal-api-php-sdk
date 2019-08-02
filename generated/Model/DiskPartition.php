@@ -19,20 +19,20 @@ class DiskPartition
     /**
      * 
      *
-     * @return string
+     * @return string|null
      */
-    public function getDevice() : string
+    public function getDevice() : ?string
     {
         return $this->device;
     }
     /**
      * 
      *
-     * @param string $device
+     * @param string|null $device
      *
      * @return self
      */
-    public function setDevice(string $device) : self
+    public function setDevice(?string $device) : self
     {
         $this->device = $device;
         return $this;
@@ -40,20 +40,20 @@ class DiskPartition
     /**
      * 
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getInstallBootloader() : bool
+    public function getInstallBootloader() : ?bool
     {
         return $this->installBootloader;
     }
     /**
      * 
      *
-     * @param bool $installBootloader
+     * @param bool|null $installBootloader
      *
      * @return self
      */
-    public function setInstallBootloader(bool $installBootloader) : self
+    public function setInstallBootloader(?bool $installBootloader) : self
     {
         $this->installBootloader = $installBootloader;
         return $this;

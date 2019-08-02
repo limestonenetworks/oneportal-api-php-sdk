@@ -10,40 +10,46 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class MetadataNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class SSHKeyNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return $type === 'Limestone\\SDK\\Model\\Metadata';
+        return $type === 'Limestone\\SDK\\Model\\SSHKey';
     }
     public function supportsNormalization($data, $format = null)
     {
-        return get_class($data) === 'Limestone\\SDK\\Model\\Metadata';
+        return get_class($data) === 'Limestone\\SDK\\Model\\SSHKey';
     }
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
             return null;
         }
-        $object = new \Limestone\SDK\Model\Metadata();
-        if (property_exists($data, 'key') && $data->{'key'} !== null) {
-            $object->setKey($data->{'key'});
+        $object = new \Limestone\SDK\Model\SSHKey();
+        if (property_exists($data, 'name') && $data->{'name'} !== null) {
+            $object->setName($data->{'name'});
         }
-        if (property_exists($data, 'value') && $data->{'value'} !== null) {
-            $object->setValue($data->{'value'});
+        if (property_exists($data, 'fingerprint') && $data->{'fingerprint'} !== null) {
+            $object->setFingerprint($data->{'fingerprint'});
+        }
+        if (property_exists($data, 'comment') && $data->{'comment'} !== null) {
+            $object->setComment($data->{'comment'});
         }
         return $object;
     }
     public function normalize($object, $format = null, array $context = array())
     {
         $data = new \stdClass();
-        if (null !== $object->getKey()) {
-            $data->{'key'} = $object->getKey();
+        if (null !== $object->getName()) {
+            $data->{'name'} = $object->getName();
         }
-        if (null !== $object->getValue()) {
-            $data->{'value'} = $object->getValue();
+        if (null !== $object->getFingerprint()) {
+            $data->{'fingerprint'} = $object->getFingerprint();
+        }
+        if (null !== $object->getComment()) {
+            $data->{'comment'} = $object->getComment();
         }
         return $data;
     }

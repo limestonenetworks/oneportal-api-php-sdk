@@ -25,16 +25,16 @@ class FacilityNormalizer implements DenormalizerInterface, NormalizerInterface, 
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         $object = new \Limestone\SDK\Model\Facility();
-        if (property_exists($data, 'facility_name')) {
+        if (property_exists($data, 'facility_name') && $data->{'facility_name'} !== null) {
             $object->setFacilityName($data->{'facility_name'});
         }
-        if (property_exists($data, 'facility_title')) {
+        if (property_exists($data, 'facility_title') && $data->{'facility_title'} !== null) {
             $object->setFacilityTitle($data->{'facility_title'});
         }
-        if (property_exists($data, 'facility_description')) {
+        if (property_exists($data, 'facility_description') && $data->{'facility_description'} !== null) {
             $object->setFacilityDescription($data->{'facility_description'});
         }
         return $object;

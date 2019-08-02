@@ -41,7 +41,7 @@ class ServerCreateParameters
      */
     protected $userData;
     /**
-     * 
+     * Valid values: ["public","private","public_ddos"]
      *
      * @var string[]
      */
@@ -79,20 +79,20 @@ class ServerCreateParameters
     /**
      * 
      *
-     * @return string
+     * @return string|null
      */
-    public function getCore() : string
+    public function getCore() : ?string
     {
         return $this->core;
     }
     /**
      * 
      *
-     * @param string $core
+     * @param string|null $core
      *
      * @return self
      */
-    public function setCore(string $core) : self
+    public function setCore(?string $core) : self
     {
         $this->core = $core;
         return $this;
@@ -100,20 +100,20 @@ class ServerCreateParameters
     /**
      * 
      *
-     * @return string
+     * @return string|null
      */
-    public function getName() : string
+    public function getName() : ?string
     {
         return $this->name;
     }
     /**
      * 
      *
-     * @param string $name
+     * @param string|null $name
      *
      * @return self
      */
-    public function setName(string $name) : self
+    public function setName(?string $name) : self
     {
         $this->name = $name;
         return $this;
@@ -121,20 +121,20 @@ class ServerCreateParameters
     /**
      * 
      *
-     * @return string
+     * @return string|null
      */
-    public function getDescription() : string
+    public function getDescription() : ?string
     {
         return $this->description;
     }
     /**
      * 
      *
-     * @param string $description
+     * @param string|null $description
      *
      * @return self
      */
-    public function setDescription(string $description) : self
+    public function setDescription(?string $description) : self
     {
         $this->description = $description;
         return $this;
@@ -142,20 +142,20 @@ class ServerCreateParameters
     /**
      * 
      *
-     * @return string
+     * @return string|null
      */
-    public function getImage() : string
+    public function getImage() : ?string
     {
         return $this->image;
     }
     /**
      * 
      *
-     * @param string $image
+     * @param string|null $image
      *
      * @return self
      */
-    public function setImage(string $image) : self
+    public function setImage(?string $image) : self
     {
         $this->image = $image;
         return $this;
@@ -163,20 +163,20 @@ class ServerCreateParameters
     /**
      * 
      *
-     * @return int[]
+     * @return int[]|null
      */
-    public function getSshKeys() : array
+    public function getSshKeys() : ?array
     {
         return $this->sshKeys;
     }
     /**
      * 
      *
-     * @param int[] $sshKeys
+     * @param int[]|null $sshKeys
      *
      * @return self
      */
-    public function setSshKeys(array $sshKeys) : self
+    public function setSshKeys(?array $sshKeys) : self
     {
         $this->sshKeys = $sshKeys;
         return $this;
@@ -184,41 +184,41 @@ class ServerCreateParameters
     /**
      * 
      *
-     * @return string
+     * @return string|null
      */
-    public function getUserData() : string
+    public function getUserData() : ?string
     {
         return $this->userData;
     }
     /**
      * 
      *
-     * @param string $userData
+     * @param string|null $userData
      *
      * @return self
      */
-    public function setUserData(string $userData) : self
+    public function setUserData(?string $userData) : self
     {
         $this->userData = $userData;
         return $this;
     }
     /**
-     * 
+     * Valid values: ["public","private","public_ddos"]
      *
-     * @return string[]
+     * @return string[]|null
      */
-    public function getNetworks() : array
+    public function getNetworks() : ?array
     {
         return $this->networks;
     }
     /**
-     * 
+     * Valid values: ["public","private","public_ddos"]
      *
-     * @param string[] $networks
+     * @param string[]|null $networks
      *
      * @return self
      */
-    public function setNetworks(array $networks) : self
+    public function setNetworks(?array $networks) : self
     {
         $this->networks = $networks;
         return $this;
@@ -226,20 +226,20 @@ class ServerCreateParameters
     /**
      * 
      *
-     * @return int
+     * @return int|null
      */
-    public function getQuantity() : int
+    public function getQuantity() : ?int
     {
         return $this->quantity;
     }
     /**
      * 
      *
-     * @param int $quantity
+     * @param int|null $quantity
      *
      * @return self
      */
-    public function setQuantity(int $quantity) : self
+    public function setQuantity(?int $quantity) : self
     {
         $this->quantity = $quantity;
         return $this;
@@ -247,20 +247,20 @@ class ServerCreateParameters
     /**
      * List of tags to store along with this server. This is expected to be valid json.
      *
-     * @return string[]
+     * @return string[]|null
      */
-    public function getTags() : array
+    public function getTags() : ?array
     {
         return $this->tags;
     }
     /**
      * List of tags to store along with this server. This is expected to be valid json.
      *
-     * @param string[] $tags
+     * @param string[]|null $tags
      *
      * @return self
      */
-    public function setTags(array $tags) : self
+    public function setTags(?array $tags) : self
     {
         $this->tags = $tags;
         return $this;
@@ -268,20 +268,20 @@ class ServerCreateParameters
     /**
      * 
      *
-     * @return string
+     * @return string|null
      */
-    public function getAdminPassword() : string
+    public function getAdminPassword() : ?string
     {
         return $this->adminPassword;
     }
     /**
      * 
      *
-     * @param string $adminPassword
+     * @param string|null $adminPassword
      *
      * @return self
      */
-    public function setAdminPassword(string $adminPassword) : self
+    public function setAdminPassword(?string $adminPassword) : self
     {
         $this->adminPassword = $adminPassword;
         return $this;
@@ -289,20 +289,20 @@ class ServerCreateParameters
     /**
      * Key value hash to store along with this server. This is expected to be valid json.
      *
-     * @return string[]
+     * @return string[]|null
      */
-    public function getCustomMetadata() : \ArrayObject
+    public function getCustomMetadata() : ?\ArrayObject
     {
         return $this->customMetadata;
     }
     /**
      * Key value hash to store along with this server. This is expected to be valid json.
      *
-     * @param string[] $customMetadata
+     * @param string[]|null $customMetadata
      *
      * @return self
      */
-    public function setCustomMetadata(\ArrayObject $customMetadata) : self
+    public function setCustomMetadata(?\ArrayObject $customMetadata) : self
     {
         $this->customMetadata = $customMetadata;
         return $this;
@@ -310,20 +310,20 @@ class ServerCreateParameters
     /**
      * 
      *
-     * @return string
+     * @return string|null
      */
-    public function getFacility() : string
+    public function getFacility() : ?string
     {
         return $this->facility;
     }
     /**
      * 
      *
-     * @param string $facility
+     * @param string|null $facility
      *
      * @return self
      */
-    public function setFacility(string $facility) : self
+    public function setFacility(?string $facility) : self
     {
         $this->facility = $facility;
         return $this;

@@ -19,20 +19,20 @@ class Image
     /**
      * The image name
      *
-     * @return string
+     * @return string|null
      */
-    public function getName() : string
+    public function getName() : ?string
     {
         return $this->name;
     }
     /**
      * The image name
      *
-     * @param string $name
+     * @param string|null $name
      *
      * @return self
      */
-    public function setName(string $name) : self
+    public function setName(?string $name) : self
     {
         $this->name = $name;
         return $this;
@@ -40,20 +40,20 @@ class Image
     /**
      * The display name for the image
      *
-     * @return string
+     * @return string|null
      */
-    public function getDisplayname() : string
+    public function getDisplayname() : ?string
     {
         return $this->displayname;
     }
     /**
      * The display name for the image
      *
-     * @param string $displayname
+     * @param string|null $displayname
      *
      * @return self
      */
-    public function setDisplayname(string $displayname) : self
+    public function setDisplayname(?string $displayname) : self
     {
         $this->displayname = $displayname;
         return $this;

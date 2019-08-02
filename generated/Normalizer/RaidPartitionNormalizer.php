@@ -25,13 +25,13 @@ class RaidPartitionNormalizer implements DenormalizerInterface, NormalizerInterf
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         $object = new \Limestone\SDK\Model\RaidPartition();
-        if (property_exists($data, 'device')) {
+        if (property_exists($data, 'device') && $data->{'device'} !== null) {
             $object->setDevice($data->{'device'});
         }
-        if (property_exists($data, 'format')) {
+        if (property_exists($data, 'format') && $data->{'format'} !== null) {
             $object->setFormat($data->{'format'});
         }
         return $object;

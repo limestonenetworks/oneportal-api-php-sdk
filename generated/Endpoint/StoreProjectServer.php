@@ -2,8 +2,6 @@
 
 namespace Limestone\SDK\Endpoint;
 
-use Limestone\SDK\Model\ServerCreateParameters;
-
 class StoreProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jane\OpenApiRuntime\Client\Psr7HttplugEndpoint
 {
     protected $project_id;
@@ -55,7 +53,7 @@ class StoreProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint implem
             throw new \Limestone\SDK\Exception\StoreProjectServerForbiddenException();
         }
         if (422 === $status) {
-            throw new \Limestone\SDK\Exception\StoreProjectServerUnprocessableEntityException($body);
+            throw new \Limestone\SDK\Exception\StoreProjectServerUnprocessableEntityException();
         }
     }
 }

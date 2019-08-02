@@ -25,31 +25,31 @@ class FacilityStockNormalizer implements DenormalizerInterface, NormalizerInterf
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (!is_object($data)) {
-            throw new InvalidArgumentException();
+            return null;
         }
         $object = new \Limestone\SDK\Model\FacilityStock();
-        if (property_exists($data, 'available')) {
+        if (property_exists($data, 'available') && $data->{'available'} !== null) {
             $values = array();
             foreach ($data->{'available'} as $value) {
                 $values[] = $value;
             }
             $object->setAvailable($values);
         }
-        if (property_exists($data, 'unavailable')) {
+        if (property_exists($data, 'unavailable') && $data->{'unavailable'} !== null) {
             $values_1 = array();
             foreach ($data->{'unavailable'} as $value_1) {
                 $values_1[] = $value_1;
             }
             $object->setUnavailable($values_1);
         }
-        if (property_exists($data, 'low')) {
+        if (property_exists($data, 'low') && $data->{'low'} !== null) {
             $values_2 = array();
             foreach ($data->{'low'} as $value_2) {
                 $values_2[] = $value_2;
             }
             $object->setLow($values_2);
         }
-        if (property_exists($data, 'facility')) {
+        if (property_exists($data, 'facility') && $data->{'facility'} !== null) {
             $object->setFacility($data->{'facility'});
         }
         return $object;

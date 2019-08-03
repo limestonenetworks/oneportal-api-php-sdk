@@ -1,0 +1,10 @@
+---
+version: "3.6"
+
+services:
+  oneportal-sdk:
+    build: .
+    container_name: 'oneportal_sdk'
+    restart: on-failure
+    volumes:
+      - ${DOCUMENT_ROOT-./}:/oneportal-sdk

@@ -68,8 +68,19 @@ class CreateServerCommand extends Command
         $body->setNetworks($input->getOption('network'));
         $body->setUserData($input->getOption('user-data'));
         $body->setTags($input->getOption('tag'));
-        // TODO(logan): Add the ability to specify custom meta
         $meta = new \ArrayObject;
+        foreach($input->getOption('meta') as $m) {
+            $_meta = explode('=', $m);
+            if (sizeOf($_meta) < 2) {
+                $err = $output->getErrorOutput();
+                $err->writeln("<error>Could not parse metadata option: {$m}. Metadata must be specified like: key=value</error>");
+                exit();
+            }
+
+            $key = array_shift($_meta);
+            $value = implode('=', $_meta);
+            $meta[$key] = $value;
+        }
         $body->setCustomMetadata($meta);
 
         try{

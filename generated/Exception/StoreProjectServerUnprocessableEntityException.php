@@ -4,8 +4,14 @@ namespace Limestone\SDK\Exception;
 
 class StoreProjectServerUnprocessableEntityException extends \RuntimeException implements ClientException
 {
-    public function __construct()
+    private $serverCreateValidationErrorResponse;
+    public function __construct(\Limestone\SDK\Model\ServerCreateValidationErrorResponse $serverCreateValidationErrorResponse)
     {
         parent::__construct('Invalid parameters', 422);
+        $this->serverCreateValidationErrorResponse = $serverCreateValidationErrorResponse;
+    }
+    public function getServerCreateValidationErrorResponse()
+    {
+        return $this->serverCreateValidationErrorResponse;
     }
 }

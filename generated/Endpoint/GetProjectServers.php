@@ -21,7 +21,7 @@ class GetProjectServers extends \Jane\OpenApiRuntime\Client\BaseEndpoint impleme
     }
     public function getUri() : string
     {
-        return str_replace(array('{project_id}'), array($this->project_id), '/v2/project/{project_id}/servers');
+        return str_replace(array('{project_id}'), array($this->project_id), '/v2/project/{project_id}/server');
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, \Http\Message\StreamFactory $streamFactory = null) : array
     {

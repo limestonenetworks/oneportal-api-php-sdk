@@ -20,6 +20,8 @@ class NormalizerFactory
         $normalizers[] = new BasePartitionNormalizer();
         $normalizers[] = new RaidPartitionNormalizer();
         $normalizers[] = new DiskPartitionNormalizer();
+        $normalizers[] = new ServerCreateValidationErrorResponseNormalizer();
+        $normalizers[] = new ServerCreateValidationErrorNormalizer();
         $normalizers[] = new FacilityStockNormalizer();
         $normalizers[] = new ProjectQuotasNormalizer();
         $normalizers[] = new ServerCreateParametersNormalizer();

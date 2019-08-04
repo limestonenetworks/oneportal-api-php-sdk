@@ -32,6 +32,10 @@ class StoreProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint implem
         }
         return array(array(), null);
     }
+    public function getExtraHeaders() : array
+    {
+        return array('Accept' => array('application/json'));
+    }
     /**
      * {@inheritdoc}
      *
@@ -52,8 +56,8 @@ class StoreProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint implem
         if (403 === $status) {
             throw new \Limestone\SDK\Exception\StoreProjectServerForbiddenException();
         }
-        if (422 === $status) {
-            throw new \Limestone\SDK\Exception\StoreProjectServerUnprocessableEntityException();
+        if (422 === $status && 'application/json' === $contentType) {
+            throw new \Limestone\SDK\Exception\StoreProjectServerUnprocessableEntityException($serializer->deserialize($body, 'Limestone\\SDK\\Model\\ServerCreateValidationErrorResponse', 'json'));
         }
     }
 }

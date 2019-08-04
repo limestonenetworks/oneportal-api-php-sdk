@@ -5,6 +5,7 @@ namespace Limestone\Command;
 use Limestone\SDK\Model\ServerCreateParametersWithOSDisk;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -18,34 +19,59 @@ class CreateServerCommand extends Command
     {
         $this
             ->setDescription('Creates a new server.')
-            ->addArgument('project_id',InputArgument::REQUIRED,'The project id')
+            ->addArgument('project_id', InputArgument::REQUIRED, 'Project ID')
+            ->addArgument('name', InputArgument::REQUIRED, 'Server Name')
+            ->addOption('core', 'c', InputOption::VALUE_REQUIRED, 'Core Name')
+            ->addOption('facility', 'f', InputOption::VALUE_REQUIRED, 'Facility Name')
+            ->addOption('image', 'i', InputOption::VALUE_REQUIRED, 'Image Name')
+            ->addOption('os-disk', 'd', InputOption::VALUE_REQUIRED, 'OS Disk Device', '/dev/sda')
+            ->addOption('quantity', null, InputOption::VALUE_REQUIRED, 'Quantity of servers to create', 1)
+            ->addOption('description', null, InputOption::VALUE_REQUIRED, 'Description for the server')
+            ->addOption('password', 'p', InputOption::VALUE_REQUIRED, 'SSH/RDP Administrator Password')
+            ->addOption('key',
+                'k',
+                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                'SSH Keys to add to the server')
+            ->addOption('network',
+                null,
+                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                'Networks to attach the server to',
+                ['public', 'private'])
+            ->addOption('network', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Networks to attach the server to', ['public', 'private'])
+            ->addOption('user-data', null, InputOption::VALUE_REQUIRED, 'User Data to provide to the server')
+            ->addOption('tag',
+                null,
+                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                'Tags to set on the server')
+            ->addOption('meta',
+                null,
+                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                'Metadata to set on the server')
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp('This command allows you to create a project...');
+            ->setHelp('Create a new bare-metal server in a project');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $client = $this->getClient();
-        $meta = new \ArrayObject(["unit"=>"LSN"]);
-        $params = ["core"=>"fc96732c-4c5", "name"=>"test server", "description" => "test server", "image" => "centos-7", "sshKeys" => [], "networks" => ["public", "private"], "quantity" => 1, "tags" => ["dev"], "adminPassword" => "foobar", "customMetadata"=>$meta,"facility"=>"DFW1", "osDisk"=>"/dev/sdc", "userData"=>"echo test"];
         $body = new ServerCreateParametersWithOSDisk();
-        $reflection = new \ReflectionClass($body);
-        $methods = $reflection->getMethods();
-        $toCall = [];
-        foreach ($methods as $method) {
-            if(strpos($method->getName(),'set') === 0){
-                $toCall[] = $method->getName();
-            }
-        }
-        $re = '/set(\w*)/m';
-        foreach ($toCall as $item) {
-            preg_match($re, $item, $matches);
-            if(isset($matches[1]) && isset($params[lcfirst($matches[1])])){
-                $body->$item($params[lcfirst($matches[1])]);
-            }
+        $body->setName($input->getArgument('name'));
+        $body->setCore($input->getOption('core'));
+        $body->setFacility($input->getOption('facility'));
+        $body->setImage($input->getOption('image'));
+        $body->setOsDisk($input->getOption('os-disk'));
+        $body->setQuantity($input->getOption('quantity'));
+        $body->setDescription($input->getOption('description'));
+        $body->setAdminPassword($input->getOption('password'));
+        $body->setSshKeys($input->getOption('key'));
+        $body->setNetworks($input->getOption('network'));
+        $body->setUserData($input->getOption('user-data'));
+        $body->setTags($input->getOption('tag'));
+        // TODO(logan): Add the ability to specify custom meta
+        $meta = new \ArrayObject;
+        $body->setCustomMetadata($meta);
 
-        }
         try{
             $result = $client->storeProjectServer($input->getArgument('project_id'),$body);
             $output->write($result,true);

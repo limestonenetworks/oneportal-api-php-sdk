@@ -7,7 +7,7 @@ class DeleteProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint imple
     protected $project_id;
     protected $server_id;
     /**
-     * Delete a project's server by ID. This will disocciate the server from the project
+     * Delete a project's server by ID. This will cancel the instance
      *
      * @param string $projectId ID of project
      * @param string $serverId ID of the server to delete

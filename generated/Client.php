@@ -207,7 +207,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
         return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\StoreProjectServer($projectId, $requestBody), $fetch);
     }
     /**
-     * Delete a project's server by ID. This will disocciate the server from the project
+     * Delete a project's server by ID. This will cancel the instance
      *
      * @param string $projectId ID of project
      * @param string $serverId ID of the server to delete

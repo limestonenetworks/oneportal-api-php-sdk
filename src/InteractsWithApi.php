@@ -20,7 +20,14 @@ trait InteractsWithApi {
         $vars = [];
         foreach ($properties as $property) {
             $property->setAccessible(true);
-            $vars[$property->getName()] = $property->getValue($model);
+            $value = $property->getValue($model);
+            if(is_object($value)){
+                $value = $this->serializeModel($value);
+            }
+            elseif(is_array($value)){
+                $value = $this->toArray($value);
+            }
+            $vars[$property->getName()] = $value;
         }
 
         return $vars;

@@ -27,6 +27,7 @@ $application->add(new \Limestone\Command\GetCoreListCommand());
 $application->add(new \Limestone\Command\GetFacilityStockCommand());
 $application->add(new \Limestone\Command\GetFacilityListCommand());
 $application->add(new \Limestone\Command\GetImageListCommand());
+$application->add(new \Limestone\Command\GetJobStatusCommand());
 $application->add(new \Limestone\Command\GetProjectCommand());
 $application->add(new \Limestone\Command\GetProjectListCommand());
 $application->add(new \Limestone\Command\GetSSHKeyCommand());

@@ -85,7 +85,7 @@ class CreateServerCommand extends Command
 
         try{
             $result = $client->storeProjectServer($input->getArgument('project_id'),$body);
-            $output->write($result,true);
+            $output->write(json_encode($result),true);
         } catch (\Exception $e){
             $output->write($e->getMessage(),true);
         }

@@ -31,7 +31,7 @@ class ServerCreateParametersWithPartitions
     /**
      * 
      *
-     * @var int[]
+     * @var string[]
      */
     protected $sshKeys;
     /**
@@ -169,7 +169,7 @@ class ServerCreateParametersWithPartitions
     /**
      * 
      *
-     * @return int[]|null
+     * @return string[]|null
      */
     public function getSshKeys() : ?array
     {
@@ -178,7 +178,7 @@ class ServerCreateParametersWithPartitions
     /**
      * 
      *
-     * @param int[]|null $sshKeys
+     * @param string[]|null $sshKeys
      *
      * @return self
      */

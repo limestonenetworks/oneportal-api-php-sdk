@@ -47,8 +47,8 @@ class StoreProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint implem
      */
     protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (201 === $status) {
-            return null;
+        if (201 === $status && 'application/json' === $contentType) {
+            return json_decode($body);
         }
         if (400 === $status) {
             throw new \Limestone\SDK\Exception\StoreProjectServerBadRequestException();

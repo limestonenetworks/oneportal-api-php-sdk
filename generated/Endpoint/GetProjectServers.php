@@ -38,7 +38,7 @@ class GetProjectServers extends \Jane\OpenApiRuntime\Client\BaseEndpoint impleme
     protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
         if (200 === $status) {
-            return null;
+            return json_decode($body);
         }
         if (403 === $status) {
             throw new \Limestone\SDK\Exception\GetProjectServersForbiddenException();

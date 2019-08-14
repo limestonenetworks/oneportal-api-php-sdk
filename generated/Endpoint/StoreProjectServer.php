@@ -10,11 +10,15 @@ class StoreProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint implem
      *
      * @param string $projectId ID of project to use
      * @param mixed $requestBody 
+     * @param array $queryParameters {
+     *     @var bool $wait Whether to wait for the result of the call
+     * }
      */
-    public function __construct(string $projectId, $requestBody)
+    public function __construct(string $projectId, $requestBody, array $queryParameters = array())
     {
         $this->project_id = $projectId;
         $this->body = $requestBody;
+        $this->queryParameters = $queryParameters;
     }
     use \Jane\OpenApiRuntime\Client\Psr7HttplugEndpointTrait;
     public function getMethod() : string
@@ -36,6 +40,15 @@ class StoreProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint implem
     {
         return array('Accept' => array('application/json'));
     }
+    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    {
+        $optionsResolver = parent::getQueryOptionsResolver();
+        $optionsResolver->setDefined(array('wait'));
+        $optionsResolver->setRequired(array());
+        $optionsResolver->setDefaults(array());
+        $optionsResolver->setAllowedTypes('wait', array('bool'));
+        return $optionsResolver;
+    }
     /**
      * {@inheritdoc}
      *
@@ -43,12 +56,12 @@ class StoreProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint implem
      * @throws \Limestone\SDK\Exception\StoreProjectServerForbiddenException
      * @throws \Limestone\SDK\Exception\StoreProjectServerUnprocessableEntityException
      *
-     * @return null
+     * @return null|\Limestone\SDK\Model\JobStatus
      */
     protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
         if (201 === $status && 'application/json' === $contentType) {
-            return json_decode($body);
+            return $serializer->deserialize($body, 'Limestone\\SDK\\Model\\JobStatus', 'json');
         }
         if (400 === $status) {
             throw new \Limestone\SDK\Exception\StoreProjectServerBadRequestException();

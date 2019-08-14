@@ -195,32 +195,38 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
      *
      * @param string $projectId ID of project to use
      * @param mixed $requestBody 
+     * @param array $queryParameters {
+     *     @var bool $wait Whether to wait for the result of the call
+     * }
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Limestone\SDK\Exception\StoreProjectServerBadRequestException
      * @throws \Limestone\SDK\Exception\StoreProjectServerForbiddenException
      * @throws \Limestone\SDK\Exception\StoreProjectServerUnprocessableEntityException
      *
-     * @return null|\Psr\Http\Message\ResponseInterface
+     * @return null|\Limestone\SDK\Model\JobStatus|\Psr\Http\Message\ResponseInterface
      */
-    public function storeProjectServer(string $projectId, $requestBody, string $fetch = self::FETCH_OBJECT)
+    public function storeProjectServer(string $projectId, $requestBody, array $queryParameters = array(), string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\StoreProjectServer($projectId, $requestBody), $fetch);
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\StoreProjectServer($projectId, $requestBody, $queryParameters), $fetch);
     }
     /**
      * Delete a project's server by ID. This will cancel the instance
      *
      * @param string $projectId ID of project
      * @param string $serverId ID of the server to delete
+     * @param array $queryParameters {
+     *     @var bool $wait Whether to wait for the result of the call
+     * }
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Limestone\SDK\Exception\DeleteProjectServerInternalServerErrorException
      * @throws \Limestone\SDK\Exception\DeleteProjectServerForbiddenException
      * @throws \Limestone\SDK\Exception\DeleteProjectServerNotFoundException
      *
-     * @return null|\Psr\Http\Message\ResponseInterface
+     * @return null|\Limestone\SDK\Model\JobStatus|\Psr\Http\Message\ResponseInterface
      */
-    public function deleteProjectServer(string $projectId, string $serverId, string $fetch = self::FETCH_OBJECT)
+    public function deleteProjectServer(string $projectId, string $serverId, array $queryParameters = array(), string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\DeleteProjectServer($projectId, $serverId), $fetch);
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\DeleteProjectServer($projectId, $serverId, $queryParameters), $fetch);
     }
     /**
      * Associate a server with a project

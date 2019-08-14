@@ -11,11 +11,15 @@ class DeleteProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint imple
      *
      * @param string $projectId ID of project
      * @param string $serverId ID of the server to delete
+     * @param array $queryParameters {
+     *     @var bool $wait Whether to wait for the result of the call
+     * }
      */
-    public function __construct(string $projectId, string $serverId)
+    public function __construct(string $projectId, string $serverId, array $queryParameters = array())
     {
         $this->project_id = $projectId;
         $this->server_id = $serverId;
+        $this->queryParameters = $queryParameters;
     }
     use \Jane\OpenApiRuntime\Client\Psr7HttplugEndpointTrait;
     public function getMethod() : string
@@ -34,6 +38,15 @@ class DeleteProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint imple
     {
         return array('Accept' => array('application/json'));
     }
+    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    {
+        $optionsResolver = parent::getQueryOptionsResolver();
+        $optionsResolver->setDefined(array('wait'));
+        $optionsResolver->setRequired(array());
+        $optionsResolver->setDefaults(array());
+        $optionsResolver->setAllowedTypes('wait', array('bool'));
+        return $optionsResolver;
+    }
     /**
      * {@inheritdoc}
      *
@@ -41,12 +54,12 @@ class DeleteProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint imple
      * @throws \Limestone\SDK\Exception\DeleteProjectServerForbiddenException
      * @throws \Limestone\SDK\Exception\DeleteProjectServerNotFoundException
      *
-     * @return null
+     * @return null|\Limestone\SDK\Model\JobStatus
      */
     protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (202 === $status) {
-            return null;
+        if (202 === $status && 'application/json' === $contentType) {
+            return $serializer->deserialize($body, 'Limestone\\SDK\\Model\\JobStatus', 'json');
         }
         if (500 === $status && 'application/json' === $contentType) {
             throw new \Limestone\SDK\Exception\DeleteProjectServerInternalServerErrorException($serializer->deserialize($body, 'Limestone\\SDK\\Model\\Result', 'json'));

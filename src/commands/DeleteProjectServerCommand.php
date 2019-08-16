@@ -6,6 +6,7 @@ use Limestone\SDK\Model\V2ProjectPostBody;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class DeleteProjectServerCommand extends Command
@@ -20,6 +21,7 @@ class DeleteProjectServerCommand extends Command
             ->setDescription('Delete an server')
             ->addArgument('project_id', InputArgument::REQUIRED, 'Project ID')
             ->addArgument('server_id', InputArgument::REQUIRED, 'Server ID')
+            ->addOption('wait', 'w', InputOption::VALUE_NONE, 'Wait for result')
             // the full command description shown when running the command with
             // the "--help" option
             ->setHelp('Delete a bare-metal server');
@@ -30,8 +32,9 @@ class DeleteProjectServerCommand extends Command
         $client = $this->getClient();
         $result = $client->deleteProjectServer(
             $input->getArgument('project_id'),
-            $input->getArgument('server_id')
+            $input->getArgument('server_id'),
+            ['wait' => $input->getOption('wait')]
         );
-        $output->writeln("Success");
+        $output->writeln($this->toJson($result),true);
     }
 }

@@ -12,7 +12,7 @@ $dotenv->required('API_CLIENT_SECRET');
 $dotenv->required('API_CLIENT_ID');
 $dotenv->required('API_USERNAME');
 $dotenv->required('API_PASSWORD');
-$application = new Application();
+$application = new \Limestone\Application();
 
 // ... register commands
 $application->add(new \Limestone\Command\TinkerCommand());

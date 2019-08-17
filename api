@@ -7,11 +7,6 @@ require __DIR__.'/vendor/autoload.php';
 use Symfony\Component\Console\Application;
 $dotenv = \Dotenv\Dotenv::create(__DIR__);
 $dotenv->load();
-$dotenv->required('API_URL');
-$dotenv->required('API_CLIENT_SECRET');
-$dotenv->required('API_CLIENT_ID');
-$dotenv->required('API_USERNAME');
-$dotenv->required('API_PASSWORD');
 $application = new \Limestone\Application();
 
 // ... register commands

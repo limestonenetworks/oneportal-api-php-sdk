@@ -7,7 +7,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CreateProjectCommand extends Command
+class CreateProjectCommand extends AbstractCommand
 {
     use \Limestone\InteractsWithApi;
 

@@ -2,16 +2,43 @@
 
 trait InteractsWithApi
 {
+    public $loaded_profiles = [];
 
-    public function getClient()
+    public function getProfile(string $profile = 'default'): array
     {
-        return ClientFactory::create($this->getToken());
+        if(isset($this->loaded_profiles[$profile])){
+            return $this->loaded_profiles[$profile];
+        }
+        $path = dirname('..') . DIRECTORY_SEPARATOR . '.profiles';
+        if(is_file($path)){
+            $profiles = include $path;
+            if(isset($profiles[$profile])){
+                return $profiles[$profile];
+            }
+            throw new \Exception('Profile not found');
+        }
+        throw new \Exception('Profile file not found');
     }
 
-    public function getToken($profile = 'default'): string
+    public function getApiClient(string $profile = 'default')
     {
-        $response = ClientFactory::auth();
-        return json_decode($response->getBody()->getContents())->access_token;
+        $credentials = $this->getProfile($profile);
+        return ClientFactory::create($credentials['endpoint'],$this->getToken($credentials,$profile));
+    }
+
+    public function getToken(array $credentials, string $profile = 'default'): string
+    {
+        $token = $this->loadToken($profile);
+        if(null !== $token){
+            $valid = $this->checkToken($token,$credentials['endpoint']);
+            if($valid){
+                return $token;
+            }
+        }
+        $response = ClientFactory::auth($credentials);
+        $token = json_decode($response->getBody()->getContents())->access_token;
+        $this->storeToken($profile,$token);
+        return $token;
     }
 
     public function serializeModel($model)
@@ -29,7 +56,6 @@ trait InteractsWithApi
             }
             $vars[$property->getName()] = $value;
         }
-
         return $vars;
     }
 
@@ -50,8 +76,23 @@ trait InteractsWithApi
         return $array;
     }
 
-    public function storeToken($token)
+    public function loadToken(string $profile): ?string
     {
+        $path = dirname('..') . DIRECTORY_SEPARATOR . $profile . '_token';
+        if(is_file($path)){
+            return file_get_contents($path);
+        }
+        return null;
+    }
 
+    public function storeToken(string $profile, string $token)
+    {
+        $path = dirname('..') . DIRECTORY_SEPARATOR . $profile . '_token';
+        file_put_contents($path,$token);
+    }
+
+    public function checkToken(string $token, string $endpoint): bool
+    {
+        return ClientFactory::check($token,$endpoint);
     }
 }

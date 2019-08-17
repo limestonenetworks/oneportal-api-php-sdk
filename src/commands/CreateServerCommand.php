@@ -3,6 +3,7 @@
 namespace Limestone\Command;
 
 use Limestone\SDK\Model\ServerCreateParametersWithOSDisk;
+use Limestone\SDK\Model\ServerCreateParametersWithPartitions;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -48,6 +49,10 @@ class CreateServerCommand extends Command
                 null,
                 InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
                 'Metadata to set on the server')
+            ->addOption('partitions', null, InputOption::VALUE_REQUIRED,
+                        'Partition map for server')
+            ->addOption('partition-file', null, InputOption::VALUE_REQUIRED,
+                        'File containing partition map')
             // the full command description shown when running the command with
             // the "--help" option
             ->setHelp('Create a new bare-metal server in a project');
@@ -56,12 +61,19 @@ class CreateServerCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $client = $this->getClient();
-        $body = new ServerCreateParametersWithOSDisk();
+        $partitions = $this->getPartitions($input);
+        if (!is_null($partitions)) {
+            $body = new ServerCreateParametersWithPartitions();
+            $body->setPartitions($partitions);
+        } else {
+            $body = new ServerCreateParametersWithOSDisk();
+            $body->setOsDisk($input->getOption('os-disk'));
+        }
+
         $body->setName($input->getArgument('name'));
         $body->setCore($input->getOption('core'));
         $body->setFacility($input->getOption('facility'));
         $body->setImage($input->getOption('image'));
-        $body->setOsDisk($input->getOption('os-disk'));
         $body->setQuantity($input->getOption('quantity'));
         $body->setDescription($input->getOption('description'));
         $body->setAdminPassword($input->getOption('password'));
@@ -109,5 +121,26 @@ class CreateServerCommand extends Command
                 return $userdata;
             break;
         }
+    }
+
+    protected function getPartitions(InputInterface $input)
+    {
+        $option = $input->hasExclusiveOption('partitions', 'partition-file');
+        $partitions = null;
+        switch ($option) {
+            case 'partitions':
+                $partitions = json_decode($input->getOption('partitions'));
+            break;
+            case 'partition-file':
+                $part_file = @file_get_contents($input->getOption('partition-file'));
+                if ($part_file === FALSE)
+                {
+                    throw new \Exception('Could not read partition file');
+                }
+                $partitions = json_decode($part_file);
+            break;
+        }
+
+        return $partitions;
     }
 }

@@ -39,6 +39,7 @@ class CreateServerCommand extends Command
                 ['public', 'private'])
             ->addOption('network', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Networks to attach the server to', ['public', 'private'])
             ->addOption('user-data', null, InputOption::VALUE_REQUIRED, 'User Data to provide to the server')
+            ->addOption('user-data-file', null, InputOption::VALUE_REQUIRED, 'User Data file to provide to the server')
             ->addOption('tag',
                 null,
                 InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
@@ -66,7 +67,7 @@ class CreateServerCommand extends Command
         $body->setAdminPassword($input->getOption('password'));
         $body->setSshKeys($input->getOption('key'));
         $body->setNetworks($input->getOption('network'));
-        $body->setUserData($input->getOption('user-data'));
+        $body->setUserData($this->getUserData($input));
         $body->setTags($input->getOption('tag'));
         $meta = new \ArrayObject;
         foreach($input->getOption('meta') as $m) {
@@ -88,6 +89,25 @@ class CreateServerCommand extends Command
             $output->write($this->toJson($result),true);
         } catch (\Exception $e){
             $output->write($e->getMessage(),true);
+        }
+    }
+
+    protected function getUserData(InputInterface $input)
+    {
+        $option = $input->hasExclusiveOption('user-data', 'user-data-file');
+        switch ($option)
+        {
+            case 'user-data':
+                return $input->getOption('user-data');
+            break;
+            case 'user-data-file':
+                $userdata = @file_get_contents($input->getOption('user-data-file'));
+                if ($userdata === FALSE)
+                {
+                    throw new \Exception('Could not read user data file');
+                }
+                return $userdata;
+            break;
         }
     }
 }

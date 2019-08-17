@@ -10,7 +10,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class TinkerCommand extends Command
+class TinkerCommand extends AbstractCommand
 {
     use \Limestone\InteractsWithApi;
 

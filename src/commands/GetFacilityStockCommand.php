@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class GetFacilityStockCommand extends Command
+class GetFacilityStockCommand extends AbstractCommand
 {
     use \Limestone\InteractsWithApi;
 

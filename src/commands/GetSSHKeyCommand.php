@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class GetSSHKeyCommand extends Command
+class GetSSHKeyCommand extends AbstractCommand
 {
     use \Limestone\InteractsWithApi;
 

@@ -15,12 +15,12 @@ use Psr\Http\Message\ResponseInterface;
 
 class ClientFactory
 {
-    public static function create(string $token, HttpClient $httpClient = null): Client
+    public static function create(string $url, string $token, HttpClient $httpClient = null): Client
     {
         if (null === $httpClient) {
             $httpClient = HttpClientDiscovery::find();
         }
-        $url = rtrim(getenv('API_URL'),"/") . "/";
+        $url = rtrim($url,"/") . "/";
 
         $uri = Psr17FactoryDiscovery::findUrlFactory()->createUri($url);
         $pluginClient = new PluginClient($httpClient, [
@@ -34,28 +34,29 @@ class ClientFactory
     }
 
     /**
+     * @param array           $credentials
      * @param HttpClient|null $httpClient
      *
      * @return ResponseInterface
      * @throws \Psr\Http\Client\ClientExceptionInterface
      */
-    public static function auth(HttpClient $httpClient = null): ResponseInterface
+    public static function auth(array $credentials, HttpClient $httpClient = null): ResponseInterface
     {
         if (null === $httpClient) {
             $httpClient = HttpClientDiscovery::find();
         }
-        $url = rtrim(getenv('API_URL'),"/") . "/";
+        $url = rtrim($credentials['endpoint'],"/") . "/";
         $uri = Psr17FactoryDiscovery::findUrlFactory()->createUri($url ."oauth/token");
         $pluginClient = new PluginClient($httpClient, [
             new AddPathPlugin($uri),
             new AddHostPlugin($uri)
         ]);
         $data = [
-            'username'      => getenv('API_USERNAME'),
-            'password'      => getenv('API_PASSWORD'),
+            'username'      => $credentials['username'],
+            'password'      => $credentials['password'],
             'scope'         => '*',
-            'client_id'     => getenv('API_CLIENT_ID'),
-            'client_secret' => getenv('API_CLIENT_SECRET'),
+            'client_id'     => $credentials['client_id'],
+            'client_secret' => $credentials['client_secret'],
             'grant_type'    => 'password'
         ];
         $stream = Psr17FactoryDiscovery::findStreamFactory()->createStream(http_build_query($data));
@@ -63,5 +64,33 @@ class ClientFactory
         $request = $request->withBody($stream);
         $request = $request->withHeader('Content-Type', 'application/x-www-form-urlencoded');
         return $pluginClient->sendRequest($request);
+    }
+
+    /**
+     * @param string          $token
+     * @param string          $endpoint
+     * @param HttpClient|null $httpClient
+     *
+     * @return bool
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     */
+    public static function check(string $token, string $endpoint, HttpClient $httpClient = null): bool
+    {
+        if (null === $httpClient) {
+            $httpClient = HttpClientDiscovery::find();
+        }
+        $url = rtrim($endpoint,"/") . "/";
+        $uri = Psr17FactoryDiscovery::findUrlFactory()->createUri($url ."v2/login/token-scopes");
+        $pluginClient = new PluginClient($httpClient, [
+            new AddPathPlugin($uri),
+            new AddHostPlugin($uri),
+            new HeaderAppendPlugin([
+                'Authorization' => 'Bearer '.$token,
+            ]),
+        ]);
+        $request = Psr17FactoryDiscovery::findRequestFactory()->createRequest('GET', $uri);
+        $response = $pluginClient->sendRequest($request);
+        $data = json_decode($response->getBody()->getContents());
+        return isset($data->scopes);
     }
 }

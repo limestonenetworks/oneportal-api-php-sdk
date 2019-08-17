@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class DeleteSSHKeyCommand extends Command
+class DeleteSSHKeyCommand extends AbstractCommand
 {
     use \Limestone\InteractsWithApi;
 

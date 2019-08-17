@@ -1,0 +1,11 @@
+<?php
+
+return [
+  'default' => [
+    'endpoint' => getenv('DEFAULT_API_ENDPOINT','https://api.dallas-idc.com'),
+    'user'     => getenv('DEFAULT_API_USERNAME'),
+    'password' => getenv('DEFAULT_API_PASSWORD'),
+    'client'   => getenv('DEFAULT_API_CLIENT'),
+    'secret'   => getenv('DEFAULT_API_SECRET')
+  ]
+];

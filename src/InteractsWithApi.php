@@ -1,13 +1,14 @@
 <?php namespace Limestone;
 
-trait InteractsWithApi {
+trait InteractsWithApi
+{
 
     public function getClient()
     {
         return ClientFactory::create($this->getToken());
     }
 
-    public function getToken(): string
+    public function getToken($profile = 'default'): string
     {
         $response = ClientFactory::auth();
         return json_decode($response->getBody()->getContents())->access_token;
@@ -21,10 +22,9 @@ trait InteractsWithApi {
         foreach ($properties as $property) {
             $property->setAccessible(true);
             $value = $property->getValue($model);
-            if(is_object($value)){
+            if (is_object($value)) {
                 $value = $this->serializeModel($value);
-            }
-            elseif(is_array($value)){
+            } else if (is_array($value)) {
                 $value = $this->toArray($value);
             }
             $vars[$property->getName()] = $value;
@@ -48,5 +48,10 @@ trait InteractsWithApi {
             return $item;
         }, $array);
         return $array;
+    }
+
+    public function storeToken($token)
+    {
+
     }
 }

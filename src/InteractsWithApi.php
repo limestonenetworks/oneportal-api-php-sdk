@@ -42,7 +42,10 @@ trait InteractsWithApi {
     {
         $_this = $this;
         $array = array_map(function ($item) use($_this) {
-            return $_this->serializeModel($item);
+            if (is_object($item)) {
+                return $_this->serializeModel($item);
+            }
+            return $item;
         }, $array);
         return $array;
     }

@@ -25,7 +25,21 @@ abstract class AbstractCommand extends Command
 
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
-        $this->client = $this->getApiClient($input->getOption('profile'));
+        $profile = getenv('LSN_API_PROFILE');
+        $profileOption = $input->getOption('profile');
+        $profile = $profile === false ? $profileOption : ($profileOption == 'default' ? $profile : $profileOption);
+        $this->client = $this->getApiClient($profile);
+        if($input->hasOption('project')){
+            $api_project = getenv('LSN_API_PROJECT');
+            $project = $this->getProject($profile);
+            $project_id = $input->getOption('project');
+            if($api_project !== false && null === $project_id){
+                $input->setOption('project',$api_project);
+            }
+            else if(is_string($project) && null === $project_id){
+                $input->setOption('project',$project);
+            }
+        }
     }
 
     protected function getClient(): Client

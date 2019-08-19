@@ -26,6 +26,11 @@ trait InteractsWithApi
         return ClientFactory::create($credentials['endpoint'],$this->getToken($credentials,$profile));
     }
 
+    public function getProject(string $profile = 'default'): ?string
+    {
+        return $this->getProfile($profile)['project_id'] ?? null;
+    }
+
     public function getToken(array $credentials, string $profile = 'default'): string
     {
         $token = $this->loadToken($profile);

@@ -20,7 +20,7 @@ class CreateServerCommand extends AbstractCommand
     {
         $this
             ->setDescription('Creates a new server.')
-            ->addArgument('project_id', InputArgument::REQUIRED, 'Project ID')
+            ->addOption('project', '',InputOption::VALUE_REQUIRED, 'Project ID')
             ->addArgument('name', InputArgument::REQUIRED, 'Server Name')
             ->addOption('core', 'c', InputOption::VALUE_REQUIRED, 'Core Name')
             ->addOption('facility', 'f', InputOption::VALUE_REQUIRED, 'Facility Name')
@@ -97,7 +97,7 @@ class CreateServerCommand extends AbstractCommand
         $body->setCustomMetadata($meta);
 
         try{
-            $result = $client->storeProjectServer($input->getArgument('project_id'),$body);
+            $result = $client->storeProjectServer($input->getOption('project'),$body);
             $output->write($this->toJson($result),true);
         } catch (\Exception $e){
             $output->write($e->getMessage(),true);

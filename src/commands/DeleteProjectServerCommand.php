@@ -19,7 +19,7 @@ class DeleteProjectServerCommand extends AbstractCommand
     {
         $this
             ->setDescription('Delete an server')
-            ->addArgument('project_id', InputArgument::REQUIRED, 'Project ID')
+            ->addOption('project', '',InputOption::VALUE_REQUIRED, 'Project ID')
             ->addArgument('server_id', InputArgument::REQUIRED, 'Server ID')
             ->addOption('wait', 'w', InputOption::VALUE_NONE, 'Wait for result')
             // the full command description shown when running the command with
@@ -31,7 +31,7 @@ class DeleteProjectServerCommand extends AbstractCommand
     {
         $client = $this->getClient();
         $result = $client->deleteProjectServer(
-            $input->getArgument('project_id'),
+            $input->getOption('project'),
             $input->getArgument('server_id'),
             ['wait' => $input->getOption('wait')]
         );

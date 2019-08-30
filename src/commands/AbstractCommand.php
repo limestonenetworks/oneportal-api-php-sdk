@@ -20,25 +20,24 @@ abstract class AbstractCommand extends Command
     public function __construct($name = null)
     {
         parent::__construct($name);
-        $this->addOption('profile','',InputOption::VALUE_OPTIONAL,'Profile to use for api access','default');
+        $this->addOption('profile', null,
+                         InputOption::VALUE_REQUIRED,
+                         'Profile to use for api access');
     }
 
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
-        $profile = getenv('LSN_API_PROFILE');
+        $profileEnv = getenv('LSN_API_PROFILE');
         $profileOption = $input->getOption('profile');
-        $profile = $profile === false ? $profileOption : ($profileOption == 'default' ? $profile : $profileOption);
+        // Use --profile option if defined, then use LSN_API_PROFILE
+        // environment if it exists, otherwise just use 'DEFAULT'
+        $profile = !is_null($profileOption) ? $profileOption :
+                   ($profileEnv !== false ? $profileEnv : 'DEFAULT');
+
         $this->client = $this->getApiClient($profile);
-        if($input->hasOption('project')){
-            $api_project = getenv('LSN_API_PROJECT');
-            $project = $this->getProject($profile);
-            $project_id = $input->getOption('project');
-            if($api_project !== false && null === $project_id){
-                $input->setOption('project',$api_project);
-            }
-            else if(is_string($project) && null === $project_id){
-                $input->setOption('project',$project);
-            }
+        if ($input->hasOption('project') &&
+                is_null($input->getOption('project'))) {
+            $input->setOption('project', $this->getProject());
         }
     }
 

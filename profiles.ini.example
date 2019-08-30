@@ -1,0 +1,10 @@
+[DEFAULT]
+endpoint = https://api.dallas-idc.com
+username = example-user
+password = secret
+client_id = nothing
+client_secret = nothing
+project = main_project_id
+
+[secondproject]
+project = secondary_project_id

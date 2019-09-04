@@ -10,7 +10,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CreateServerCommand extends Command
+class CreateServerCommand extends AbstractCommand
 {
     use \Limestone\InteractsWithApi;
 
@@ -20,7 +20,7 @@ class CreateServerCommand extends Command
     {
         $this
             ->setDescription('Creates a new server.')
-            ->addArgument('project_id', InputArgument::REQUIRED, 'Project ID')
+            ->addOption('project', '',InputOption::VALUE_REQUIRED, 'Project ID')
             ->addArgument('name', InputArgument::REQUIRED, 'Server Name')
             ->addOption('core', 'c', InputOption::VALUE_REQUIRED, 'Core Name')
             ->addOption('facility', 'f', InputOption::VALUE_REQUIRED, 'Facility Name')
@@ -97,7 +97,7 @@ class CreateServerCommand extends Command
         $body->setCustomMetadata($meta);
 
         try{
-            $result = $client->storeProjectServer($input->getArgument('project_id'),$body);
+            $result = $client->storeProjectServer($input->getOption('project'),$body);
             $output->write($this->toJson($result),true);
         } catch (\Exception $e){
             $output->write($e->getMessage(),true);

@@ -53,6 +53,7 @@ class CreateServerCommand extends AbstractCommand
                         'Partition map for server')
             ->addOption('partition-file', null, InputOption::VALUE_REQUIRED,
                         'File containing partition map')
+            ->addOption('wait', 'w', InputOption::VALUE_NONE, 'Wait for result')
             // the full command description shown when running the command with
             // the "--help" option
             ->setHelp('Create a new bare-metal server in a project');
@@ -97,7 +98,10 @@ class CreateServerCommand extends AbstractCommand
         $body->setCustomMetadata($meta);
 
         try{
-            $result = $client->storeProjectServer($input->getOption('project'),$body);
+            $result = $client->storeProjectServer(
+                $input->getOption('project'),
+                $body,
+                ['wait' => $input->getOption('wait')]);
             $output->write($this->toJson($result),true);
         } catch (\Exception $e){
             $output->write($e->getMessage(),true);

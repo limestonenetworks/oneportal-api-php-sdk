@@ -34,8 +34,8 @@ class ServerCreateParametersNormalizer implements DenormalizerInterface, Normali
         if (property_exists($data, 'name') && $data->{'name'} !== null) {
             $object->setName($data->{'name'});
         }
-        if (property_exists($data, 'description') && $data->{'description'} !== null) {
-            $object->setDescription($data->{'description'});
+        if (property_exists($data, 'host_name') && $data->{'host_name'} !== null) {
+            $object->setHostName($data->{'host_name'});
         }
         if (property_exists($data, 'image') && $data->{'image'} !== null) {
             $object->setImage($data->{'image'});
@@ -91,8 +91,8 @@ class ServerCreateParametersNormalizer implements DenormalizerInterface, Normali
         if (null !== $object->getName()) {
             $data->{'name'} = $object->getName();
         }
-        if (null !== $object->getDescription()) {
-            $data->{'description'} = $object->getDescription();
+        if (null !== $object->getHostName()) {
+            $data->{'host_name'} = $object->getHostName();
         }
         if (null !== $object->getImage()) {
             $data->{'image'} = $object->getImage();

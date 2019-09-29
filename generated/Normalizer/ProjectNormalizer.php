@@ -28,6 +28,12 @@ class ProjectNormalizer implements DenormalizerInterface, NormalizerInterface, D
             return null;
         }
         $object = new \Limestone\SDK\Model\Project();
+        if (property_exists($data, 'uuid') && $data->{'uuid'} !== null) {
+            $object->setUuid($data->{'uuid'});
+        }
+        if (property_exists($data, 'short_uuid') && $data->{'short_uuid'} !== null) {
+            $object->setShortUuid($data->{'short_uuid'});
+        }
         if (property_exists($data, 'project_id') && $data->{'project_id'} !== null) {
             $object->setProjectId($data->{'project_id'});
         }
@@ -39,6 +45,12 @@ class ProjectNormalizer implements DenormalizerInterface, NormalizerInterface, D
     public function normalize($object, $format = null, array $context = array())
     {
         $data = new \stdClass();
+        if (null !== $object->getUuid()) {
+            $data->{'uuid'} = $object->getUuid();
+        }
+        if (null !== $object->getShortUuid()) {
+            $data->{'short_uuid'} = $object->getShortUuid();
+        }
         if (null !== $object->getProjectId()) {
             $data->{'project_id'} = $object->getProjectId();
         }

@@ -21,7 +21,7 @@ class ServerCreateParameters
      *
      * @var string
      */
-    protected $description;
+    protected $hostName;
     /**
      * 
      *
@@ -123,20 +123,20 @@ class ServerCreateParameters
      *
      * @return string|null
      */
-    public function getDescription() : ?string
+    public function getHostName() : ?string
     {
-        return $this->description;
+        return $this->hostName;
     }
     /**
      * 
      *
-     * @param string|null $description
+     * @param string|null $hostName
      *
      * @return self
      */
-    public function setDescription(?string $description) : self
+    public function setHostName(?string $hostName) : self
     {
-        $this->description = $description;
+        $this->hostName = $hostName;
         return $this;
     }
     /**

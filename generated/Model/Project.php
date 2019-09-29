@@ -5,6 +5,18 @@ namespace Limestone\SDK\Model;
 class Project
 {
     /**
+     * The resource uuid
+     *
+     * @var string
+     */
+    protected $uuid;
+    /**
+     * The resource short uuid
+     *
+     * @var string
+     */
+    protected $shortUuid;
+    /**
      * The project ID
      *
      * @var string
@@ -16,6 +28,48 @@ class Project
      * @var string
      */
     protected $displayname;
+    /**
+     * The resource uuid
+     *
+     * @return string|null
+     */
+    public function getUuid() : ?string
+    {
+        return $this->uuid;
+    }
+    /**
+     * The resource uuid
+     *
+     * @param string|null $uuid
+     *
+     * @return self
+     */
+    public function setUuid(?string $uuid) : self
+    {
+        $this->uuid = $uuid;
+        return $this;
+    }
+    /**
+     * The resource short uuid
+     *
+     * @return string|null
+     */
+    public function getShortUuid() : ?string
+    {
+        return $this->shortUuid;
+    }
+    /**
+     * The resource short uuid
+     *
+     * @param string|null $shortUuid
+     *
+     * @return self
+     */
+    public function setShortUuid(?string $shortUuid) : self
+    {
+        $this->shortUuid = $shortUuid;
+        return $this;
+    }
     /**
      * The project ID
      *

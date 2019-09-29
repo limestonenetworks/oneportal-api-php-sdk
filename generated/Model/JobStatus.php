@@ -23,12 +23,6 @@ class JobStatus
      */
     protected $status;
     /**
-     * The unique identifier of this update
-     *
-     * @var string
-     */
-    protected $jobIdentifier;
-    /**
      * 
      *
      * @var Metadata[]
@@ -95,27 +89,6 @@ class JobStatus
     public function setStatus(?string $status) : self
     {
         $this->status = $status;
-        return $this;
-    }
-    /**
-     * The unique identifier of this update
-     *
-     * @return string|null
-     */
-    public function getJobIdentifier() : ?string
-    {
-        return $this->jobIdentifier;
-    }
-    /**
-     * The unique identifier of this update
-     *
-     * @param string|null $jobIdentifier
-     *
-     * @return self
-     */
-    public function setJobIdentifier(?string $jobIdentifier) : self
-    {
-        $this->jobIdentifier = $jobIdentifier;
         return $this;
     }
     /**

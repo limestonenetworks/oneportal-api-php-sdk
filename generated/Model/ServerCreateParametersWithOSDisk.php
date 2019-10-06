@@ -21,7 +21,7 @@ class ServerCreateParametersWithOSDisk
      *
      * @var string
      */
-    protected $description;
+    protected $hostName;
     /**
      * 
      *
@@ -77,7 +77,7 @@ class ServerCreateParametersWithOSDisk
      */
     protected $facility;
     /**
-     * The disk to install the os
+     * Installation destination device
      *
      * @var string
      */
@@ -129,20 +129,20 @@ class ServerCreateParametersWithOSDisk
      *
      * @return string|null
      */
-    public function getDescription() : ?string
+    public function getHostName() : ?string
     {
-        return $this->description;
+        return $this->hostName;
     }
     /**
      * 
      *
-     * @param string|null $description
+     * @param string|null $hostName
      *
      * @return self
      */
-    public function setDescription(?string $description) : self
+    public function setHostName(?string $hostName) : self
     {
-        $this->description = $description;
+        $this->hostName = $hostName;
         return $this;
     }
     /**
@@ -335,7 +335,7 @@ class ServerCreateParametersWithOSDisk
         return $this;
     }
     /**
-     * The disk to install the os
+     * Installation destination device
      *
      * @return string|null
      */
@@ -344,7 +344,7 @@ class ServerCreateParametersWithOSDisk
         return $this->osDisk;
     }
     /**
-     * The disk to install the os
+     * Installation destination device
      *
      * @param string|null $osDisk
      *

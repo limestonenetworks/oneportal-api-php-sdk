@@ -91,22 +91,62 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
         return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\GetImage($imageName), $fetch);
     }
     /**
-     * Get a job status by ID
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\GetInstanceListForbiddenException
      *
-     * @param string $jobId ID of job status to return
+     * @return null|\Limestone\SDK\Model\Instance[]|\Psr\Http\Message\ResponseInterface
+     */
+    public function getInstanceList(string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\GetInstanceList(), $fetch);
+    }
+    /**
+     * Get an instance by ID
+     *
+     * @param string $instanceId ID of instance to return
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\GetInstanceForbiddenException
+     * @throws \Limestone\SDK\Exception\GetInstanceNotFoundException
+     *
+     * @return null|\Limestone\SDK\Model\Instance|\Psr\Http\Message\ResponseInterface
+     */
+    public function getInstance(string $instanceId, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\GetInstance($instanceId), $fetch);
+    }
+    /**
+     * Create a server based on the given options
+     *
+     * @param string $instanceId ID of project to use
+     * @param mixed $requestBody 
      * @param array $queryParameters {
-     *     @var bool $show_all Whether to return the latest status only or all status updates
+     *     @var bool $wait Whether to wait for the result of the call
      * }
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
-     * @throws \Limestone\SDK\Exception\GetJobStatusUnauthorizedException
-     * @throws \Limestone\SDK\Exception\GetJobStatusForbiddenException
-     * @throws \Limestone\SDK\Exception\GetJobStatusNotFoundException
+     * @throws \Limestone\SDK\Exception\AddIPAddressBadRequestException
+     * @throws \Limestone\SDK\Exception\AddIPAddressForbiddenException
+     * @throws \Limestone\SDK\Exception\AddIPAddressUnprocessableEntityException
      *
-     * @return null|\Limestone\SDK\Model\JobStatus[]|\Psr\Http\Message\ResponseInterface
+     * @return null|\Limestone\SDK\Model\JobStatus|\Psr\Http\Message\ResponseInterface
      */
-    public function getJobStatus(string $jobId, array $queryParameters = array(), string $fetch = self::FETCH_OBJECT)
+    public function addIPAddress(string $instanceId, $requestBody, array $queryParameters = array(), string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\GetJobStatus($jobId, $queryParameters), $fetch);
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\AddIPAddress($instanceId, $requestBody, $queryParameters), $fetch);
+    }
+    /**
+     * Get a job by ID
+     *
+     * @param string $jobId ID of job to return
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\GetJobUnauthorizedException
+     * @throws \Limestone\SDK\Exception\GetJobForbiddenException
+     * @throws \Limestone\SDK\Exception\GetJobNotFoundException
+     *
+     * @return null|\Limestone\SDK\Model\Job|\Psr\Http\Message\ResponseInterface
+     */
+    public function getJob(string $jobId, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\GetJob($jobId), $fetch);
     }
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
@@ -184,7 +224,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
      * @throws \Limestone\SDK\Exception\GetProjectServersForbiddenException
      * @throws \Limestone\SDK\Exception\GetProjectServersNotFoundException
      *
-     * @return null|\Psr\Http\Message\ResponseInterface
+     * @return null|\Limestone\SDK\Model\Instance[]|\Psr\Http\Message\ResponseInterface
      */
     public function getProjectServers(string $projectId, string $fetch = self::FETCH_OBJECT)
     {
@@ -203,7 +243,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
      * @throws \Limestone\SDK\Exception\StoreProjectServerForbiddenException
      * @throws \Limestone\SDK\Exception\StoreProjectServerUnprocessableEntityException
      *
-     * @return null|\Limestone\SDK\Model\JobStatus|\Psr\Http\Message\ResponseInterface
+     * @return null|\Limestone\SDK\Model\Job|\Psr\Http\Message\ResponseInterface
      */
     public function storeProjectServer(string $projectId, $requestBody, array $queryParameters = array(), string $fetch = self::FETCH_OBJECT)
     {
@@ -222,7 +262,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
      * @throws \Limestone\SDK\Exception\DeleteProjectServerForbiddenException
      * @throws \Limestone\SDK\Exception\DeleteProjectServerNotFoundException
      *
-     * @return null|\Limestone\SDK\Model\JobStatus|\Psr\Http\Message\ResponseInterface
+     * @return null|\Limestone\SDK\Model\Job|\Psr\Http\Message\ResponseInterface
      */
     public function deleteProjectServer(string $projectId, string $serverId, array $queryParameters = array(), string $fetch = self::FETCH_OBJECT)
     {

@@ -21,7 +21,7 @@ class ServerCreateParametersWithPartitions
      *
      * @var string
      */
-    protected $description;
+    protected $hostName;
     /**
      * 
      *
@@ -79,7 +79,7 @@ class ServerCreateParametersWithPartitions
     /**
      * 
      *
-     * @var mixed
+     * @var mixed[]
      */
     protected $partitions;
     /**
@@ -129,20 +129,20 @@ class ServerCreateParametersWithPartitions
      *
      * @return string|null
      */
-    public function getDescription() : ?string
+    public function getHostName() : ?string
     {
-        return $this->description;
+        return $this->hostName;
     }
     /**
      * 
      *
-     * @param string|null $description
+     * @param string|null $hostName
      *
      * @return self
      */
-    public function setDescription(?string $description) : self
+    public function setHostName(?string $hostName) : self
     {
-        $this->description = $description;
+        $this->hostName = $hostName;
         return $this;
     }
     /**
@@ -337,20 +337,20 @@ class ServerCreateParametersWithPartitions
     /**
      * 
      *
-     * @return mixed
+     * @return mixed[]|null
      */
-    public function getPartitions()
+    public function getPartitions() : ?array
     {
         return $this->partitions;
     }
     /**
      * 
      *
-     * @param mixed $partitions
+     * @param mixed[]|null $partitions
      *
      * @return self
      */
-    public function setPartitions($partitions) : self
+    public function setPartitions(?array $partitions) : self
     {
         $this->partitions = $partitions;
         return $this;

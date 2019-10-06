@@ -27,7 +27,8 @@ class CreateServerCommand extends AbstractCommand
             ->addOption('image', 'i', InputOption::VALUE_REQUIRED, 'Image Name')
             ->addOption('os-disk', 'd', InputOption::VALUE_REQUIRED, 'OS Disk Device', '/dev/sda')
             ->addOption('quantity', null, InputOption::VALUE_REQUIRED, 'Quantity of servers to create', 1)
-            ->addOption('description', null, InputOption::VALUE_REQUIRED, 'Description for the server')
+            ->addOption('hostname', null, InputOption::VALUE_OPTIONAL, 'Hostname')
+            //->addOption('description', null, InputOption::VALUE_REQUIRED, 'Description for the server')
             ->addOption('password', 'p', InputOption::VALUE_REQUIRED, 'SSH/RDP Administrator Password')
             ->addOption('key',
                 'k',
@@ -76,7 +77,10 @@ class CreateServerCommand extends AbstractCommand
         $body->setFacility($input->getOption('facility'));
         $body->setImage($input->getOption('image'));
         $body->setQuantity($input->getOption('quantity'));
-        $body->setDescription($input->getOption('description'));
+        //$body->setDescription($input->getOption('description'));
+        if($host = $input->getOption('hostname')){
+            $body->setHostName($host);
+        }
         $body->setAdminPassword($input->getOption('password'));
         $body->setSshKeys($input->getOption('key'));
         $body->setNetworks($input->getOption('network'));

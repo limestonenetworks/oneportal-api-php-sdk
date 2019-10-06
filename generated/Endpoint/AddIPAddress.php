@@ -2,21 +2,21 @@
 
 namespace Limestone\SDK\Endpoint;
 
-class StoreProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jane\OpenApiRuntime\Client\Psr7HttplugEndpoint
+class AddIPAddress extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jane\OpenApiRuntime\Client\Psr7HttplugEndpoint
 {
-    protected $project_id;
+    protected $instance_id;
     /**
      * Create a server based on the given options
      *
-     * @param string $projectId ID of project to use
+     * @param string $instanceId ID of project to use
      * @param mixed $requestBody 
      * @param array $queryParameters {
      *     @var bool $wait Whether to wait for the result of the call
      * }
      */
-    public function __construct(string $projectId, $requestBody, array $queryParameters = array())
+    public function __construct(string $instanceId, mixed $requestBody, array $queryParameters = array())
     {
-        $this->project_id = $projectId;
+        $this->instance_id = $instanceId;
         $this->body = $requestBody;
         $this->queryParameters = $queryParameters;
     }
@@ -27,7 +27,7 @@ class StoreProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint implem
     }
     public function getUri() : string
     {
-        return str_replace(array('{project_id}'), array($this->project_id), '/v2/project/{project_id}/server');
+        return str_replace(array('{instance_id}'), array($this->instance_id), '/v2/instance/{project_id}/ipaddress');
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, \Http\Message\StreamFactory $streamFactory = null) : array
     {
@@ -52,25 +52,25 @@ class StoreProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint implem
     /**
      * {@inheritdoc}
      *
-     * @throws \Limestone\SDK\Exception\StoreProjectServerBadRequestException
-     * @throws \Limestone\SDK\Exception\StoreProjectServerForbiddenException
-     * @throws \Limestone\SDK\Exception\StoreProjectServerUnprocessableEntityException
+     * @throws \Limestone\SDK\Exception\AddIPAddressBadRequestException
+     * @throws \Limestone\SDK\Exception\AddIPAddressForbiddenException
+     * @throws \Limestone\SDK\Exception\AddIPAddressUnprocessableEntityException
      *
-     * @return null|\Limestone\SDK\Model\Job
+     * @return null|\Limestone\SDK\Model\JobStatus
      */
     protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
         if (201 === $status && 'application/json' === $contentType) {
-            return $serializer->deserialize($body, 'Limestone\\SDK\\Model\\Job', 'json');
+            return $serializer->deserialize($body, 'Limestone\\SDK\\Model\\JobStatus', 'json');
         }
         if (400 === $status) {
-            throw new \Limestone\SDK\Exception\StoreProjectServerBadRequestException();
+            throw new \Limestone\SDK\Exception\AddIPAddressBadRequestException();
         }
         if (403 === $status) {
-            throw new \Limestone\SDK\Exception\StoreProjectServerForbiddenException();
+            throw new \Limestone\SDK\Exception\AddIPAddressForbiddenException();
         }
         if (422 === $status && 'application/json' === $contentType) {
-            throw new \Limestone\SDK\Exception\StoreProjectServerUnprocessableEntityException($serializer->deserialize($body, 'Limestone\\SDK\\Model\\ServerCreateValidationErrorResponse', 'json'));
+            throw new \Limestone\SDK\Exception\AddIPAddressUnprocessableEntityException($serializer->deserialize($body, 'Limestone\\SDK\\Model\\ServerCreateValidationErrorResponse', 'json'));
         }
     }
 }

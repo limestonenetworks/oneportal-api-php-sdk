@@ -2,17 +2,17 @@
 
 namespace Limestone\SDK\Endpoint;
 
-class GetProjectServers extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jane\OpenApiRuntime\Client\Psr7HttplugEndpoint
+class GetInstance extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jane\OpenApiRuntime\Client\Psr7HttplugEndpoint
 {
-    protected $project_id;
+    protected $instance_id;
     /**
-     * Get a project's servers
+     * Get an instance by ID
      *
-     * @param string $projectId ID of project to return servers for
+     * @param string $instanceId ID of instance to return
      */
-    public function __construct(string $projectId)
+    public function __construct(string $instanceId)
     {
-        $this->project_id = $projectId;
+        $this->instance_id = $instanceId;
     }
     use \Jane\OpenApiRuntime\Client\Psr7HttplugEndpointTrait;
     public function getMethod() : string
@@ -21,7 +21,7 @@ class GetProjectServers extends \Jane\OpenApiRuntime\Client\BaseEndpoint impleme
     }
     public function getUri() : string
     {
-        return str_replace(array('{project_id}'), array($this->project_id), '/v2/project/{project_id}/server');
+        return str_replace(array('{instance_id}'), array($this->instance_id), '/v2/instance/{instance_id}');
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, \Http\Message\StreamFactory $streamFactory = null) : array
     {
@@ -34,21 +34,21 @@ class GetProjectServers extends \Jane\OpenApiRuntime\Client\BaseEndpoint impleme
     /**
      * {@inheritdoc}
      *
-     * @throws \Limestone\SDK\Exception\GetProjectServersForbiddenException
-     * @throws \Limestone\SDK\Exception\GetProjectServersNotFoundException
+     * @throws \Limestone\SDK\Exception\GetInstanceForbiddenException
+     * @throws \Limestone\SDK\Exception\GetInstanceNotFoundException
      *
-     * @return null|\Limestone\SDK\Model\Instance[]
+     * @return null|\Limestone\SDK\Model\Instance
      */
     protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
         if (200 === $status && 'application/json' === $contentType) {
-            return $serializer->deserialize($body, 'Limestone\\SDK\\Model\\Instance[]', 'json');
+            return $serializer->deserialize($body, 'Limestone\\SDK\\Model\\Instance', 'json');
         }
         if (403 === $status) {
-            throw new \Limestone\SDK\Exception\GetProjectServersForbiddenException();
+            throw new \Limestone\SDK\Exception\GetInstanceForbiddenException();
         }
         if (404 === $status) {
-            throw new \Limestone\SDK\Exception\GetProjectServersNotFoundException();
+            throw new \Limestone\SDK\Exception\GetInstanceNotFoundException();
         }
     }
 }

@@ -54,12 +54,12 @@ class DeleteProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint imple
      * @throws \Limestone\SDK\Exception\DeleteProjectServerForbiddenException
      * @throws \Limestone\SDK\Exception\DeleteProjectServerNotFoundException
      *
-     * @return null|\Limestone\SDK\Model\JobStatus
+     * @return null|\Limestone\SDK\Model\Job
      */
     protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
         if (202 === $status && 'application/json' === $contentType) {
-            return $serializer->deserialize($body, 'Limestone\\SDK\\Model\\JobStatus', 'json');
+            return $serializer->deserialize($body, 'Limestone\\SDK\\Model\\Job', 'json');
         }
         if (500 === $status && 'application/json' === $contentType) {
             throw new \Limestone\SDK\Exception\DeleteProjectServerInternalServerErrorException($serializer->deserialize($body, 'Limestone\\SDK\\Model\\Result', 'json'));

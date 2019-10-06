@@ -39,7 +39,8 @@ trait InteractsWithApi
             'username' => $this->getProfileOption('username'),
             'password' => $this->getProfileOption('password'),
             'client_id' => $this->getProfileOption('client_id'),
-            'client_secret' => $this->getProfileOption('client_secret')
+            'client_secret' => $this->getProfileOption('client_secret'),
+            'token' => $this->getProfileOption('token')
         ];
     }
 
@@ -64,6 +65,9 @@ trait InteractsWithApi
     public function getToken(): string
     {
         $credentials = $this->getCredentials();
+        if(null !== $credentials['token']){
+            return $credentials['token'];
+        }
         $token_key = md5(serialize($credentials));
         $token = $this->loadToken($token_key);
         if(null !== $token){

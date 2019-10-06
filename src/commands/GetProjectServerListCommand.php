@@ -27,6 +27,6 @@ class GetProjectServerListCommand extends AbstractCommand
     {
         $client = $this->getClient();
         $result = $client->getProjectServers($input->getOption('project'));
-        $output->write(json_encode($result), true);
+        $output->write(json_encode($this->toArray($result)), true);
     }
 }

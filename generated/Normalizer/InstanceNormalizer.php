@@ -28,22 +28,54 @@ class InstanceNormalizer implements DenormalizerInterface, NormalizerInterface, 
             return null;
         }
         $object = new \Limestone\SDK\Model\Instance();
-        if (property_exists($data, 'project_id') && $data->{'project_id'} !== null) {
-            $object->setProjectId($data->{'project_id'});
+        if (property_exists($data, 'uuid') && $data->{'uuid'} !== null) {
+            $object->setUuid($data->{'uuid'});
         }
-        if (property_exists($data, 'displayname') && $data->{'displayname'} !== null) {
-            $object->setDisplayname($data->{'displayname'});
+        if (property_exists($data, 'short_uuid') && $data->{'short_uuid'} !== null) {
+            $object->setShortUuid($data->{'short_uuid'});
+        }
+        if (property_exists($data, 'name') && $data->{'name'} !== null) {
+            $object->setName($data->{'name'});
+        }
+        if (property_exists($data, 'hostname') && $data->{'hostname'} !== null) {
+            $object->setHostname($data->{'hostname'});
+        }
+        if (property_exists($data, 'server_id') && $data->{'server_id'} !== null) {
+            $object->setServerId($data->{'server_id'});
+        }
+        if (property_exists($data, 'metadata') && $data->{'metadata'} !== null) {
+            $values = array();
+            foreach ($data->{'metadata'} as $value) {
+                $values[] = $this->denormalizer->denormalize($value, 'Limestone\\SDK\\Model\\Metadata', 'json', $context);
+            }
+            $object->setMetadata($values);
         }
         return $object;
     }
     public function normalize($object, $format = null, array $context = array())
     {
         $data = new \stdClass();
-        if (null !== $object->getProjectId()) {
-            $data->{'project_id'} = $object->getProjectId();
+        if (null !== $object->getUuid()) {
+            $data->{'uuid'} = $object->getUuid();
         }
-        if (null !== $object->getDisplayname()) {
-            $data->{'displayname'} = $object->getDisplayname();
+        if (null !== $object->getShortUuid()) {
+            $data->{'short_uuid'} = $object->getShortUuid();
+        }
+        if (null !== $object->getName()) {
+            $data->{'name'} = $object->getName();
+        }
+        if (null !== $object->getHostname()) {
+            $data->{'hostname'} = $object->getHostname();
+        }
+        if (null !== $object->getServerId()) {
+            $data->{'server_id'} = $object->getServerId();
+        }
+        if (null !== $object->getMetadata()) {
+            $values = array();
+            foreach ($object->getMetadata() as $value) {
+                $values[] = $this->normalizer->normalize($value, 'json', $context);
+            }
+            $data->{'metadata'} = $values;
         }
         return $data;
     }

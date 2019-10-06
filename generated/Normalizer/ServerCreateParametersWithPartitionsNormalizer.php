@@ -34,8 +34,8 @@ class ServerCreateParametersWithPartitionsNormalizer implements DenormalizerInte
         if (property_exists($data, 'name') && $data->{'name'} !== null) {
             $object->setName($data->{'name'});
         }
-        if (property_exists($data, 'description') && $data->{'description'} !== null) {
-            $object->setDescription($data->{'description'});
+        if (property_exists($data, 'host_name') && $data->{'host_name'} !== null) {
+            $object->setHostName($data->{'host_name'});
         }
         if (property_exists($data, 'image') && $data->{'image'} !== null) {
             $object->setImage($data->{'image'});
@@ -81,7 +81,11 @@ class ServerCreateParametersWithPartitionsNormalizer implements DenormalizerInte
             $object->setFacility($data->{'facility'});
         }
         if (property_exists($data, 'partitions') && $data->{'partitions'} !== null) {
-            $object->setPartitions($data->{'partitions'});
+            $values_4 = array();
+            foreach ($data->{'partitions'} as $value_4) {
+                $values_4[] = $value_4;
+            }
+            $object->setPartitions($values_4);
         }
         return $object;
     }
@@ -94,8 +98,8 @@ class ServerCreateParametersWithPartitionsNormalizer implements DenormalizerInte
         if (null !== $object->getName()) {
             $data->{'name'} = $object->getName();
         }
-        if (null !== $object->getDescription()) {
-            $data->{'description'} = $object->getDescription();
+        if (null !== $object->getHostName()) {
+            $data->{'host_name'} = $object->getHostName();
         }
         if (null !== $object->getImage()) {
             $data->{'image'} = $object->getImage();
@@ -141,7 +145,11 @@ class ServerCreateParametersWithPartitionsNormalizer implements DenormalizerInte
             $data->{'facility'} = $object->getFacility();
         }
         if (null !== $object->getPartitions()) {
-            $data->{'partitions'} = $object->getPartitions();
+            $values_4 = array();
+            foreach ($object->getPartitions() as $value_4) {
+                $values_4[] = $value_4;
+            }
+            $data->{'partitions'} = $values_4;
         }
         return $data;
     }

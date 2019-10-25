@@ -34,6 +34,7 @@ class GetProjectQuotas extends \Jane\OpenApiRuntime\Client\BaseEndpoint implemen
     /**
      * {@inheritdoc}
      *
+     * @throws \Limestone\SDK\Exception\GetProjectQuotasUnauthorizedException
      * @throws \Limestone\SDK\Exception\GetProjectQuotasForbiddenException
      * @throws \Limestone\SDK\Exception\GetProjectQuotasNotFoundException
      *
@@ -43,6 +44,9 @@ class GetProjectQuotas extends \Jane\OpenApiRuntime\Client\BaseEndpoint implemen
     {
         if (200 === $status && 'application/json' === $contentType) {
             return $serializer->deserialize($body, 'Limestone\\SDK\\Model\\ProjectQuotas', 'json');
+        }
+        if (401 === $status) {
+            throw new \Limestone\SDK\Exception\GetProjectQuotasUnauthorizedException();
         }
         if (403 === $status) {
             throw new \Limestone\SDK\Exception\GetProjectQuotasForbiddenException();

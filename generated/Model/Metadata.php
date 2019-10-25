@@ -17,6 +17,12 @@ class Metadata
      */
     protected $value;
     /**
+     * The metadata mutability. 0 for immutable. 1 for mutable
+     *
+     * @var int
+     */
+    protected $mutable;
+    /**
      * The metadata key
      *
      * @return string|null
@@ -56,6 +62,27 @@ class Metadata
     public function setValue(?string $value) : self
     {
         $this->value = $value;
+        return $this;
+    }
+    /**
+     * The metadata mutability. 0 for immutable. 1 for mutable
+     *
+     * @return int|null
+     */
+    public function getMutable() : ?int
+    {
+        return $this->mutable;
+    }
+    /**
+     * The metadata mutability. 0 for immutable. 1 for mutable
+     *
+     * @param int|null $mutable
+     *
+     * @return self
+     */
+    public function setMutable(?int $mutable) : self
+    {
+        $this->mutable = $mutable;
         return $this;
     }
 }

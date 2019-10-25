@@ -35,6 +35,7 @@ class DeleteProject extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements 
      * {@inheritdoc}
      *
      * @throws \Limestone\SDK\Exception\DeleteProjectInternalServerErrorException
+     * @throws \Limestone\SDK\Exception\DeleteProjectUnauthorizedException
      * @throws \Limestone\SDK\Exception\DeleteProjectForbiddenException
      * @throws \Limestone\SDK\Exception\DeleteProjectNotFoundException
      *
@@ -47,6 +48,9 @@ class DeleteProject extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements 
         }
         if (500 === $status && 'application/json' === $contentType) {
             throw new \Limestone\SDK\Exception\DeleteProjectInternalServerErrorException($serializer->deserialize($body, 'Limestone\\SDK\\Model\\Result', 'json'));
+        }
+        if (401 === $status) {
+            throw new \Limestone\SDK\Exception\DeleteProjectUnauthorizedException();
         }
         if (403 === $status) {
             throw new \Limestone\SDK\Exception\DeleteProjectForbiddenException();

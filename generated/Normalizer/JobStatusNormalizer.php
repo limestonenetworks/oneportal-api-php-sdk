@@ -34,6 +34,9 @@ class JobStatusNormalizer implements DenormalizerInterface, NormalizerInterface,
         if (property_exists($data, 'update_time') && $data->{'update_time'} !== null) {
             $object->setUpdateTime($data->{'update_time'});
         }
+        if (property_exists($data, 'job_type') && $data->{'job_type'} !== null) {
+            $object->setJobType($data->{'job_type'});
+        }
         if (property_exists($data, 'status') && $data->{'status'} !== null) {
             $object->setStatus($data->{'status'});
         }
@@ -54,6 +57,9 @@ class JobStatusNormalizer implements DenormalizerInterface, NormalizerInterface,
         }
         if (null !== $object->getUpdateTime()) {
             $data->{'update_time'} = $object->getUpdateTime();
+        }
+        if (null !== $object->getJobType()) {
+            $data->{'job_type'} = $object->getJobType();
         }
         if (null !== $object->getStatus()) {
             $data->{'status'} = $object->getStatus();

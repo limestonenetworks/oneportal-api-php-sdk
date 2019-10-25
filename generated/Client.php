@@ -91,14 +91,39 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
         return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\GetImage($imageName), $fetch);
     }
     /**
+     * Get all instances
+     *
+     * @param array $queryParameters {
+     *     @var bool $deleted Include deleted instances
+     *     @var string $project_id ID of project to filter by
+     * }
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Limestone\SDK\Exception\GetInstanceListForbiddenException
      *
      * @return null|\Limestone\SDK\Model\Instance[]|\Psr\Http\Message\ResponseInterface
      */
-    public function getInstanceList(string $fetch = self::FETCH_OBJECT)
+    public function getInstanceList(array $queryParameters = array(), string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\GetInstanceList(), $fetch);
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\GetInstanceList($queryParameters), $fetch);
+    }
+    /**
+     * Create a server based on the given options
+     *
+     * @param mixed $requestBody
+     * @param array $queryParameters {
+     *     @var bool $wait Whether to wait for the result of the call
+     * }
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\StoreInstanceBadRequestException
+     * @throws \Limestone\SDK\Exception\StoreInstanceUnauthorizedException
+     * @throws \Limestone\SDK\Exception\StoreInstanceForbiddenException
+     * @throws \Limestone\SDK\Exception\StoreInstanceUnprocessableEntityException
+     *
+     * @return null|\Limestone\SDK\Model\Job|\Psr\Http\Message\ResponseInterface
+     */
+    public function storeInstance($requestBody, array $queryParameters = array(), string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\StoreInstance($requestBody, $queryParameters), $fetch);
     }
     /**
      * Get an instance by ID
@@ -115,23 +140,171 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
         return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\GetInstance($instanceId), $fetch);
     }
     /**
-     * Create a server based on the given options
+     * Get an instance's ip addresses by ID
      *
-     * @param string $instanceId ID of project to use
-     * @param mixed $requestBody 
-     * @param array $queryParameters {
-     *     @var bool $wait Whether to wait for the result of the call
-     * }
+     * @param string $instanceId ID of instance to return
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
-     * @throws \Limestone\SDK\Exception\AddIPAddressBadRequestException
-     * @throws \Limestone\SDK\Exception\AddIPAddressForbiddenException
-     * @throws \Limestone\SDK\Exception\AddIPAddressUnprocessableEntityException
+     * @throws \Limestone\SDK\Exception\GetInstanceIPAddressesForbiddenException
+     * @throws \Limestone\SDK\Exception\GetInstanceIPAddressesNotFoundException
      *
-     * @return null|\Limestone\SDK\Model\JobStatus|\Psr\Http\Message\ResponseInterface
+     * @return null|\Limestone\SDK\Model\IpBlock[]|\Psr\Http\Message\ResponseInterface
      */
-    public function addIPAddress(string $instanceId, $requestBody, array $queryParameters = array(), string $fetch = self::FETCH_OBJECT)
+    public function getInstanceIPAddresses(string $instanceId, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\AddIPAddress($instanceId, $requestBody, $queryParameters), $fetch);
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\GetInstanceIPAddresses($instanceId), $fetch);
+    }
+    /**
+     * Remove an ip address from an instance
+     *
+     * @param string $instanceId ID of instance to use
+     * @param int $ipaddress IP to remove
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\DeassignIPAddressBadRequestException
+     * @throws \Limestone\SDK\Exception\DeassignIPAddressForbiddenException
+     * @throws \Limestone\SDK\Exception\DeassignIPAddressUnprocessableEntityException
+     *
+     * @return null|\Limestone\SDK\Model\Job|\Psr\Http\Message\ResponseInterface
+     */
+    public function deassignIPAddress(string $instanceId, int $ipaddress, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\DeassignIPAddress($instanceId, $ipaddress), $fetch);
+    }
+    /**
+     * Assign an ip address to an instance
+     *
+     * @param string $instanceId ID of instance to use
+     * @param int $ipaddress IP to assign
+     * @param \Limestone\SDK\Model\V2InstanceInstanceIdIpaddressIpaddressPostBody $requestBody
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\AssignIPAddressBadRequestException
+     * @throws \Limestone\SDK\Exception\AssignIPAddressForbiddenException
+     * @throws \Limestone\SDK\Exception\AssignIPAddressUnprocessableEntityException
+     *
+     * @return null|\Limestone\SDK\Model\Job|\Psr\Http\Message\ResponseInterface
+     */
+    public function assignIPAddress(string $instanceId, int $ipaddress, \Limestone\SDK\Model\V2InstanceInstanceIdIpaddressIpaddressPostBody $requestBody, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\AssignIPAddress($instanceId, $ipaddress, $requestBody), $fetch);
+    }
+    /**
+     * Release an ip address from an instance
+     *
+     * @param string $instanceId ID of instance to use
+     * @param int $ipaddress IP to release
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\ReleaseIPAddressBadRequestException
+     * @throws \Limestone\SDK\Exception\ReleaseIPAddressForbiddenException
+     * @throws \Limestone\SDK\Exception\ReleaseIPAddressUnprocessableEntityException
+     *
+     * @return null|\Limestone\SDK\Model\Result|\Psr\Http\Message\ResponseInterface
+     */
+    public function releaseIPAddress(string $instanceId, int $ipaddress, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\ReleaseIPAddress($instanceId, $ipaddress), $fetch);
+    }
+    /**
+     * Get all metadata for an instance
+     *
+     * @param string $instanceId ID of the instance
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\GetMetadataForbiddenException
+     *
+     * @return null|\Limestone\SDK\Model\Metadata[]|\Psr\Http\Message\ResponseInterface
+     */
+    public function getMetadata(string $instanceId, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\GetMetadata($instanceId), $fetch);
+    }
+    /**
+     * Create metadata for the instance
+     *
+     * @param string $instanceId ID of the instance
+     * @param \Limestone\SDK\Model\V2InstanceInstanceIdMetadataPostBody $requestBody
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\CreateMetadataBadRequestException
+     * @throws \Limestone\SDK\Exception\CreateMetadataForbiddenException
+     * @throws \Limestone\SDK\Exception\CreateMetadataUnprocessableEntityException
+     *
+     * @return null|\Limestone\SDK\Model\Metadata|\Psr\Http\Message\ResponseInterface
+     */
+    public function createMetadata(string $instanceId, \Limestone\SDK\Model\V2InstanceInstanceIdMetadataPostBody $requestBody, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\CreateMetadata($instanceId, $requestBody), $fetch);
+    }
+    /**
+     * Delete metadata from an instance
+     *
+     * @param string $instanceId ID of the instance
+     * @param string $key The key to delete
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\DeleteMetadataBadRequestException
+     * @throws \Limestone\SDK\Exception\DeleteMetadataForbiddenException
+     *
+     * @return null|\Limestone\SDK\Model\Result|\Psr\Http\Message\ResponseInterface
+     */
+    public function deleteMetadata(string $instanceId, string $key, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\DeleteMetadata($instanceId, $key), $fetch);
+    }
+    /**
+     * Update metadata for the instance
+     *
+     * @param string $instanceId ID of the instance
+     * @param string $key The key to update
+     * @param \Limestone\SDK\Model\V2InstanceInstanceIdMetadataKeyPutBody $requestBody
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\UpdateMetadataBadRequestException
+     * @throws \Limestone\SDK\Exception\UpdateMetadataForbiddenException
+     *
+     * @return null|\Limestone\SDK\Model\Metadata|\Psr\Http\Message\ResponseInterface
+     */
+    public function updateMetadata(string $instanceId, string $key, \Limestone\SDK\Model\V2InstanceInstanceIdMetadataKeyPutBody $requestBody, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\UpdateMetadata($instanceId, $key, $requestBody), $fetch);
+    }
+    /**
+     * Get all tags for an instance
+     *
+     * @param string $instanceId ID of the instance
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\GetTagsForbiddenException
+     *
+     * @return null|\Psr\Http\Message\ResponseInterface
+     */
+    public function getTags(string $instanceId, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\GetTags($instanceId), $fetch);
+    }
+    /**
+     * Create tag for the instance
+     *
+     * @param string $instanceId ID of the instance
+     * @param \Limestone\SDK\Model\V2InstanceInstanceIdTagPostBody $requestBody
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\CreateTagBadRequestException
+     * @throws \Limestone\SDK\Exception\CreateTagForbiddenException
+     * @throws \Limestone\SDK\Exception\CreateTagUnprocessableEntityException
+     *
+     * @return null|\Psr\Http\Message\ResponseInterface
+     */
+    public function createTag(string $instanceId, \Limestone\SDK\Model\V2InstanceInstanceIdTagPostBody $requestBody, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\CreateTag($instanceId, $requestBody), $fetch);
+    }
+    /**
+     * Delete tag from an instance
+     *
+     * @param string $instanceId ID of the instance
+     * @param string $tag The tag to remove
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\DeleteTagBadRequestException
+     * @throws \Limestone\SDK\Exception\DeleteTagForbiddenException
+     *
+     * @return null|\Limestone\SDK\Model\Result|\Psr\Http\Message\ResponseInterface
+     */
+    public function deleteTag(string $instanceId, string $tag, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\DeleteTag($instanceId, $tag), $fetch);
     }
     /**
      * Get a job by ID
@@ -150,6 +323,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
     }
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\GetProjectListUnauthorizedException
      * @throws \Limestone\SDK\Exception\GetProjectListForbiddenException
      *
      * @return null|\Limestone\SDK\Model\Project[]|\Psr\Http\Message\ResponseInterface
@@ -161,9 +335,10 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
     /**
      * Create a project based on the given options
      *
-     * @param \Limestone\SDK\Model\V2ProjectPostBody $requestBody 
+     * @param \Limestone\SDK\Model\V2ProjectPostBody $requestBody
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Limestone\SDK\Exception\StoreProjectBadRequestException
+     * @throws \Limestone\SDK\Exception\StoreProjectUnauthorizedException
      * @throws \Limestone\SDK\Exception\StoreProjectForbiddenException
      * @throws \Limestone\SDK\Exception\StoreProjectUnprocessableEntityException
      *
@@ -179,6 +354,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
      * @param string $projectId ID of project to delete
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Limestone\SDK\Exception\DeleteProjectInternalServerErrorException
+     * @throws \Limestone\SDK\Exception\DeleteProjectUnauthorizedException
      * @throws \Limestone\SDK\Exception\DeleteProjectForbiddenException
      * @throws \Limestone\SDK\Exception\DeleteProjectNotFoundException
      *
@@ -193,6 +369,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
      *
      * @param string $projectId ID of project to return
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\GetProjectUnauthorizedException
      * @throws \Limestone\SDK\Exception\GetProjectForbiddenException
      * @throws \Limestone\SDK\Exception\GetProjectNotFoundException
      *
@@ -207,6 +384,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
      *
      * @param string $projectId ID of project to return quotas for
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\GetProjectQuotasUnauthorizedException
      * @throws \Limestone\SDK\Exception\GetProjectQuotasForbiddenException
      * @throws \Limestone\SDK\Exception\GetProjectQuotasNotFoundException
      *
@@ -217,10 +395,11 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
         return $this->executePsr7Endpoint(new \Limestone\SDK\Endpoint\GetProjectQuotas($projectId), $fetch);
     }
     /**
-     * Get a project's servers
+     * Get a project's instances
      *
      * @param string $projectId ID of project to return servers for
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Limestone\SDK\Exception\GetProjectServersUnauthorizedException
      * @throws \Limestone\SDK\Exception\GetProjectServersForbiddenException
      * @throws \Limestone\SDK\Exception\GetProjectServersNotFoundException
      *
@@ -234,12 +413,13 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
      * Create a server based on the given options
      *
      * @param string $projectId ID of project to use
-     * @param mixed $requestBody 
+     * @param mixed $requestBody
      * @param array $queryParameters {
      *     @var bool $wait Whether to wait for the result of the call
      * }
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Limestone\SDK\Exception\StoreProjectServerBadRequestException
+     * @throws \Limestone\SDK\Exception\StoreProjectServerUnauthorizedException
      * @throws \Limestone\SDK\Exception\StoreProjectServerForbiddenException
      * @throws \Limestone\SDK\Exception\StoreProjectServerUnprocessableEntityException
      *
@@ -259,6 +439,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
      * }
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Limestone\SDK\Exception\DeleteProjectServerInternalServerErrorException
+     * @throws \Limestone\SDK\Exception\DeleteProjectServerUnauthorizedException
      * @throws \Limestone\SDK\Exception\DeleteProjectServerForbiddenException
      * @throws \Limestone\SDK\Exception\DeleteProjectServerNotFoundException
      *
@@ -272,9 +453,10 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
      * Associate a server with a project
      *
      * @param string $projectId ID of project to use
-     * @param \Limestone\SDK\Model\V2ProjectProjectIdServerServerIdPostBody $requestBody 
+     * @param \Limestone\SDK\Model\V2ProjectProjectIdServerServerIdPostBody $requestBody
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Limestone\SDK\Exception\AssociateProjectServerBadRequestException
+     * @throws \Limestone\SDK\Exception\AssociateProjectServerUnauthorizedException
      * @throws \Limestone\SDK\Exception\AssociateProjectServerForbiddenException
      * @throws \Limestone\SDK\Exception\AssociateProjectServerUnprocessableEntityException
      *
@@ -297,7 +479,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
     /**
      * Create an ssh public key based on the given options
      *
-     * @param \Limestone\SDK\Model\V2SshkeyPostBody $requestBody 
+     * @param \Limestone\SDK\Model\V2SshkeyPostBody $requestBody
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Limestone\SDK\Exception\StoreSSHKeyBadRequestException
      * @throws \Limestone\SDK\Exception\StoreSSHKeyForbiddenException
@@ -343,9 +525,8 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
         if (null === $httpClient) {
             $httpClient = \Http\Discovery\HttpClientDiscovery::find();
             $plugins = array();
-            $uri = \Http\Discovery\UriFactoryDiscovery::find()->createUri('http://localhost/');
+            $uri = \Http\Discovery\UriFactoryDiscovery::find()->createUri('https://api.dallas-idc.com');
             $plugins[] = new \Http\Client\Common\Plugin\AddHostPlugin($uri);
-            $plugins[] = new \Http\Client\Common\Plugin\AddPathPlugin($uri);
             $httpClient = new \Http\Client\Common\PluginClient($httpClient, $plugins);
         }
         $messageFactory = \Http\Discovery\MessageFactoryDiscovery::find();

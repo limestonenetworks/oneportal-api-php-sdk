@@ -6,6 +6,6 @@ class GetProjectServersForbiddenException extends \RuntimeException implements C
 {
     public function __construct()
     {
-        parent::__construct('Unauthorized request', 403);
+        parent::__construct('Forbidden request', 403);
     }
 }

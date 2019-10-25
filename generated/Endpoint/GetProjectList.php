@@ -24,6 +24,7 @@ class GetProjectList extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements
     /**
      * {@inheritdoc}
      *
+     * @throws \Limestone\SDK\Exception\GetProjectListUnauthorizedException
      * @throws \Limestone\SDK\Exception\GetProjectListForbiddenException
      *
      * @return null|\Limestone\SDK\Model\Project[]
@@ -32,6 +33,9 @@ class GetProjectList extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements
     {
         if (200 === $status && 'application/json' === $contentType) {
             return $serializer->deserialize($body, 'Limestone\\SDK\\Model\\Project[]', 'json');
+        }
+        if (401 === $status) {
+            throw new \Limestone\SDK\Exception\GetProjectListUnauthorizedException();
         }
         if (403 === $status) {
             throw new \Limestone\SDK\Exception\GetProjectListForbiddenException();

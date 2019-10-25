@@ -34,6 +34,9 @@ class MetadataNormalizer implements DenormalizerInterface, NormalizerInterface, 
         if (property_exists($data, 'value') && $data->{'value'} !== null) {
             $object->setValue($data->{'value'});
         }
+        if (property_exists($data, 'mutable') && $data->{'mutable'} !== null) {
+            $object->setMutable($data->{'mutable'});
+        }
         return $object;
     }
     public function normalize($object, $format = null, array $context = array())
@@ -44,6 +47,9 @@ class MetadataNormalizer implements DenormalizerInterface, NormalizerInterface, 
         }
         if (null !== $object->getValue()) {
             $data->{'value'} = $object->getValue();
+        }
+        if (null !== $object->getMutable()) {
+            $data->{'mutable'} = $object->getMutable();
         }
         return $data;
     }

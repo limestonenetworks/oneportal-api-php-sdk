@@ -37,6 +37,9 @@ class ServerCreateParametersWithPartitionsNormalizer implements DenormalizerInte
         if (property_exists($data, 'host_name') && $data->{'host_name'} !== null) {
             $object->setHostName($data->{'host_name'});
         }
+        if (property_exists($data, 'description') && $data->{'description'} !== null) {
+            $object->setDescription($data->{'description'});
+        }
         if (property_exists($data, 'image') && $data->{'image'} !== null) {
             $object->setImage($data->{'image'});
         }
@@ -80,6 +83,9 @@ class ServerCreateParametersWithPartitionsNormalizer implements DenormalizerInte
         if (property_exists($data, 'facility') && $data->{'facility'} !== null) {
             $object->setFacility($data->{'facility'});
         }
+        if (property_exists($data, 'project_id') && $data->{'project_id'} !== null) {
+            $object->setProjectId($data->{'project_id'});
+        }
         if (property_exists($data, 'partitions') && $data->{'partitions'} !== null) {
             $values_4 = array();
             foreach ($data->{'partitions'} as $value_4) {
@@ -100,6 +106,9 @@ class ServerCreateParametersWithPartitionsNormalizer implements DenormalizerInte
         }
         if (null !== $object->getHostName()) {
             $data->{'host_name'} = $object->getHostName();
+        }
+        if (null !== $object->getDescription()) {
+            $data->{'description'} = $object->getDescription();
         }
         if (null !== $object->getImage()) {
             $data->{'image'} = $object->getImage();
@@ -143,6 +152,9 @@ class ServerCreateParametersWithPartitionsNormalizer implements DenormalizerInte
         }
         if (null !== $object->getFacility()) {
             $data->{'facility'} = $object->getFacility();
+        }
+        if (null !== $object->getProjectId()) {
+            $data->{'project_id'} = $object->getProjectId();
         }
         if (null !== $object->getPartitions()) {
             $values_4 = array();

@@ -6,6 +6,6 @@ class GetProjectQuotasForbiddenException extends \RuntimeException implements Cl
 {
     public function __construct()
     {
-        parent::__construct('Unauthorized request', 403);
+        parent::__construct('Forbidden request', 403);
     }
 }

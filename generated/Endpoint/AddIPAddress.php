@@ -14,7 +14,7 @@ class AddIPAddress extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \
      *     @var bool $wait Whether to wait for the result of the call
      * }
      */
-    public function __construct(string $instanceId, mixed $requestBody, array $queryParameters = array())
+    public function __construct(string $instanceId, $requestBody, array $queryParameters = array())
     {
         $this->instance_id = $instanceId;
         $this->body = $requestBody;

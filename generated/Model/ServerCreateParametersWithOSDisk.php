@@ -27,6 +27,12 @@ class ServerCreateParametersWithOSDisk
      *
      * @var string
      */
+    protected $description;
+    /**
+     * 
+     *
+     * @var string
+     */
     protected $image;
     /**
      * 
@@ -76,6 +82,12 @@ class ServerCreateParametersWithOSDisk
      * @var string
      */
     protected $facility;
+    /**
+     * 
+     *
+     * @var string
+     */
+    protected $projectId;
     /**
      * Installation destination device
      *
@@ -143,6 +155,27 @@ class ServerCreateParametersWithOSDisk
     public function setHostName(?string $hostName) : self
     {
         $this->hostName = $hostName;
+        return $this;
+    }
+    /**
+     * 
+     *
+     * @return string|null
+     */
+    public function getDescription() : ?string
+    {
+        return $this->description;
+    }
+    /**
+     * 
+     *
+     * @param string|null $description
+     *
+     * @return self
+     */
+    public function setDescription(?string $description) : self
+    {
+        $this->description = $description;
         return $this;
     }
     /**
@@ -332,6 +365,27 @@ class ServerCreateParametersWithOSDisk
     public function setFacility(?string $facility) : self
     {
         $this->facility = $facility;
+        return $this;
+    }
+    /**
+     * 
+     *
+     * @return string|null
+     */
+    public function getProjectId() : ?string
+    {
+        return $this->projectId;
+    }
+    /**
+     * 
+     *
+     * @param string|null $projectId
+     *
+     * @return self
+     */
+    public function setProjectId(?string $projectId) : self
+    {
+        $this->projectId = $projectId;
         return $this;
     }
     /**

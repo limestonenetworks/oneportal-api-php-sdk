@@ -34,6 +34,7 @@ class GetProject extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Ja
     /**
      * {@inheritdoc}
      *
+     * @throws \Limestone\SDK\Exception\GetProjectUnauthorizedException
      * @throws \Limestone\SDK\Exception\GetProjectForbiddenException
      * @throws \Limestone\SDK\Exception\GetProjectNotFoundException
      *
@@ -43,6 +44,9 @@ class GetProject extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Ja
     {
         if (200 === $status && 'application/json' === $contentType) {
             return $serializer->deserialize($body, 'Limestone\\SDK\\Model\\Project', 'json');
+        }
+        if (401 === $status) {
+            throw new \Limestone\SDK\Exception\GetProjectUnauthorizedException();
         }
         if (403 === $status) {
             throw new \Limestone\SDK\Exception\GetProjectForbiddenException();

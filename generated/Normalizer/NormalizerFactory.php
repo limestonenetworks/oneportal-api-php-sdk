@@ -8,9 +8,11 @@ class NormalizerFactory
     {
         $normalizers = array();
         $normalizers[] = new \Symfony\Component\Serializer\Normalizer\ArrayDenormalizer();
+        $normalizers[] = new InstanceNormalizer();
+        $normalizers[] = new IpBlockNormalizer();
+        $normalizers[] = new NetInterfaceNormalizer();
         $normalizers[] = new FacilityNormalizer();
         $normalizers[] = new MetadataNormalizer();
-        $normalizers[] = new InstanceNormalizer();
         $normalizers[] = new JobNormalizer();
         $normalizers[] = new JobStatusNormalizer();
         $normalizers[] = new CoreNormalizer();
@@ -30,6 +32,10 @@ class NormalizerFactory
         $normalizers[] = new ServerCreateParametersWithPartitionsNormalizer();
         $normalizers[] = new ServerCreateParametersWithOSDiskNormalizer();
         $normalizers[] = new ResultNormalizer();
+        $normalizers[] = new V2InstanceInstanceIdIpaddressIpaddressPostBodyNormalizer();
+        $normalizers[] = new V2InstanceInstanceIdMetadataPostBodyNormalizer();
+        $normalizers[] = new V2InstanceInstanceIdMetadataKeyPutBodyNormalizer();
+        $normalizers[] = new V2InstanceInstanceIdTagPostBodyNormalizer();
         $normalizers[] = new V2ProjectPostBodyNormalizer();
         $normalizers[] = new V2ProjectProjectIdServerServerIdPostBodyNormalizer();
         $normalizers[] = new V2SshkeyGetResponse200Normalizer();

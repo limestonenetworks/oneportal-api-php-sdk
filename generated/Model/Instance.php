@@ -35,11 +35,47 @@ class Instance
      */
     protected $serverId;
     /**
+     * The project_id for the instance
+     *
+     * @var string
+     */
+    protected $projectId;
+    /**
+     * The status of the instance
+     *
+     * @var string
+     */
+    protected $status;
+    /**
+     * The core of the instance
+     *
+     * @var mixed
+     */
+    protected $core;
+    /**
      * 
      *
      * @var Metadata[]
      */
     protected $metadata;
+    /**
+     * 
+     *
+     * @var string[]
+     */
+    protected $tags;
+    /**
+     * 
+     *
+     * @var IpBlock[]
+     */
+    protected $ipSubnets;
+    /**
+     * 
+     *
+     * @var NetInterface[]
+     */
+    protected $netInterfaces;
     /**
      * The resource uuid
      *
@@ -146,6 +182,69 @@ class Instance
         return $this;
     }
     /**
+     * The project_id for the instance
+     *
+     * @return string|null
+     */
+    public function getProjectId() : ?string
+    {
+        return $this->projectId;
+    }
+    /**
+     * The project_id for the instance
+     *
+     * @param string|null $projectId
+     *
+     * @return self
+     */
+    public function setProjectId(?string $projectId) : self
+    {
+        $this->projectId = $projectId;
+        return $this;
+    }
+    /**
+     * The status of the instance
+     *
+     * @return string|null
+     */
+    public function getStatus() : ?string
+    {
+        return $this->status;
+    }
+    /**
+     * The status of the instance
+     *
+     * @param string|null $status
+     *
+     * @return self
+     */
+    public function setStatus(?string $status) : self
+    {
+        $this->status = $status;
+        return $this;
+    }
+    /**
+     * The core of the instance
+     *
+     * @return mixed
+     */
+    public function getCore()
+    {
+        return $this->core;
+    }
+    /**
+     * The core of the instance
+     *
+     * @param mixed $core
+     *
+     * @return self
+     */
+    public function setCore($core) : self
+    {
+        $this->core = $core;
+        return $this;
+    }
+    /**
      * 
      *
      * @return Metadata[]|null
@@ -164,6 +263,69 @@ class Instance
     public function setMetadata(?array $metadata) : self
     {
         $this->metadata = $metadata;
+        return $this;
+    }
+    /**
+     * 
+     *
+     * @return string[]|null
+     */
+    public function getTags() : ?array
+    {
+        return $this->tags;
+    }
+    /**
+     * 
+     *
+     * @param string[]|null $tags
+     *
+     * @return self
+     */
+    public function setTags(?array $tags) : self
+    {
+        $this->tags = $tags;
+        return $this;
+    }
+    /**
+     * 
+     *
+     * @return IpBlock[]|null
+     */
+    public function getIpSubnets() : ?array
+    {
+        return $this->ipSubnets;
+    }
+    /**
+     * 
+     *
+     * @param IpBlock[]|null $ipSubnets
+     *
+     * @return self
+     */
+    public function setIpSubnets(?array $ipSubnets) : self
+    {
+        $this->ipSubnets = $ipSubnets;
+        return $this;
+    }
+    /**
+     * 
+     *
+     * @return NetInterface[]|null
+     */
+    public function getNetInterfaces() : ?array
+    {
+        return $this->netInterfaces;
+    }
+    /**
+     * 
+     *
+     * @param NetInterface[]|null $netInterfaces
+     *
+     * @return self
+     */
+    public function setNetInterfaces(?array $netInterfaces) : self
+    {
+        $this->netInterfaces = $netInterfaces;
         return $this;
     }
 }

@@ -51,6 +51,7 @@ class DeleteProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint imple
      * {@inheritdoc}
      *
      * @throws \Limestone\SDK\Exception\DeleteProjectServerInternalServerErrorException
+     * @throws \Limestone\SDK\Exception\DeleteProjectServerUnauthorizedException
      * @throws \Limestone\SDK\Exception\DeleteProjectServerForbiddenException
      * @throws \Limestone\SDK\Exception\DeleteProjectServerNotFoundException
      *
@@ -63,6 +64,9 @@ class DeleteProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint imple
         }
         if (500 === $status && 'application/json' === $contentType) {
             throw new \Limestone\SDK\Exception\DeleteProjectServerInternalServerErrorException($serializer->deserialize($body, 'Limestone\\SDK\\Model\\Result', 'json'));
+        }
+        if (401 === $status) {
+            throw new \Limestone\SDK\Exception\DeleteProjectServerUnauthorizedException();
         }
         if (403 === $status) {
             throw new \Limestone\SDK\Exception\DeleteProjectServerForbiddenException();

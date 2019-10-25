@@ -4,6 +4,18 @@ namespace Limestone\SDK\Endpoint;
 
 class GetInstanceList extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jane\OpenApiRuntime\Client\Psr7HttplugEndpoint
 {
+    /**
+     * Get all instances
+     *
+     * @param array $queryParameters {
+     *     @var bool $deleted Include deleted instances
+     *     @var string $project_id ID of project to filter by
+     * }
+     */
+    public function __construct(array $queryParameters = array())
+    {
+        $this->queryParameters = $queryParameters;
+    }
     use \Jane\OpenApiRuntime\Client\Psr7HttplugEndpointTrait;
     public function getMethod() : string
     {
@@ -20,6 +32,16 @@ class GetInstanceList extends \Jane\OpenApiRuntime\Client\BaseEndpoint implement
     public function getExtraHeaders() : array
     {
         return array('Accept' => array('application/json'));
+    }
+    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    {
+        $optionsResolver = parent::getQueryOptionsResolver();
+        $optionsResolver->setDefined(array('deleted', 'project_id'));
+        $optionsResolver->setRequired(array());
+        $optionsResolver->setDefaults(array());
+        $optionsResolver->setAllowedTypes('deleted', array('bool'));
+        $optionsResolver->setAllowedTypes('project_id', array('string'));
+        return $optionsResolver;
     }
     /**
      * {@inheritdoc}

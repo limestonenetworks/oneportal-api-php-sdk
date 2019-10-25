@@ -37,6 +37,9 @@ class ServerCreateParametersNormalizer implements DenormalizerInterface, Normali
         if (property_exists($data, 'host_name') && $data->{'host_name'} !== null) {
             $object->setHostName($data->{'host_name'});
         }
+        if (property_exists($data, 'description') && $data->{'description'} !== null) {
+            $object->setDescription($data->{'description'});
+        }
         if (property_exists($data, 'image') && $data->{'image'} !== null) {
             $object->setImage($data->{'image'});
         }
@@ -80,6 +83,9 @@ class ServerCreateParametersNormalizer implements DenormalizerInterface, Normali
         if (property_exists($data, 'facility') && $data->{'facility'} !== null) {
             $object->setFacility($data->{'facility'});
         }
+        if (property_exists($data, 'project_id') && $data->{'project_id'} !== null) {
+            $object->setProjectId($data->{'project_id'});
+        }
         return $object;
     }
     public function normalize($object, $format = null, array $context = array())
@@ -93,6 +99,9 @@ class ServerCreateParametersNormalizer implements DenormalizerInterface, Normali
         }
         if (null !== $object->getHostName()) {
             $data->{'host_name'} = $object->getHostName();
+        }
+        if (null !== $object->getDescription()) {
+            $data->{'description'} = $object->getDescription();
         }
         if (null !== $object->getImage()) {
             $data->{'image'} = $object->getImage();
@@ -136,6 +145,9 @@ class ServerCreateParametersNormalizer implements DenormalizerInterface, Normali
         }
         if (null !== $object->getFacility()) {
             $data->{'facility'} = $object->getFacility();
+        }
+        if (null !== $object->getProjectId()) {
+            $data->{'project_id'} = $object->getProjectId();
         }
         return $data;
     }

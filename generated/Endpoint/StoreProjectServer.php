@@ -9,7 +9,7 @@ class StoreProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint implem
      * Create a server based on the given options
      *
      * @param string $projectId ID of project to use
-     * @param mixed $requestBody 
+     * @param mixed $requestBody
      * @param array $queryParameters {
      *     @var bool $wait Whether to wait for the result of the call
      * }
@@ -53,6 +53,7 @@ class StoreProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint implem
      * {@inheritdoc}
      *
      * @throws \Limestone\SDK\Exception\StoreProjectServerBadRequestException
+     * @throws \Limestone\SDK\Exception\StoreProjectServerUnauthorizedException
      * @throws \Limestone\SDK\Exception\StoreProjectServerForbiddenException
      * @throws \Limestone\SDK\Exception\StoreProjectServerUnprocessableEntityException
      *
@@ -65,6 +66,9 @@ class StoreProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint implem
         }
         if (400 === $status) {
             throw new \Limestone\SDK\Exception\StoreProjectServerBadRequestException();
+        }
+        if (401 === $status) {
+            throw new \Limestone\SDK\Exception\StoreProjectServerUnauthorizedException();
         }
         if (403 === $status) {
             throw new \Limestone\SDK\Exception\StoreProjectServerForbiddenException();

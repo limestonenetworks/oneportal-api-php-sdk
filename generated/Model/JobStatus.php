@@ -17,6 +17,12 @@ class JobStatus
      */
     protected $updateTime;
     /**
+     * The type of job
+     *
+     * @var string
+     */
+    protected $jobType;
+    /**
      * The status of this update
      *
      * @var string
@@ -68,6 +74,27 @@ class JobStatus
     public function setUpdateTime(?string $updateTime) : self
     {
         $this->updateTime = $updateTime;
+        return $this;
+    }
+    /**
+     * The type of job
+     *
+     * @return string|null
+     */
+    public function getJobType() : ?string
+    {
+        return $this->jobType;
+    }
+    /**
+     * The type of job
+     *
+     * @param string|null $jobType
+     *
+     * @return self
+     */
+    public function setJobType(?string $jobType) : self
+    {
+        $this->jobType = $jobType;
         return $this;
     }
     /**

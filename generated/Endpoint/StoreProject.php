@@ -37,6 +37,7 @@ class StoreProject extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \
      * {@inheritdoc}
      *
      * @throws \Limestone\SDK\Exception\StoreProjectBadRequestException
+     * @throws \Limestone\SDK\Exception\StoreProjectUnauthorizedException
      * @throws \Limestone\SDK\Exception\StoreProjectForbiddenException
      * @throws \Limestone\SDK\Exception\StoreProjectUnprocessableEntityException
      *
@@ -49,6 +50,9 @@ class StoreProject extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \
         }
         if (400 === $status && 'application/json' === $contentType) {
             throw new \Limestone\SDK\Exception\StoreProjectBadRequestException($serializer->deserialize($body, 'Limestone\\SDK\\Model\\Result', 'json'));
+        }
+        if (401 === $status) {
+            throw new \Limestone\SDK\Exception\StoreProjectUnauthorizedException();
         }
         if (403 === $status) {
             throw new \Limestone\SDK\Exception\StoreProjectForbiddenException();

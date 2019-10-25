@@ -40,6 +40,7 @@ class AssociateProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint im
      * {@inheritdoc}
      *
      * @throws \Limestone\SDK\Exception\AssociateProjectServerBadRequestException
+     * @throws \Limestone\SDK\Exception\AssociateProjectServerUnauthorizedException
      * @throws \Limestone\SDK\Exception\AssociateProjectServerForbiddenException
      * @throws \Limestone\SDK\Exception\AssociateProjectServerUnprocessableEntityException
      *
@@ -52,6 +53,9 @@ class AssociateProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint im
         }
         if (400 === $status && 'application/json' === $contentType) {
             throw new \Limestone\SDK\Exception\AssociateProjectServerBadRequestException($serializer->deserialize($body, 'Limestone\\SDK\\Model\\Result', 'json'));
+        }
+        if (401 === $status) {
+            throw new \Limestone\SDK\Exception\AssociateProjectServerUnauthorizedException();
         }
         if (403 === $status) {
             throw new \Limestone\SDK\Exception\AssociateProjectServerForbiddenException();

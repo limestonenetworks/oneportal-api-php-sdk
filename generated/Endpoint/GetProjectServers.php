@@ -6,7 +6,7 @@ class GetProjectServers extends \Jane\OpenApiRuntime\Client\BaseEndpoint impleme
 {
     protected $project_id;
     /**
-     * Get a project's servers
+     * Get a project's instances
      *
      * @param string $projectId ID of project to return servers for
      */
@@ -34,6 +34,7 @@ class GetProjectServers extends \Jane\OpenApiRuntime\Client\BaseEndpoint impleme
     /**
      * {@inheritdoc}
      *
+     * @throws \Limestone\SDK\Exception\GetProjectServersUnauthorizedException
      * @throws \Limestone\SDK\Exception\GetProjectServersForbiddenException
      * @throws \Limestone\SDK\Exception\GetProjectServersNotFoundException
      *
@@ -43,6 +44,9 @@ class GetProjectServers extends \Jane\OpenApiRuntime\Client\BaseEndpoint impleme
     {
         if (200 === $status && 'application/json' === $contentType) {
             return $serializer->deserialize($body, 'Limestone\\SDK\\Model\\Instance[]', 'json');
+        }
+        if (401 === $status) {
+            throw new \Limestone\SDK\Exception\GetProjectServersUnauthorizedException();
         }
         if (403 === $status) {
             throw new \Limestone\SDK\Exception\GetProjectServersForbiddenException();

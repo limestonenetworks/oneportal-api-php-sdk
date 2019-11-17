@@ -107,6 +107,7 @@ trait InteractsWithApi
 
     public function toArray($array)
     {
+        $array = $array ?? []; // Initialize array
         $_this = $this;
         $array = array_map(function ($item) use($_this) {
             if (is_object($item)) {

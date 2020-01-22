@@ -5,19 +5,43 @@ namespace Limestone\SDK\Model;
 class Core
 {
     /**
-     * The flavor
+     * Core ID
      *
      * @var string
      */
     protected $id;
     /**
-     * The full name
+     * Core Name
      *
      * @var string
      */
     protected $name;
     /**
-     * The flavor
+     * Billing rate of the core
+     *
+     * @var float
+     */
+    protected $rate;
+    /**
+     * Billing interval of the core
+     *
+     * @var string
+     */
+    protected $interval;
+    /**
+     * Core Description
+     *
+     * @var string
+     */
+    protected $description;
+    /**
+     * 
+     *
+     * @var Metadata[]
+     */
+    protected $metadata;
+    /**
+     * Core ID
      *
      * @return string|null
      */
@@ -26,7 +50,7 @@ class Core
         return $this->id;
     }
     /**
-     * The flavor
+     * Core ID
      *
      * @param string|null $id
      *
@@ -38,7 +62,7 @@ class Core
         return $this;
     }
     /**
-     * The full name
+     * Core Name
      *
      * @return string|null
      */
@@ -47,7 +71,7 @@ class Core
         return $this->name;
     }
     /**
-     * The full name
+     * Core Name
      *
      * @param string|null $name
      *
@@ -56,6 +80,90 @@ class Core
     public function setName(?string $name) : self
     {
         $this->name = $name;
+        return $this;
+    }
+    /**
+     * Billing rate of the core
+     *
+     * @return float|null
+     */
+    public function getRate() : ?float
+    {
+        return $this->rate;
+    }
+    /**
+     * Billing rate of the core
+     *
+     * @param float|null $rate
+     *
+     * @return self
+     */
+    public function setRate(?float $rate) : self
+    {
+        $this->rate = $rate;
+        return $this;
+    }
+    /**
+     * Billing interval of the core
+     *
+     * @return string|null
+     */
+    public function getInterval() : ?string
+    {
+        return $this->interval;
+    }
+    /**
+     * Billing interval of the core
+     *
+     * @param string|null $interval
+     *
+     * @return self
+     */
+    public function setInterval(?string $interval) : self
+    {
+        $this->interval = $interval;
+        return $this;
+    }
+    /**
+     * Core Description
+     *
+     * @return string|null
+     */
+    public function getDescription() : ?string
+    {
+        return $this->description;
+    }
+    /**
+     * Core Description
+     *
+     * @param string|null $description
+     *
+     * @return self
+     */
+    public function setDescription(?string $description) : self
+    {
+        $this->description = $description;
+        return $this;
+    }
+    /**
+     * 
+     *
+     * @return Metadata[]|null
+     */
+    public function getMetadata() : ?array
+    {
+        return $this->metadata;
+    }
+    /**
+     * 
+     *
+     * @param Metadata[]|null $metadata
+     *
+     * @return self
+     */
+    public function setMetadata(?array $metadata) : self
+    {
+        $this->metadata = $metadata;
         return $this;
     }
 }

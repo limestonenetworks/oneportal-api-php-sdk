@@ -9,7 +9,7 @@ class StoreProjectServer extends \Jane\OpenApiRuntime\Client\BaseEndpoint implem
      * Create a server based on the given options
      *
      * @param string $projectId ID of project to use
-     * @param mixed $requestBody
+     * @param mixed $requestBody 
      * @param array $queryParameters {
      *     @var bool $wait Whether to wait for the result of the call
      * }

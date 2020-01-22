@@ -109,7 +109,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
     /**
      * Create a server based on the given options
      *
-     * @param mixed $requestBody
+     * @param mixed $requestBody 
      * @param array $queryParameters {
      *     @var bool $wait Whether to wait for the result of the call
      * }
@@ -174,7 +174,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
      *
      * @param string $instanceId ID of instance to use
      * @param int $ipaddress IP to assign
-     * @param \Limestone\SDK\Model\V2InstanceInstanceIdIpaddressIpaddressPostBody $requestBody
+     * @param \Limestone\SDK\Model\V2InstanceInstanceIdIpaddressIpaddressPostBody $requestBody 
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Limestone\SDK\Exception\AssignIPAddressBadRequestException
      * @throws \Limestone\SDK\Exception\AssignIPAddressForbiddenException
@@ -219,7 +219,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
      * Create metadata for the instance
      *
      * @param string $instanceId ID of the instance
-     * @param \Limestone\SDK\Model\V2InstanceInstanceIdMetadataPostBody $requestBody
+     * @param \Limestone\SDK\Model\V2InstanceInstanceIdMetadataPostBody $requestBody 
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Limestone\SDK\Exception\CreateMetadataBadRequestException
      * @throws \Limestone\SDK\Exception\CreateMetadataForbiddenException
@@ -251,7 +251,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
      *
      * @param string $instanceId ID of the instance
      * @param string $key The key to update
-     * @param \Limestone\SDK\Model\V2InstanceInstanceIdMetadataKeyPutBody $requestBody
+     * @param \Limestone\SDK\Model\V2InstanceInstanceIdMetadataKeyPutBody $requestBody 
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Limestone\SDK\Exception\UpdateMetadataBadRequestException
      * @throws \Limestone\SDK\Exception\UpdateMetadataForbiddenException
@@ -279,7 +279,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
      * Create tag for the instance
      *
      * @param string $instanceId ID of the instance
-     * @param \Limestone\SDK\Model\V2InstanceInstanceIdTagPostBody $requestBody
+     * @param \Limestone\SDK\Model\V2InstanceInstanceIdTagPostBody $requestBody 
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Limestone\SDK\Exception\CreateTagBadRequestException
      * @throws \Limestone\SDK\Exception\CreateTagForbiddenException
@@ -335,7 +335,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
     /**
      * Create a project based on the given options
      *
-     * @param \Limestone\SDK\Model\V2ProjectPostBody $requestBody
+     * @param \Limestone\SDK\Model\V2ProjectPostBody $requestBody 
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Limestone\SDK\Exception\StoreProjectBadRequestException
      * @throws \Limestone\SDK\Exception\StoreProjectUnauthorizedException
@@ -413,7 +413,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
      * Create a server based on the given options
      *
      * @param string $projectId ID of project to use
-     * @param mixed $requestBody
+     * @param mixed $requestBody 
      * @param array $queryParameters {
      *     @var bool $wait Whether to wait for the result of the call
      * }
@@ -453,7 +453,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
      * Associate a server with a project
      *
      * @param string $projectId ID of project to use
-     * @param \Limestone\SDK\Model\V2ProjectProjectIdServerServerIdPostBody $requestBody
+     * @param \Limestone\SDK\Model\V2ProjectProjectIdServerServerIdPostBody $requestBody 
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Limestone\SDK\Exception\AssociateProjectServerBadRequestException
      * @throws \Limestone\SDK\Exception\AssociateProjectServerUnauthorizedException
@@ -479,7 +479,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr7HttplugClient
     /**
      * Create an ssh public key based on the given options
      *
-     * @param \Limestone\SDK\Model\V2SshkeyPostBody $requestBody
+     * @param \Limestone\SDK\Model\V2SshkeyPostBody $requestBody 
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Limestone\SDK\Exception\StoreSSHKeyBadRequestException
      * @throws \Limestone\SDK\Exception\StoreSSHKeyForbiddenException

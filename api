@@ -18,6 +18,7 @@ $application->add(new \Limestone\Command\CreateSSHKeyCommand());
 $application->add(new \Limestone\Command\DeleteProjectCommand());
 $application->add(new \Limestone\Command\DeleteProjectServerCommand());
 $application->add(new \Limestone\Command\DeleteSSHKeyCommand());
+$application->add(new \Limestone\Command\GetCoreCommand());
 $application->add(new \Limestone\Command\GetCoreListCommand());
 $application->add(new \Limestone\Command\GetFacilityStockCommand());
 $application->add(new \Limestone\Command\GetFacilityListCommand());

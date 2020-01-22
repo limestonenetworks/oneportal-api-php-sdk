@@ -47,9 +47,9 @@ class Instance
      */
     protected $status;
     /**
-     * The core of the instance
+     * 
      *
-     * @var mixed
+     * @var Core
      */
     protected $core;
     /**
@@ -224,22 +224,22 @@ class Instance
         return $this;
     }
     /**
-     * The core of the instance
+     * 
      *
-     * @return mixed
+     * @return Core|null
      */
-    public function getCore()
+    public function getCore() : ?Core
     {
         return $this->core;
     }
     /**
-     * The core of the instance
+     * 
      *
-     * @param mixed $core
+     * @param Core|null $core
      *
      * @return self
      */
-    public function setCore($core) : self
+    public function setCore(?Core $core) : self
     {
         $this->core = $core;
         return $this;

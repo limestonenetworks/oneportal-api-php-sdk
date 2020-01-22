@@ -7,7 +7,7 @@ class StoreInstance extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements 
     /**
      * Create a server based on the given options
      *
-     * @param mixed $requestBody
+     * @param mixed $requestBody 
      * @param array $queryParameters {
      *     @var bool $wait Whether to wait for the result of the call
      * }

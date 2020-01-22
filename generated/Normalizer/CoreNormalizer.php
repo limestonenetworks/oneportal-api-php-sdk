@@ -34,6 +34,22 @@ class CoreNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
         if (property_exists($data, 'name') && $data->{'name'} !== null) {
             $object->setName($data->{'name'});
         }
+        if (property_exists($data, 'rate') && $data->{'rate'} !== null) {
+            $object->setRate($data->{'rate'});
+        }
+        if (property_exists($data, 'interval') && $data->{'interval'} !== null) {
+            $object->setInterval($data->{'interval'});
+        }
+        if (property_exists($data, 'description') && $data->{'description'} !== null) {
+            $object->setDescription($data->{'description'});
+        }
+        if (property_exists($data, 'metadata') && $data->{'metadata'} !== null) {
+            $values = array();
+            foreach ($data->{'metadata'} as $value) {
+                $values[] = $this->denormalizer->denormalize($value, 'Limestone\\SDK\\Model\\Metadata', 'json', $context);
+            }
+            $object->setMetadata($values);
+        }
         return $object;
     }
     public function normalize($object, $format = null, array $context = array())
@@ -44,6 +60,22 @@ class CoreNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
         }
         if (null !== $object->getName()) {
             $data->{'name'} = $object->getName();
+        }
+        if (null !== $object->getRate()) {
+            $data->{'rate'} = $object->getRate();
+        }
+        if (null !== $object->getInterval()) {
+            $data->{'interval'} = $object->getInterval();
+        }
+        if (null !== $object->getDescription()) {
+            $data->{'description'} = $object->getDescription();
+        }
+        if (null !== $object->getMetadata()) {
+            $values = array();
+            foreach ($object->getMetadata() as $value) {
+                $values[] = $this->normalizer->normalize($value, 'json', $context);
+            }
+            $data->{'metadata'} = $values;
         }
         return $data;
     }

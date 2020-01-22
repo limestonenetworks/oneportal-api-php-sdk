@@ -50,7 +50,7 @@ class InstanceNormalizer implements DenormalizerInterface, NormalizerInterface, 
             $object->setStatus($data->{'status'});
         }
         if (property_exists($data, 'core') && $data->{'core'} !== null) {
-            $object->setCore($data->{'core'});
+            $object->setCore($this->denormalizer->denormalize($data->{'core'}, 'Limestone\\SDK\\Model\\Core', 'json', $context));
         }
         if (property_exists($data, 'metadata') && $data->{'metadata'} !== null) {
             $values = array();
@@ -107,7 +107,7 @@ class InstanceNormalizer implements DenormalizerInterface, NormalizerInterface, 
             $data->{'status'} = $object->getStatus();
         }
         if (null !== $object->getCore()) {
-            $data->{'core'} = $object->getCore();
+            $data->{'core'} = $this->normalizer->normalize($object->getCore(), 'json', $context);
         }
         if (null !== $object->getMetadata()) {
             $values = array();

@@ -10,12 +10,12 @@ class NormalizerFactory
         $normalizers[] = new \Symfony\Component\Serializer\Normalizer\ArrayDenormalizer();
         $normalizers[] = new InstanceNormalizer();
         $normalizers[] = new IpBlockNormalizer();
+        $normalizers[] = new CoreNormalizer();
         $normalizers[] = new NetInterfaceNormalizer();
         $normalizers[] = new FacilityNormalizer();
         $normalizers[] = new MetadataNormalizer();
         $normalizers[] = new JobNormalizer();
         $normalizers[] = new JobStatusNormalizer();
-        $normalizers[] = new CoreNormalizer();
         $normalizers[] = new ProjectNormalizer();
         $normalizers[] = new ImageNormalizer();
         $normalizers[] = new SSHKeyNormalizer();

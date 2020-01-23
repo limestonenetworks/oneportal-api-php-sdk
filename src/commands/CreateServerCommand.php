@@ -25,7 +25,7 @@ class CreateServerCommand extends AbstractCommand
             ->addOption('core', 'c', InputOption::VALUE_REQUIRED, 'Core Name')
             ->addOption('facility', 'f', InputOption::VALUE_REQUIRED, 'Facility Name')
             ->addOption('image', 'i', InputOption::VALUE_REQUIRED, 'Image Name')
-            ->addOption('os-disk', 'd', InputOption::VALUE_REQUIRED, 'OS Disk Device', '/dev/sda')
+            ->addOption('os-disk', 'd', InputOption::VALUE_REQUIRED, 'OS Disk Device')
             ->addOption('quantity', null, InputOption::VALUE_REQUIRED, 'Quantity of servers to create', 1)
             ->addOption('hostname', null, InputOption::VALUE_OPTIONAL, 'Hostname')
             //->addOption('description', null, InputOption::VALUE_REQUIRED, 'Description for the server')
@@ -63,17 +63,23 @@ class CreateServerCommand extends AbstractCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $client = $this->getClient();
+        $core = $input->getOption('core');
+        if (!$core) {
+            $err = $output->getErrorOutput();
+            $err->writeln("<error>No core specified</error>");
+            exit(1);
+        }
         $partitions = $this->getPartitions($input);
         if (!is_null($partitions)) {
             $body = new ServerCreateParametersWithPartitions();
             $body->setPartitions($partitions);
         } else {
             $body = new ServerCreateParametersWithOSDisk();
-            $body->setOsDisk($input->getOption('os-disk'));
+            $body->setOsDisk($input->getOption('os-disk') ?? $this->getOsDiskAutoType($core));
         }
 
         $body->setName($input->getArgument('name'));
-        $body->setCore($input->getOption('core'));
+        $body->setCore($core);
         $body->setFacility($input->getOption('facility'));
         $body->setImage($input->getOption('image'));
         $body->setQuantity($input->getOption('quantity'));
@@ -92,7 +98,7 @@ class CreateServerCommand extends AbstractCommand
             if (sizeOf($_meta) < 2) {
                 $err = $output->getErrorOutput();
                 $err->writeln("<error>Could not parse metadata option: {$m}. Metadata must be specified like: key=value</error>");
-                exit();
+                exit(1);
             }
 
             $key = array_shift($_meta);
@@ -150,5 +156,18 @@ class CreateServerCommand extends AbstractCommand
         }
 
         return $partitions;
+    }
+
+    protected function getOsDiskAutoType($core): string
+    {
+        $client = $this->getClient();
+        $metadata = $this->serializeModel($client->getCore($core))['metadata'];
+        foreach ($metadata as $item) {
+            if ($item['key'] != 'disk_type') continue;
+            if ($item['value'] == 'NVMe') return '/dev/nvme0n1';
+            break;
+        }
+
+        return '/dev/sda';
     }
 }

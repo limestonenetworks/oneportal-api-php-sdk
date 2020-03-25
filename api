@@ -5,8 +5,6 @@
 require __DIR__.'/vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
-$dotenv = \Dotenv\Dotenv::create(__DIR__);
-$dotenv->load();
 $application = new \Limestone\Application();
 
 // ... register commands

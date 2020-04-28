@@ -29,6 +29,12 @@ class IpBlock
      */
     protected $netmask;
     /**
+     * Device the subnet is allocated to
+     *
+     * @var string
+     */
+    protected $device;
+    /**
      * Create timestamp of IP block allocation
      *
      * @var \DateTime
@@ -40,6 +46,12 @@ class IpBlock
      * @var string
      */
     protected $networkType;
+    /**
+     * Assignment type of the subnet
+     *
+     * @var string
+     */
+    protected $assignmentType;
     /**
      * Network with CIDR
      *
@@ -125,6 +137,27 @@ class IpBlock
         return $this;
     }
     /**
+     * Device the subnet is allocated to
+     *
+     * @return string|null
+     */
+    public function getDevice() : ?string
+    {
+        return $this->device;
+    }
+    /**
+     * Device the subnet is allocated to
+     *
+     * @param string|null $device
+     *
+     * @return self
+     */
+    public function setDevice(?string $device) : self
+    {
+        $this->device = $device;
+        return $this;
+    }
+    /**
      * Create timestamp of IP block allocation
      *
      * @return \DateTime|null
@@ -164,6 +197,27 @@ class IpBlock
     public function setNetworkType(?string $networkType) : self
     {
         $this->networkType = $networkType;
+        return $this;
+    }
+    /**
+     * Assignment type of the subnet
+     *
+     * @return string|null
+     */
+    public function getAssignmentType() : ?string
+    {
+        return $this->assignmentType;
+    }
+    /**
+     * Assignment type of the subnet
+     *
+     * @param string|null $assignmentType
+     *
+     * @return self
+     */
+    public function setAssignmentType(?string $assignmentType) : self
+    {
+        $this->assignmentType = $assignmentType;
         return $this;
     }
 }

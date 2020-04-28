@@ -47,11 +47,41 @@ class Instance
      */
     protected $status;
     /**
+     * The management IP of the instance
+     *
+     * @var string
+     */
+    protected $managementIp;
+    /**
+     * The date that the instance was provisioned
+     *
+     * @var string
+     */
+    protected $provisionDate;
+    /**
+     * The job id for the create job of this instance
+     *
+     * @var string
+     */
+    protected $createJob;
+    /**
+     * The type of the item (instance)
+     *
+     * @var string
+     */
+    protected $itemType;
+    /**
      * 
      *
      * @var Core
      */
     protected $core;
+    /**
+     * 
+     *
+     * @var Facility
+     */
+    protected $facility;
     /**
      * 
      *
@@ -70,6 +100,12 @@ class Instance
      * @var IpBlock[]
      */
     protected $ipSubnets;
+    /**
+     * 
+     *
+     * @var EventLog[]
+     */
+    protected $latestProvision;
     /**
      * 
      *
@@ -224,6 +260,90 @@ class Instance
         return $this;
     }
     /**
+     * The management IP of the instance
+     *
+     * @return string|null
+     */
+    public function getManagementIp() : ?string
+    {
+        return $this->managementIp;
+    }
+    /**
+     * The management IP of the instance
+     *
+     * @param string|null $managementIp
+     *
+     * @return self
+     */
+    public function setManagementIp(?string $managementIp) : self
+    {
+        $this->managementIp = $managementIp;
+        return $this;
+    }
+    /**
+     * The date that the instance was provisioned
+     *
+     * @return string|null
+     */
+    public function getProvisionDate() : ?string
+    {
+        return $this->provisionDate;
+    }
+    /**
+     * The date that the instance was provisioned
+     *
+     * @param string|null $provisionDate
+     *
+     * @return self
+     */
+    public function setProvisionDate(?string $provisionDate) : self
+    {
+        $this->provisionDate = $provisionDate;
+        return $this;
+    }
+    /**
+     * The job id for the create job of this instance
+     *
+     * @return string|null
+     */
+    public function getCreateJob() : ?string
+    {
+        return $this->createJob;
+    }
+    /**
+     * The job id for the create job of this instance
+     *
+     * @param string|null $createJob
+     *
+     * @return self
+     */
+    public function setCreateJob(?string $createJob) : self
+    {
+        $this->createJob = $createJob;
+        return $this;
+    }
+    /**
+     * The type of the item (instance)
+     *
+     * @return string|null
+     */
+    public function getItemType() : ?string
+    {
+        return $this->itemType;
+    }
+    /**
+     * The type of the item (instance)
+     *
+     * @param string|null $itemType
+     *
+     * @return self
+     */
+    public function setItemType(?string $itemType) : self
+    {
+        $this->itemType = $itemType;
+        return $this;
+    }
+    /**
      * 
      *
      * @return Core|null
@@ -242,6 +362,27 @@ class Instance
     public function setCore(?Core $core) : self
     {
         $this->core = $core;
+        return $this;
+    }
+    /**
+     * 
+     *
+     * @return Facility|null
+     */
+    public function getFacility() : ?Facility
+    {
+        return $this->facility;
+    }
+    /**
+     * 
+     *
+     * @param Facility|null $facility
+     *
+     * @return self
+     */
+    public function setFacility(?Facility $facility) : self
+    {
+        $this->facility = $facility;
         return $this;
     }
     /**
@@ -305,6 +446,27 @@ class Instance
     public function setIpSubnets(?array $ipSubnets) : self
     {
         $this->ipSubnets = $ipSubnets;
+        return $this;
+    }
+    /**
+     * 
+     *
+     * @return EventLog[]|null
+     */
+    public function getLatestProvision() : ?array
+    {
+        return $this->latestProvision;
+    }
+    /**
+     * 
+     *
+     * @param EventLog[]|null $latestProvision
+     *
+     * @return self
+     */
+    public function setLatestProvision(?array $latestProvision) : self
+    {
+        $this->latestProvision = $latestProvision;
         return $this;
     }
     /**

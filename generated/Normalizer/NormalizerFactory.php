@@ -8,6 +8,9 @@ class NormalizerFactory
     {
         $normalizers = array();
         $normalizers[] = new \Symfony\Component\Serializer\Normalizer\ArrayDenormalizer();
+        $normalizers[] = new InvoiceNormalizer();
+        $normalizers[] = new ThresholdNormalizer();
+        $normalizers[] = new EventLogNormalizer();
         $normalizers[] = new InstanceNormalizer();
         $normalizers[] = new IpBlockNormalizer();
         $normalizers[] = new CoreNormalizer();
@@ -31,13 +34,16 @@ class NormalizerFactory
         $normalizers[] = new ServerCreateParametersNormalizer();
         $normalizers[] = new ServerCreateParametersWithPartitionsNormalizer();
         $normalizers[] = new ServerCreateParametersWithOSDiskNormalizer();
+        $normalizers[] = new ServerReloadParametersNormalizer();
+        $normalizers[] = new ServerReloadParametersWithPartitionsNormalizer();
+        $normalizers[] = new ServerReloadParametersWithOSDiskNormalizer();
         $normalizers[] = new ResultNormalizer();
-        $normalizers[] = new V2InstanceInstanceIdIpaddressIpaddressPostBodyNormalizer();
         $normalizers[] = new V2InstanceInstanceIdMetadataPostBodyNormalizer();
         $normalizers[] = new V2InstanceInstanceIdMetadataKeyPutBodyNormalizer();
         $normalizers[] = new V2InstanceInstanceIdTagPostBodyNormalizer();
         $normalizers[] = new V2ProjectPostBodyNormalizer();
         $normalizers[] = new V2ProjectProjectIdServerServerIdPostBodyNormalizer();
+        $normalizers[] = new V2ProjectProjectIdSubnetDeleteBodyNormalizer();
         $normalizers[] = new V2SshkeyGetResponse200Normalizer();
         $normalizers[] = new V2SshkeyPostBodyNormalizer();
         return $normalizers;

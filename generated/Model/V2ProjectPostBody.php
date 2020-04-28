@@ -9,26 +9,26 @@ class V2ProjectPostBody
      *
      * @var string
      */
-    protected $displayname;
+    protected $name;
     /**
      * Project friendly display name
      *
      * @return string|null
      */
-    public function getDisplayname() : ?string
+    public function getName() : ?string
     {
-        return $this->displayname;
+        return $this->name;
     }
     /**
      * Project friendly display name
      *
-     * @param string|null $displayname
+     * @param string|null $name
      *
      * @return self
      */
-    public function setDisplayname(?string $displayname) : self
+    public function setName(?string $name) : self
     {
-        $this->displayname = $displayname;
+        $this->name = $name;
         return $this;
     }
 }

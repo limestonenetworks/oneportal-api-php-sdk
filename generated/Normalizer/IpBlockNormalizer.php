@@ -40,11 +40,17 @@ class IpBlockNormalizer implements DenormalizerInterface, NormalizerInterface, D
         if (property_exists($data, 'netmask') && $data->{'netmask'} !== null) {
             $object->setNetmask($data->{'netmask'});
         }
+        if (property_exists($data, 'device') && $data->{'device'} !== null) {
+            $object->setDevice($data->{'device'});
+        }
         if (property_exists($data, 'created_at') && $data->{'created_at'} !== null) {
             $object->setCreatedAt(\DateTime::createFromFormat("Y-m-d\TH:i:sP", $data->{'created_at'}));
         }
         if (property_exists($data, 'network_type') && $data->{'network_type'} !== null) {
             $object->setNetworkType($data->{'network_type'});
+        }
+        if (property_exists($data, 'assignment_type') && $data->{'assignment_type'} !== null) {
+            $object->setAssignmentType($data->{'assignment_type'});
         }
         return $object;
     }
@@ -63,11 +69,17 @@ class IpBlockNormalizer implements DenormalizerInterface, NormalizerInterface, D
         if (null !== $object->getNetmask()) {
             $data->{'netmask'} = $object->getNetmask();
         }
+        if (null !== $object->getDevice()) {
+            $data->{'device'} = $object->getDevice();
+        }
         if (null !== $object->getCreatedAt()) {
             $data->{'created_at'} = $object->getCreatedAt()->format("Y-m-d\TH:i:sP");
         }
         if (null !== $object->getNetworkType()) {
             $data->{'network_type'} = $object->getNetworkType();
+        }
+        if (null !== $object->getAssignmentType()) {
+            $data->{'assignment_type'} = $object->getAssignmentType();
         }
         return $data;
     }

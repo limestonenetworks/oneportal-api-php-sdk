@@ -37,8 +37,11 @@ class ProjectNormalizer implements DenormalizerInterface, NormalizerInterface, D
         if (property_exists($data, 'project_id') && $data->{'project_id'} !== null) {
             $object->setProjectId($data->{'project_id'});
         }
-        if (property_exists($data, 'displayname') && $data->{'displayname'} !== null) {
-            $object->setDisplayname($data->{'displayname'});
+        if (property_exists($data, 'name') && $data->{'name'} !== null) {
+            $object->setName($data->{'name'});
+        }
+        if (property_exists($data, 'item_type') && $data->{'item_type'} !== null) {
+            $object->setItemType($data->{'item_type'});
         }
         return $object;
     }
@@ -54,8 +57,11 @@ class ProjectNormalizer implements DenormalizerInterface, NormalizerInterface, D
         if (null !== $object->getProjectId()) {
             $data->{'project_id'} = $object->getProjectId();
         }
-        if (null !== $object->getDisplayname()) {
-            $data->{'displayname'} = $object->getDisplayname();
+        if (null !== $object->getName()) {
+            $data->{'name'} = $object->getName();
+        }
+        if (null !== $object->getItemType()) {
+            $data->{'item_type'} = $object->getItemType();
         }
         return $data;
     }

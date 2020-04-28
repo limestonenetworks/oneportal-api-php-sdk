@@ -21,7 +21,7 @@ class ServerCreateParameters
      *
      * @var string
      */
-    protected $hostName;
+    protected $hostname;
     /**
      * 
      *
@@ -135,20 +135,20 @@ class ServerCreateParameters
      *
      * @return string|null
      */
-    public function getHostName() : ?string
+    public function getHostname() : ?string
     {
-        return $this->hostName;
+        return $this->hostname;
     }
     /**
      * 
      *
-     * @param string|null $hostName
+     * @param string|null $hostname
      *
      * @return self
      */
-    public function setHostName(?string $hostName) : self
+    public function setHostname(?string $hostname) : self
     {
-        $this->hostName = $hostName;
+        $this->hostname = $hostname;
         return $this;
     }
     /**

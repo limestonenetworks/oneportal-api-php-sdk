@@ -28,16 +28,16 @@ class V2ProjectPostBodyNormalizer implements DenormalizerInterface, NormalizerIn
             return null;
         }
         $object = new \Limestone\SDK\Model\V2ProjectPostBody();
-        if (property_exists($data, 'displayname') && $data->{'displayname'} !== null) {
-            $object->setDisplayname($data->{'displayname'});
+        if (property_exists($data, 'name') && $data->{'name'} !== null) {
+            $object->setName($data->{'name'});
         }
         return $object;
     }
     public function normalize($object, $format = null, array $context = array())
     {
         $data = new \stdClass();
-        if (null !== $object->getDisplayname()) {
-            $data->{'displayname'} = $object->getDisplayname();
+        if (null !== $object->getName()) {
+            $data->{'name'} = $object->getName();
         }
         return $data;
     }

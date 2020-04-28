@@ -49,8 +49,23 @@ class InstanceNormalizer implements DenormalizerInterface, NormalizerInterface, 
         if (property_exists($data, 'status') && $data->{'status'} !== null) {
             $object->setStatus($data->{'status'});
         }
+        if (property_exists($data, 'management_ip') && $data->{'management_ip'} !== null) {
+            $object->setManagementIp($data->{'management_ip'});
+        }
+        if (property_exists($data, 'provision_date') && $data->{'provision_date'} !== null) {
+            $object->setProvisionDate($data->{'provision_date'});
+        }
+        if (property_exists($data, 'create_job') && $data->{'create_job'} !== null) {
+            $object->setCreateJob($data->{'create_job'});
+        }
+        if (property_exists($data, 'item_type') && $data->{'item_type'} !== null) {
+            $object->setItemType($data->{'item_type'});
+        }
         if (property_exists($data, 'core') && $data->{'core'} !== null) {
             $object->setCore($this->denormalizer->denormalize($data->{'core'}, 'Limestone\\SDK\\Model\\Core', 'json', $context));
+        }
+        if (property_exists($data, 'facility') && $data->{'facility'} !== null) {
+            $object->setFacility($this->denormalizer->denormalize($data->{'facility'}, 'Limestone\\SDK\\Model\\Facility', 'json', $context));
         }
         if (property_exists($data, 'metadata') && $data->{'metadata'} !== null) {
             $values = array();
@@ -73,12 +88,19 @@ class InstanceNormalizer implements DenormalizerInterface, NormalizerInterface, 
             }
             $object->setIpSubnets($values_2);
         }
-        if (property_exists($data, 'net_interfaces') && $data->{'net_interfaces'} !== null) {
+        if (property_exists($data, 'latest_provision') && $data->{'latest_provision'} !== null) {
             $values_3 = array();
-            foreach ($data->{'net_interfaces'} as $value_3) {
-                $values_3[] = $this->denormalizer->denormalize($value_3, 'Limestone\\SDK\\Model\\NetInterface', 'json', $context);
+            foreach ($data->{'latest_provision'} as $value_3) {
+                $values_3[] = $this->denormalizer->denormalize($value_3, 'Limestone\\SDK\\Model\\EventLog', 'json', $context);
             }
-            $object->setNetInterfaces($values_3);
+            $object->setLatestProvision($values_3);
+        }
+        if (property_exists($data, 'net_interfaces') && $data->{'net_interfaces'} !== null) {
+            $values_4 = array();
+            foreach ($data->{'net_interfaces'} as $value_4) {
+                $values_4[] = $this->denormalizer->denormalize($value_4, 'Limestone\\SDK\\Model\\NetInterface', 'json', $context);
+            }
+            $object->setNetInterfaces($values_4);
         }
         return $object;
     }
@@ -106,8 +128,23 @@ class InstanceNormalizer implements DenormalizerInterface, NormalizerInterface, 
         if (null !== $object->getStatus()) {
             $data->{'status'} = $object->getStatus();
         }
+        if (null !== $object->getManagementIp()) {
+            $data->{'management_ip'} = $object->getManagementIp();
+        }
+        if (null !== $object->getProvisionDate()) {
+            $data->{'provision_date'} = $object->getProvisionDate();
+        }
+        if (null !== $object->getCreateJob()) {
+            $data->{'create_job'} = $object->getCreateJob();
+        }
+        if (null !== $object->getItemType()) {
+            $data->{'item_type'} = $object->getItemType();
+        }
         if (null !== $object->getCore()) {
             $data->{'core'} = $this->normalizer->normalize($object->getCore(), 'json', $context);
+        }
+        if (null !== $object->getFacility()) {
+            $data->{'facility'} = $this->normalizer->normalize($object->getFacility(), 'json', $context);
         }
         if (null !== $object->getMetadata()) {
             $values = array();
@@ -130,12 +167,19 @@ class InstanceNormalizer implements DenormalizerInterface, NormalizerInterface, 
             }
             $data->{'ip_subnets'} = $values_2;
         }
-        if (null !== $object->getNetInterfaces()) {
+        if (null !== $object->getLatestProvision()) {
             $values_3 = array();
-            foreach ($object->getNetInterfaces() as $value_3) {
+            foreach ($object->getLatestProvision() as $value_3) {
                 $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);
             }
-            $data->{'net_interfaces'} = $values_3;
+            $data->{'latest_provision'} = $values_3;
+        }
+        if (null !== $object->getNetInterfaces()) {
+            $values_4 = array();
+            foreach ($object->getNetInterfaces() as $value_4) {
+                $values_4[] = $this->normalizer->normalize($value_4, 'json', $context);
+            }
+            $data->{'net_interfaces'} = $values_4;
         }
         return $data;
     }

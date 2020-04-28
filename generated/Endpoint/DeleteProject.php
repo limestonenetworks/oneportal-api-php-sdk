@@ -6,7 +6,7 @@ class DeleteProject extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements 
 {
     protected $project_id;
     /**
-     * Delete a project by ID. This will recursively remove all servers assigned to the project.
+     * Delete a project by ID. All dependent resources must be deleted prior.
      *
      * @param string $projectId ID of project to delete
      */
@@ -35,6 +35,7 @@ class DeleteProject extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements 
      * {@inheritdoc}
      *
      * @throws \Limestone\SDK\Exception\DeleteProjectInternalServerErrorException
+     * @throws \Limestone\SDK\Exception\DeleteProjectBadRequestException
      * @throws \Limestone\SDK\Exception\DeleteProjectUnauthorizedException
      * @throws \Limestone\SDK\Exception\DeleteProjectForbiddenException
      * @throws \Limestone\SDK\Exception\DeleteProjectNotFoundException
@@ -48,6 +49,9 @@ class DeleteProject extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements 
         }
         if (500 === $status && 'application/json' === $contentType) {
             throw new \Limestone\SDK\Exception\DeleteProjectInternalServerErrorException($serializer->deserialize($body, 'Limestone\\SDK\\Model\\Result', 'json'));
+        }
+        if (400 === $status && 'application/json' === $contentType) {
+            throw new \Limestone\SDK\Exception\DeleteProjectBadRequestException($serializer->deserialize($body, 'Limestone\\SDK\\Model\\Result', 'json'));
         }
         if (401 === $status) {
             throw new \Limestone\SDK\Exception\DeleteProjectUnauthorizedException();

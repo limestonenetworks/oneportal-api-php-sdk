@@ -27,7 +27,13 @@ class Project
      *
      * @var string
      */
-    protected $displayname;
+    protected $name;
+    /**
+     * The type of the item (project)
+     *
+     * @var string
+     */
+    protected $itemType;
     /**
      * The resource uuid
      *
@@ -96,20 +102,41 @@ class Project
      *
      * @return string|null
      */
-    public function getDisplayname() : ?string
+    public function getName() : ?string
     {
-        return $this->displayname;
+        return $this->name;
     }
     /**
      * The display name for the project
      *
-     * @param string|null $displayname
+     * @param string|null $name
      *
      * @return self
      */
-    public function setDisplayname(?string $displayname) : self
+    public function setName(?string $name) : self
     {
-        $this->displayname = $displayname;
+        $this->name = $name;
+        return $this;
+    }
+    /**
+     * The type of the item (project)
+     *
+     * @return string|null
+     */
+    public function getItemType() : ?string
+    {
+        return $this->itemType;
+    }
+    /**
+     * The type of the item (project)
+     *
+     * @param string|null $itemType
+     *
+     * @return self
+     */
+    public function setItemType(?string $itemType) : self
+    {
+        $this->itemType = $itemType;
         return $this;
     }
 }

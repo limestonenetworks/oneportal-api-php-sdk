@@ -28,6 +28,9 @@ class SSHKeyNormalizer implements DenormalizerInterface, NormalizerInterface, De
             return null;
         }
         $object = new \Limestone\SDK\Model\SSHKey();
+        if (property_exists($data, 'id') && $data->{'id'} !== null) {
+            $object->setId($data->{'id'});
+        }
         if (property_exists($data, 'name') && $data->{'name'} !== null) {
             $object->setName($data->{'name'});
         }
@@ -42,6 +45,9 @@ class SSHKeyNormalizer implements DenormalizerInterface, NormalizerInterface, De
     public function normalize($object, $format = null, array $context = array())
     {
         $data = new \stdClass();
+        if (null !== $object->getId()) {
+            $data->{'id'} = $object->getId();
+        }
         if (null !== $object->getName()) {
             $data->{'name'} = $object->getName();
         }

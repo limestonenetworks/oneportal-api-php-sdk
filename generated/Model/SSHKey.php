@@ -5,6 +5,12 @@ namespace Limestone\SDK\Model;
 class SSHKey
 {
     /**
+     * The id of the ssh key
+     *
+     * @var string
+     */
+    protected $id;
+    /**
      * The name of the ssh key
      *
      * @var string
@@ -22,6 +28,27 @@ class SSHKey
      * @var string
      */
     protected $comment;
+    /**
+     * The id of the ssh key
+     *
+     * @return string|null
+     */
+    public function getId() : ?string
+    {
+        return $this->id;
+    }
+    /**
+     * The id of the ssh key
+     *
+     * @param string|null $id
+     *
+     * @return self
+     */
+    public function setId(?string $id) : self
+    {
+        $this->id = $id;
+        return $this;
+    }
     /**
      * The name of the ssh key
      *

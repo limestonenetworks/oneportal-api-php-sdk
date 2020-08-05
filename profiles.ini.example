@@ -1,10 +1,21 @@
 [DEFAULT]
+## endpoint: The URL of the OnePortal API
 endpoint = https://api.dallas-idc.com
-username = example-user
-password = secret
-client_id = nothing
-client_secret = nothing
-project = main_project_id
 
-[secondproject]
-project = secondary_project_id
+## project: (optional) The project associated with the API call
+## Environment variable: LSN_API_PROJECT
+## Command line argument: ./api --project=PROJ-xxxxx ....
+## This is an optional configuration parameter, but it may be required for certain
+## project specific API calls such as server:create, etc.
+# project = PROJ-ec2a2e27
+
+## token: OnePortal API token
+## Create an API token at https://one.limestonenetworks.com/administrative/api.html
+token = <api token here>
+
+## Example secondary profile
+## This profile uses all of the settings from DEFAULT, except it overrides the
+## project. You can use this profile by specifying API commands like:
+## ./api --profile=secondprofile ....
+# [secondprofile]
+# project = PROJ-121f2387

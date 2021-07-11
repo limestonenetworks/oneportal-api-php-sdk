@@ -16,6 +16,8 @@ class GetCoreCommand extends AbstractCommand
 
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setDescription('Get a core')
             ->addOption('core','c',InputOption::VALUE_REQUIRED,'The core name')
@@ -29,5 +31,6 @@ class GetCoreCommand extends AbstractCommand
         $client = $this->getClient();
         $result = $client->getCore($input->getOption('core'));
         $output->write($this->toJson($result),true);
+        return parent::SUCCESS;
     }
 }

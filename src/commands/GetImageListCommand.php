@@ -16,6 +16,8 @@ class GetImageListCommand extends AbstractCommand
 
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setDescription('Get the image list.')
             ->setHelp('This command allows you to get a list of images...');
@@ -26,5 +28,6 @@ class GetImageListCommand extends AbstractCommand
         $client = $this->getClient();
         $result = $client->getImageList();
         $output->write(json_encode($this->toArray($result)), true);
+        return parent::SUCCESS;
     }
 }

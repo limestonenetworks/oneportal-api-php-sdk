@@ -17,6 +17,8 @@ class GetProjectServerListCommand extends AbstractCommand
 
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setDescription('Get the list of a project\'s server.')
             ->addOption('project','',InputOption::VALUE_REQUIRED,'The project id')
@@ -28,5 +30,6 @@ class GetProjectServerListCommand extends AbstractCommand
         $client = $this->getClient();
         $result = $client->getProjectServers($input->getOption('project'));
         $output->write(json_encode($this->toArray($result)), true);
+        return parent::SUCCESS;
     }
 }

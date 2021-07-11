@@ -16,6 +16,8 @@ class GetSSHKeyListCommand extends AbstractCommand
 
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setDescription('Get the list of ssh keys')
             ->setHelp('This command allows you to get a list of ssh keys...');
@@ -26,5 +28,6 @@ class GetSSHKeyListCommand extends AbstractCommand
         $client = $this->getClient();
         $result = $client->getSSHKeyList();
         $output->write(json_encode($this->toArray($result->getKeys())), true);
+        return parent::SUCCESS;
     }
 }

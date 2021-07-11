@@ -18,6 +18,8 @@ class TinkerCommand extends AbstractCommand
 
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setDescription('Tinker!')
             ->setHelp('This command allows tinker... just like laravel tinker');
@@ -30,5 +32,6 @@ class TinkerCommand extends AbstractCommand
         ]);
         $shell = new Shell($config);
         $shell->run();
+        return parent::SUCCESS;
     }
 }

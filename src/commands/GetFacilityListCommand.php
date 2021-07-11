@@ -16,6 +16,8 @@ class GetFacilityListCommand extends AbstractCommand
 
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setDescription('Get the stock for a facility.')
             ->setHelp('This command allows you to get a list of facilities...');
@@ -26,5 +28,6 @@ class GetFacilityListCommand extends AbstractCommand
         $client = $this->getClient();
         $result = $client->getFacilityList();
         $output->write(json_encode($this->toArray($result)), true);
+        return parent::SUCCESS;
     }
 }

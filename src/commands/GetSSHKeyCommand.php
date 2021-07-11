@@ -16,6 +16,8 @@ class GetSSHKeyCommand extends AbstractCommand
 
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setDescription('Get an ssh key')
             ->addArgument('name',InputArgument::REQUIRED,'The ssh key name')
@@ -27,5 +29,6 @@ class GetSSHKeyCommand extends AbstractCommand
         $client = $this->getClient();
         $result = $client->getSSHKey($input->getArgument("name"));
         $output->write($this->toJson($result), true);
+        return parent::SUCCESS;
     }
 }

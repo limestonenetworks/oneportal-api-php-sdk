@@ -17,6 +17,8 @@ class DeleteProjectServerCommand extends AbstractCommand
 
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setDescription('Delete an server')
             ->addOption('project', '',InputOption::VALUE_REQUIRED, 'Project ID')
@@ -36,5 +38,6 @@ class DeleteProjectServerCommand extends AbstractCommand
             ['wait' => $input->getOption('wait')]
         );
         $output->writeln($this->toJson($result),true);
+        return parent::SUCCESS;
     }
 }

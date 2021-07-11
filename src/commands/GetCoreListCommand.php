@@ -16,6 +16,8 @@ class GetCoreListCommand extends AbstractCommand
 
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setDescription('Get the list of cores.')
             ->setHelp('This command allows you to get a list of cores...');
@@ -26,5 +28,6 @@ class GetCoreListCommand extends AbstractCommand
         $client = $this->getClient();
         $result = $client->getCoreList();
         $output->write(json_encode($this->toArray($result)), true);
+        return parent::SUCCESS;
     }
 }

@@ -15,6 +15,8 @@ class CreateProjectCommand extends AbstractCommand
 
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setDescription('Creates a new project.')
             ->addArgument('display_name',null,'The display name of the project')
@@ -30,5 +32,6 @@ class CreateProjectCommand extends AbstractCommand
         $body->setDisplayname($input->getArgument('display_name'));
         $result = $client->storeProject($body);
         $output->write($result->getProjectId(),true);
+        return parent::SUCCESS;
     }
 }

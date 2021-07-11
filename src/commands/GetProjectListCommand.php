@@ -16,6 +16,8 @@ class GetProjectListCommand extends AbstractCommand
 
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setDescription('Get the list of projects.')
             ->setHelp('This command allows you to get a list of projects...');
@@ -26,5 +28,6 @@ class GetProjectListCommand extends AbstractCommand
         $client = $this->getClient();
         $result = $client->getProjectList();
         $output->write(json_encode($this->toArray($result)), true);
+        return parent::SUCCESS;
     }
 }

@@ -18,6 +18,8 @@ class CreateServerCommand extends AbstractCommand
 
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setDescription('Creates a new server.')
             ->addOption('project', '',InputOption::VALUE_REQUIRED, 'Project ID')
@@ -116,6 +118,7 @@ class CreateServerCommand extends AbstractCommand
         } catch (\Exception $e){
             $output->write($e->getMessage(),true);
         }
+        return parent::SUCCESS;
     }
 
     protected function getUserData(InputInterface $input)

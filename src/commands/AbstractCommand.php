@@ -3,11 +3,8 @@
 namespace Limestone\Command;
 
 use Limestone\SDK\Client;
-use Limestone\SDK\Model\V2ProjectPostBody;
-use Psy\Configuration;
-use Psy\Shell;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -16,14 +13,6 @@ abstract class AbstractCommand extends Command
 {
     use \Limestone\InteractsWithApi;
     public $client;
-
-    public function __construct($name = null)
-    {
-        parent::__construct($name);
-        $this->addOption('profile', null,
-                         InputOption::VALUE_REQUIRED,
-                         'Profile to use for api access');
-    }
 
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
@@ -35,14 +24,51 @@ abstract class AbstractCommand extends Command
                    ($profileEnv !== false ? $profileEnv : 'DEFAULT');
 
         $this->client = $this->getApiClient($profile);
-        if ($input->hasOption('project') &&
-                is_null($input->getOption('project'))) {
+        if ($input->hasOption('project')
+            && is_null($input->getOption('project'))
+        ) {
             $input->setOption('project', $this->getProject());
         }
+    }
+
+    protected function configure() {
+        parent::configure();
+
+        $this->addOption(
+            'profile', null,
+            InputOption::VALUE_REQUIRED,
+            'Profile to use for api access'
+        );
+        $this->addOption('json', ['j'], null, 'JSON output');
     }
 
     protected function getClient(): Client
     {
         return $this->client;
+    }
+
+    protected function outputJsonArray(OutputInterface $output, array $data): int
+    {
+        $output->writeLn(json_encode($data));
+        return parent::SUCCESS;
+    }
+
+    protected function outputJson(OutputInterface $output, \stdClass $data): int
+    {
+        $output->writeLn(json_encode($data));
+        return parent::SUCCESS;
+    }
+
+    protected function outputGenericTable(
+        OutputInterface $output,
+        ?array $headers = [],
+        ?array $rows = []
+    ): int {
+        $table = new Table($output);
+        if ($headers) $table->setHeaders($headers);
+        if ($rows) $table->setRows($rows);
+        $table->render();
+
+        return parent::SUCCESS;
     }
 }

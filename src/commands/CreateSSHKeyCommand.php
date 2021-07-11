@@ -17,6 +17,8 @@ class CreateSSHKeyCommand extends AbstractCommand
 
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setDescription('Creates a new ssh pubkey.')
             ->addArgument('name',InputArgument::REQUIRED,'The name of the pubkey')
@@ -34,5 +36,6 @@ class CreateSSHKeyCommand extends AbstractCommand
         $body->setPubkey($input->getArgument('pubkey'));
         $result = $client->storeSSHKey($body);
         $output->write($this->toJson($result),true);
+        return parent::SUCCESS;
     }
 }

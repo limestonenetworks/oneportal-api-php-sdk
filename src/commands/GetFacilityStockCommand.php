@@ -16,6 +16,8 @@ class GetFacilityStockCommand extends AbstractCommand
 
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setDescription('Get the stock for a facility.')
             ->addArgument('facility',InputArgument::REQUIRED,'The facility name')
@@ -27,5 +29,6 @@ class GetFacilityStockCommand extends AbstractCommand
         $client = $this->getClient();
         $result = $client->getFacilityStock($input->getArgument('facility'));
         $output->write($this->toJson($result),true);
+        return parent::SUCCESS;
     }
 }

@@ -16,6 +16,8 @@ class DeleteSSHKeyCommand extends AbstractCommand
 
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setDescription('Delete an ssh key.')
             ->addArgument('name',InputArgument::REQUIRED,'The ssh key name')
@@ -29,5 +31,6 @@ class DeleteSSHKeyCommand extends AbstractCommand
         $client = $this->getClient();
         $result = $client->deleteSSHKey($input->getArgument('name'));
         $output->write("Success",true);
+        return parent::SUCCESS;
     }
 }

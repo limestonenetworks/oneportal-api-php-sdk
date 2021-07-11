@@ -17,6 +17,8 @@ class GetJobStatusCommand extends AbstractCommand
 
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setDescription('Get a job status.')
             ->addArgument('job_id',InputArgument::REQUIRED,'The job id')
@@ -30,5 +32,6 @@ class GetJobStatusCommand extends AbstractCommand
         $client = $this->getClient();
         $result = $client->getJob($input->getArgument('job_id'));
         $output->write($this->toJson($result),true);
+        return parent::SUCCESS;
     }
 }

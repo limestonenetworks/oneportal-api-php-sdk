@@ -17,6 +17,8 @@ class DeleteProjectCommand extends AbstractCommand
 
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setDescription('Delete a project.')
             ->addOption('project','',InputOption::VALUE_REQUIRED,'The project id')
@@ -30,5 +32,6 @@ class DeleteProjectCommand extends AbstractCommand
         $client = $this->getClient();
         $result = $client->deleteProject($input->getOption('project'));
         $output->write("Success",true);
+        return parent::SUCCESS;
     }
 }

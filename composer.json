@@ -21,7 +21,7 @@
     "vlucas/phpdotenv": "^3.4@dev",
     "php-http/guzzle6-adapter": "^2.0@dev",
     "php-http/message": "^1.6@dev",
-    "symfony/console": "4.4.x-dev",
+    "symfony/console": "5.4.x-dev",
     "http-interop/http-factory-guzzle": "dev-master",
     "psy/psysh": "@stable"
   },

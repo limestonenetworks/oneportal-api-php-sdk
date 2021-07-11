@@ -25,7 +25,7 @@ class CreateServerCommand extends AbstractCommand
             ->addOption('project', '',InputOption::VALUE_REQUIRED, 'Project ID')
             ->addArgument('name', InputArgument::REQUIRED, 'Server Name')
             ->addOption('core', 'c', InputOption::VALUE_REQUIRED, 'Core Name')
-            ->addOption('facility', 'f', InputOption::VALUE_REQUIRED, 'Facility Name')
+            ->addOption('facility', 'l', InputOption::VALUE_REQUIRED, 'Facility Name')
             ->addOption('image', 'i', InputOption::VALUE_REQUIRED, 'Image Name')
             ->addOption('os-disk', 'd', InputOption::VALUE_REQUIRED, 'OS Disk Device')
             ->addOption('quantity', null, InputOption::VALUE_REQUIRED, 'Quantity of servers to create', 1)

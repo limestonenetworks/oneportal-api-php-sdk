@@ -14,6 +14,8 @@ abstract class AbstractCommand extends Command
     use \Limestone\InteractsWithApi;
     public $client;
 
+    protected $supported_output = ['json'];
+
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
         $profileEnv = getenv('LSN_API_PROFILE');
@@ -39,7 +41,11 @@ abstract class AbstractCommand extends Command
             InputOption::VALUE_REQUIRED,
             'Profile to use for api access'
         );
-        $this->addOption('json', ['j'], null, 'JSON output');
+        $this->addOption(
+            'format', 'f', InputOption::VALUE_REQUIRED,
+            'Output format ('.join(', ', $this->supported_output).')',
+            $this->supported_output[0]
+        );
     }
 
     protected function getClient(): Client

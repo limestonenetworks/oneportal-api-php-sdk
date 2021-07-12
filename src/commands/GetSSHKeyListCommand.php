@@ -2,12 +2,6 @@
 
 namespace Limestone\Command;
 
-use Limestone\SDK\Model\V2ProjectPostBody;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-
 class GetSSHKeyListCommand extends AbstractGetCommand
 {
     use \Limestone\InteractsWithApi;
@@ -16,7 +10,7 @@ class GetSSHKeyListCommand extends AbstractGetCommand
 
     protected ?string $command_description = 'Get SSH key list';
 
-    protected $supported_output = ['table', 'json'];
+    protected array $supported_output = ['table', 'json'];
 
     protected function getResult(\Limestone\SDK\Client $client)
     {

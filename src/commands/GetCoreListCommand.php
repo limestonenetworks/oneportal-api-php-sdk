@@ -11,8 +11,8 @@ class GetCoreListCommand extends AbstractCommand
 
     protected static $defaultName = 'core:list';
 
-    protected $supported_output = ['table', 'json'];
-    protected $rate_map = ['hourly' => 'hr', 'monthly' => 'mo'];
+    protected array $supported_output = ['table', 'json'];
+    protected array $rate_map = ['hourly' => 'hr', 'monthly' => 'mo'];
 
     protected function configure()
     {

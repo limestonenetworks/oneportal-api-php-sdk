@@ -14,7 +14,7 @@ abstract class AbstractCommand extends Command
     use \Limestone\InteractsWithApi;
     public $client;
 
-    protected $supported_output = ['json'];
+    protected array $supported_output = ['json'];
 
     protected function initialize(InputInterface $input, OutputInterface $output)
     {

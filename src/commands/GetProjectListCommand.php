@@ -12,7 +12,7 @@ class GetProjectListCommand extends AbstractGetCommand
 
     protected ?string $command_description = 'Get the list of projects';
 
-    protected $supported_output = ['table', 'json'];
+    protected array $supported_output = ['table', 'json'];
 
     protected function getResult(\Limestone\SDK\Client $client)
     {

@@ -33,7 +33,7 @@ abstract class AbstractGetCommand extends AbstractCommand
      * @param OutputInterface $output
      * @return integer
      */
-    protected function execute(InputInterface $input, OutputInterface $output): int
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $client = $this->getClient();
         $result = $this->getResult($client);

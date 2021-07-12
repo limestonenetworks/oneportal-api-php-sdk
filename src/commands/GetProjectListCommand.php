@@ -2,8 +2,6 @@
 
 namespace Limestone\Command;
 
-use Symfony\Component\Console\Output\OutputInterface;
-
 class GetProjectListCommand extends AbstractGetCommand
 {
     use \Limestone\InteractsWithApi;

@@ -2,6 +2,9 @@
 
 namespace Limestone\Command;
 
+use Limestone\SDK\Client;
+use Symfony\Component\Console\Input\InputInterface;
+
 class GetFacilityListCommand extends AbstractGetCommand
 {
     use \Limestone\InteractsWithApi;
@@ -12,7 +15,7 @@ class GetFacilityListCommand extends AbstractGetCommand
 
     protected array $supported_output = ['table', 'json'];
 
-    protected function getResult(\Limestone\SDK\Client $client)
+    protected function getResult(InputInterface $input, Client $client)
     {
         return $client->getFacilityList();
     }

@@ -36,7 +36,7 @@ abstract class AbstractGetCommand extends AbstractCommand
     protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $client = $this->getClient();
-        $result = $this->getResult($client);
+        $result = $this->getResult($input, $client);
         return $this->handleResult(
             strtolower($input->getOption('format')), $output, $result
         ) ?? parent::SUCCESS;
@@ -45,10 +45,13 @@ abstract class AbstractGetCommand extends AbstractCommand
     /**
      * Fetch the "get" data from the API and return the data set
      *
+     * @param InputInterface $input
      * @param \Limestone\SDK\Client $client
      * @return void
      */
-    abstract protected function getResult(\Limestone\SDK\Client $client);
+    abstract protected function getResult(
+        InputInterface $input, \Limestone\SDK\Client $client
+    );
 
     /**
      * Output the data using the selected formatter

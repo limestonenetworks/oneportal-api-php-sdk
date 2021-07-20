@@ -2,29 +2,35 @@
 
 namespace Limestone\Command;
 
-use Limestone\SDK\Model\V2ProjectPostBody;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
+use Limestone\SDK\Client;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 
-class GetImageListCommand extends AbstractCommand
+class GetImageListCommand extends AbstractGetCommand
 {
     use \Limestone\InteractsWithApi;
 
     protected static $defaultName = 'image:list';
 
-    protected function configure()
+    protected ?string $command_description = 'Get OS image list';
+
+    protected array $supported_output = ['table', 'json'];
+
+    protected function getResult(InputInterface $input, Client $client)
     {
-        $this
-            ->setDescription('Get the image list.')
-            ->setHelp('This command allows you to get a list of images...');
+        return $client->getImageList();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function getTableHeader(): ?array
     {
-        $client = $this->getClient();
-        $result = $client->getImageList();
-        $output->write(json_encode($this->toArray($result)), true);
+        return ['ID', 'Name'];
+    }
+
+    protected function getTableRows($data): ?array
+    {
+        $output_data = [];
+        foreach ($data as $image) {
+            $output_data[] = [$image->getName(), $image->getDisplayName()];
+        }
+        return $output_data;
     }
 }

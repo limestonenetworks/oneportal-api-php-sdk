@@ -17,6 +17,8 @@ class GetProjectCommand extends AbstractCommand
 
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setDescription('Get a project.')
             ->addOption('project','',InputOption::VALUE_REQUIRED,'The project id')
@@ -30,5 +32,6 @@ class GetProjectCommand extends AbstractCommand
         $client = $this->getClient();
         $result = $client->getProject($input->getOption('project'));
         $output->write($this->toJson($result),true);
+        return parent::SUCCESS;
     }
 }

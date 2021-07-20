@@ -2,29 +2,37 @@
 
 namespace Limestone\Command;
 
-use Limestone\SDK\Model\V2ProjectPostBody;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
+use Limestone\SDK\Client;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 
-class GetProjectListCommand extends AbstractCommand
+class GetProjectListCommand extends AbstractGetCommand
 {
     use \Limestone\InteractsWithApi;
 
     protected static $defaultName = 'project:list';
 
-    protected function configure()
+    protected ?string $command_description = 'Get the list of projects';
+
+    protected array $supported_output = ['table', 'json'];
+
+    protected function getResult(InputInterface $input, Client $client)
     {
-        $this
-            ->setDescription('Get the list of projects.')
-            ->setHelp('This command allows you to get a list of projects...');
+        return $client->getProjectList();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function getTableHeader(): ?array
     {
-        $client = $this->getClient();
-        $result = $client->getProjectList();
-        $output->write(json_encode($this->toArray($result)), true);
+        return ['UUID', 'Project ID', 'Name'];
+    }
+
+    protected function getTableRows($data): ?array
+    {
+        $output_data = [];
+        foreach ($data as $project) {
+            $output_data[] = [
+                $project->getUuid(), $project->getProjectId(),
+                $project->getName()];
+        }
+        return $output_data;
     }
 }

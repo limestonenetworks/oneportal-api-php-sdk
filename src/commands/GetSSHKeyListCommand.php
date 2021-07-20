@@ -2,29 +2,36 @@
 
 namespace Limestone\Command;
 
-use Limestone\SDK\Model\V2ProjectPostBody;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
+use Limestone\SDK\Client;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 
-class GetSSHKeyListCommand extends AbstractCommand
+class GetSSHKeyListCommand extends AbstractGetCommand
 {
     use \Limestone\InteractsWithApi;
 
     protected static $defaultName = 'sshkey:list';
 
-    protected function configure()
+    protected ?string $command_description = 'Get SSH key list';
+
+    protected array $supported_output = ['table', 'json'];
+
+    protected function getResult(InputInterface $input, Client $client)
     {
-        $this
-            ->setDescription('Get the list of ssh keys')
-            ->setHelp('This command allows you to get a list of ssh keys...');
+        return $client->getSSHKeyList()->getKeys();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function getTableHeader(): ?array
     {
-        $client = $this->getClient();
-        $result = $client->getSSHKeyList();
-        $output->write(json_encode($this->toArray($result->getKeys())), true);
+        return ['ID', 'Name', 'Fingerprint', 'Comment'];
+    }
+
+    protected function getTableRows($data): ?array
+    {
+        $output_data = [];
+        foreach ($data as $key) {
+            $output_data[] = [$key->getId(), $key->getName(),
+                $key->getFingerprint(), $key->getComment()];
+        }
+        return $output_data;
     }
 }

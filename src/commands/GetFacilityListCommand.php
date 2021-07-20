@@ -2,29 +2,36 @@
 
 namespace Limestone\Command;
 
-use Limestone\SDK\Model\V2ProjectPostBody;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
+use Limestone\SDK\Client;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 
-class GetFacilityListCommand extends AbstractCommand
+class GetFacilityListCommand extends AbstractGetCommand
 {
     use \Limestone\InteractsWithApi;
 
     protected static $defaultName = 'facility:list';
 
-    protected function configure()
+    protected ?string $command_description = 'List available datacenter facilities';
+
+    protected array $supported_output = ['table', 'json'];
+
+    protected function getResult(InputInterface $input, Client $client)
     {
-        $this
-            ->setDescription('Get the stock for a facility.')
-            ->setHelp('This command allows you to get a list of facilities...');
+        return $client->getFacilityList();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function getTableHeader(): ?array
     {
-        $client = $this->getClient();
-        $result = $client->getFacilityList();
-        $output->write(json_encode($this->toArray($result)), true);
+        return ['Code', 'Name', 'Description'];
+    }
+
+    protected function getTableRows($data): ?array
+    {
+        $output_data = [];
+        foreach ($data as $facility) {
+            $output_data[] = [$facility->getFacilityName(),
+                $facility->getFacilityTitle(), $facility->getFacilityDescription()];
+        }
+        return $output_data;
     }
 }

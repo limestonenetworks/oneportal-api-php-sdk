@@ -35,7 +35,7 @@ class GetProjectServerListCommand extends AbstractGetCommand
     {
         return [
             'ID', 'Facility', 'Core', 'Name', 'Server ID', 'Project', 'Status',
-            'Rate', 'Creation Date', 'Management IP', 'IP Blocks',
+            'Rate', 'Creation Date', 'Management IP',
         ];
     }
 
@@ -43,10 +43,6 @@ class GetProjectServerListCommand extends AbstractGetCommand
     {
         $return = [];
         foreach ($data as $server) {
-            $blocks = [];
-            foreach ($server->getNetInterfaces() as $netif) {
-                $blocks = array_merge($blocks, $netif->getIpBlocks());
-            }
             array_push(
                 $return,
                 [
@@ -61,7 +57,6 @@ class GetProjectServerListCommand extends AbstractGetCommand
                         .'/'.$this->rate_map[$server->getCore()->getInterval()],
                     $server->getProvisionDate(),
                     $server->getManagementIp(),
-                    implode("\n", $blocks),
                 ]
             );
         }

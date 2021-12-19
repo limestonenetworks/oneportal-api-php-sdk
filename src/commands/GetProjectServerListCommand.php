@@ -2,34 +2,69 @@
 
 namespace Limestone\Command;
 
-use Limestone\SDK\Model\V2ProjectPostBody;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
+use Limestone\SDK\Client;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
 
-class GetProjectServerListCommand extends AbstractCommand
+class GetProjectServerListCommand extends AbstractGetCommand
 {
     use \Limestone\InteractsWithApi;
 
     protected static $defaultName = 'server:list';
 
+    protected ?string $command_description = 'Get a list of project\'s servers';
+
+    protected array $supported_output = ['table', 'json'];
+    protected array $rate_map = ['hourly' => 'hr', 'monthly' => 'mo'];
+
     protected function configure()
     {
         parent::configure();
 
-        $this
-            ->setDescription('Get the list of a project\'s server.')
-            ->addOption('project','',InputOption::VALUE_REQUIRED,'The project id')
-            ->setHelp('This command allows you to get a list of project\'s servers...');
+        $this->addOption(
+            'project', '', InputOption::VALUE_REQUIRED, 'The project id'
+        );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function getResult(InputInterface $input, Client $client)
     {
-        $client = $this->getClient();
-        $result = $client->getProjectServers($input->getOption('project'));
-        $output->write(json_encode($this->toArray($result)), true);
-        return parent::SUCCESS;
+        return $client->getProjectServers($input->getOption('project'));
+    }
+
+    protected function getTableHeader(): ?array
+    {
+        return [
+            'ID', 'Facility', 'Core', 'Name', 'Server ID', 'Project', 'Status',
+            'Rate', 'Creation Date', 'Management IP', 'IP Blocks',
+        ];
+    }
+
+    protected function getTableRows($data): ?array
+    {
+        $return = [];
+        foreach ($data as $server) {
+            $blocks = [];
+            foreach ($server->getNetInterfaces() as $netif) {
+                $blocks = array_merge($blocks, $netif->getIpBlocks());
+            }
+            array_push(
+                $return,
+                [
+                    $server->getShortUuid(),
+                    $server->getFacility()->getFacilityName(),
+                    $server->getCore()->getId(),
+                    $server->getName(),
+                    $server->getServerId(),
+                    $server->getProjectId(),
+                    $server->getStatus(),
+                    $server->getCore()->getRate()
+                        .'/'.$this->rate_map[$server->getCore()->getInterval()],
+                    $server->getProvisionDate(),
+                    $server->getManagementIp(),
+                    implode("\n", $blocks),
+                ]
+            );
+        }
+        return $return;
     }
 }

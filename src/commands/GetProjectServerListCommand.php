@@ -15,7 +15,6 @@ class GetProjectServerListCommand extends AbstractGetCommand
     protected ?string $command_description = 'Get a list of project\'s servers';
 
     protected array $supported_output = ['table', 'json'];
-    protected array $rate_map = ['hourly' => 'hr', 'monthly' => 'mo'];
 
     protected function configure()
     {

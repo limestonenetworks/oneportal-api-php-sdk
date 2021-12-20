@@ -68,9 +68,11 @@ abstract class AbstractCommand extends Command
     protected function outputGenericTable(
         OutputInterface $output,
         ?array $headers = [],
-        ?array $rows = []
+        ?array $rows = [],
+        bool $horizontal = false
     ): int {
         $table = new Table($output);
+        $table->setHorizontal($horizontal);
         if ($headers) $table->setHeaders($headers);
         if ($rows) $table->setRows($rows);
         $table->render();

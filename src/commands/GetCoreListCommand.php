@@ -2,17 +2,17 @@
 
 namespace Limestone\Command;
 
+use Limestone\SDK\Client;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class GetCoreListCommand extends AbstractCommand
+class GetCoreListCommand extends AbstractGetCommand
 {
     use \Limestone\InteractsWithApi;
 
     protected static $defaultName = 'core:list';
 
     protected array $supported_output = ['table', 'json'];
-    protected array $rate_map = ['hourly' => 'hr', 'monthly' => 'mo'];
 
     protected function configure()
     {
@@ -23,26 +23,18 @@ class GetCoreListCommand extends AbstractCommand
             ->setHelp('This command allows you to get a list of cores...');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function getResult(InputInterface $input, Client $client)
     {
-        $client = $this->getClient();
-        $result = $client->getCoreList();
-
-        switch ($input->getOption('format')) {
-        case 'json':
-            return $this->outputJsonArray($output, $this->toArray($result));
-        break;
-        default:
-            return $this->outputGenericTable(
-                $output,
-                ['ID', 'CPU', 'Rate', 'Cores', 'Memory', 'Disk', 'Network'],
-                $this->buildTableRows($result)
-            );
-        break;
-        }
+        return $client->getCoreList();
     }
 
-    protected function buildTableRows(array $cores) {
+    protected function getTableHeader(): ?array
+    {
+        return ['ID', 'CPU', 'Rate', 'Cores', 'Memory', 'Disk', 'Network'];
+    }
+
+    protected function getTableRows($cores): ?array
+    {
         $rows = [];
         foreach ($cores as $core) {
             $metadata = array_column(

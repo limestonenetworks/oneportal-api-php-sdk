@@ -13,6 +13,10 @@ abstract class AbstractGetCommand extends AbstractCommand
     protected ?string $command_description = null;
     protected ?string $command_help = null;
 
+    protected bool $horizontal_table = false;
+
+    protected array $rate_map = ['hourly' => 'hr', 'monthly' => 'mo'];
+
     protected function configure()
     {
         parent::configure();
@@ -77,14 +81,25 @@ abstract class AbstractGetCommand extends AbstractCommand
     protected function outputFormatJson(
         OutputInterface $output, $data
     ): ?int {
-        return $this->outputJsonArray($output, $this->toArray($data));
+        switch (gettype($data)) {
+        case 'array':
+            return $this->outputJsonArray($output, $this->toArray($data));
+        case 'object':
+            return $this->outputJsonArray($output, $this->serializeModel($data));
+        case 'NULL':
+        default:
+            $output->writeLn('{}');
+            return parent::FAILURE;
+            break;
+        }
     }
 
     protected function outputFormatTable(
         OutputInterface $output, $data
     ): ?int {
         return $this->outputGenericTable(
-            $output, $this->getTableHeader(), $this->getTableRows($data)
+            $output, $this->getTableHeader(), $this->getTableRows($data),
+            $this->horizontal_table
         );
     }
 
